@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-@include('routeweb.php');
+use App\Http\Controllers\BadgeRequestController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,11 +14,4 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return redirect('/home');
-});
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
+Route::resource('badge',BadgeRequestController::class);
