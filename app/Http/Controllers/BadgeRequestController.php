@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BadgeRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class BadgeRequestController extends Controller
 {
@@ -12,6 +14,12 @@ class BadgeRequestController extends Controller
         return view('formulaire');
     }
     */
+    public function index(){
+        $user = Auth::user()->id;
+        $badgeRequest = BadgeRequest::all()->where("user_id",$user);
+
+        return view("history",compact("badgeRequest"));
+    }
 
     public function store(Request $request){
         
@@ -34,10 +42,24 @@ class BadgeRequestController extends Controller
              'date_debut' => 'required|date',
              'date_fin' => 'required|date',
              'motivation' => 'required',
+             'user_id',
         ]);
 
-        BadgeRequest::create($data);
-
+        $badgeRequest = new BadgeRequest($data);
+        $user = Auth::user();
+        $badgeRequest->user()->associate($user);
+        $badgeRequest->save();
+        
         return redirect()->route('home')->with("success","votre demande de badge a été enregistrée");
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    
+    public function show(int $badgeRequest){
+        $badgeRequest = BadgeRequest::find($badgeRequest);
+
+        return view('formdetail',compact("badgeRequest"));
     }
 }
