@@ -18,8 +18,8 @@ class ApprovingSeeder extends Seeder
          Approving::truncate();
     
         Approving::create([
-            'name' =>'espoir',
-            'approving' => 'kakesa'
+            'name' ,
+            'approving'
         ]);
     
     }
