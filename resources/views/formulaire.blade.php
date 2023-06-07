@@ -47,22 +47,22 @@
                                         <div class="form-group">
                                             <label for="demandeur_nom">Nom <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="demandeur_nom"
-                                                placeholder="" name="demandeur_nom" @required(true)>
+                                                placeholder="" name="demandeur_nom" value="{{ $user->name }}" @readonly(true)>
                                         </div>
                                         <div class="form-group">
                                             <label for="demandeur_prenom">Prénom <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="demandeur_prenom"
-                                                placeholder="" name="demandeur_prenom" @required(true)>
+                                                placeholder="" name="demandeur_prenom" value="{{ $user->username }}" @readonly(true)>
                                         </div>
                                         <div class="form-group">
                                             <label for="demandeur_directeur">Direction <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="demandeur_directeur"
-                                                placeholder="" name="demandeur_directeur" @required(true)>
+                                                placeholder="" name="demandeur_directeur" value="{{ $user->direction }}" @readonly(true)>
                                         </div>
                                         <div class="form-group">
                                             <label for="demandeur_fonction">Fonction <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="demandeur_fonction"
-                                                placeholder="" name="demandeur_fonction" @required(true)>
+                                                placeholder="" name="demandeur_fonction" value="{{ $user->fonction }}" @readonly(true)>
                                         </div>
                                         <div class="form-group">
                                             <label for="demandeur_telephone">Numero téléphone <span class="text-danger">*</span></label>
@@ -72,7 +72,7 @@
                                         <div class="form-group">
                                             <label for="demandeur_matricule">Matricule <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="demandeur_matricule"
-                                                placeholder="" name="demandeur_matricule" @required(true)>
+                                                placeholder="" name="demandeur_matricule" value="{{ $user->matricule }}" @readonly(true)>
                                         </div>
                                         <div class="form-group">
                                             <label for="date">Date <span class="text-danger">*</span></label>
@@ -113,9 +113,17 @@
                                                     placeholder="" name="beneficiaire_telephone" @required(true)>
                                             </div>
                                             <div class="form-group">
-                                                <label for="beneficiaire_employeur">Employeur <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="beneficiaire_employeur"
-                                                    placeholder="" name="beneficiaire_employeur" @required(true)>
+                                                <div class="form-group">
+                                                    <label for="manager">Employeur </label>
+                                                    <select name="manager" id="manager" class="form-control">
+                                                        <option value="">Choisir un manager</option>
+                                                        @foreach ($managers as $manager)
+                                                            <option value="{{ $manager->id }}" {{$manager->id === $user->manager_id ? 'selected' : ''}}>
+                                                            {{ $manager->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                            </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="beneficiaire_matricule">Matricule <span class="text-danger">*</span></label>

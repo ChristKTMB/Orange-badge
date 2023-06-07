@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="container">
     <form action="" method="" enctype="multipart/form-data">
         @csrf
@@ -76,7 +75,7 @@
                                         <div class="form-group">
                                             <label for="date">Date </label>
                                             <input type="date" class="form-control" id="date"
-                                                placeholder="" value="{{$badgeRequest->date}}" name="date" @required(true)>
+                                                placeholder="" value="{{$badgeRequest->date}}" name="date" readonly>
                                         </div>
                                         
                                         <a class="btn btn-primary" onclick="stepper.next()">Suivant</a>
@@ -135,7 +134,7 @@
                                             <div class="form-group">
                                                 <div class="form-group">
                                                     <label for="categorie_badge">Catégorie de Badge </label>
-                                                    <select id="categorie_badge" name="categorie_badge" class="form-control" @required(true)>
+                                                    <select id="categorie_badge" name="categorie_badge" class="form-control" readonly>
                                                     <option value=""></option>
                                                     <option value="Permanent staff" {{$badgeRequest->categorie_badge == 'Permanent staff' ? 'selected' : ''}}> Permanent staff</option>
                                                     <option value="Consultant" {{$badgeRequest->categorie_badge == 'Consultant' ? 'selected' : ''}}> Consultant</option>
