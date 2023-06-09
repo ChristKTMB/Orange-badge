@@ -20,6 +20,11 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('approving', [ApprovingController::class, 'index']);
+
+
+Route::get('approving/confirm-delete', [App\Http\Controllers\ApprovingController::class, 'confirmDelete'])->name('approving.confirmDelete');
+Route::post('approving/delete', [App\Http\Controllers\ApprovingController::class, 'delete'])->name('approving.delete');
+Route::resource('approving', ApprovingController::class);
+
 
 Auth::routes();
