@@ -78,9 +78,11 @@ class LoginController extends Controller{
             $user = User::Where(['username'=>$request->username])?->get()->first();
             if(!$user){
                 $user = User::create([
-                    'name' => $req->user->first_name.' '.$req->user->last_name,
+                    'name' => $req->user->first_name,
+                    'first_name'=> $req->user->last_name,
                     'username'=> $request->username,
                     'email' => $req->user->email,
+                    'phone' => $req->user->phone,
                     'password' => Hash::make("password"),
                 ]);
             }

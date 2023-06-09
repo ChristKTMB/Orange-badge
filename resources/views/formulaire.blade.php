@@ -52,7 +52,7 @@
                                         <div class="form-group">
                                             <label for="demandeur_prenom">Prénom <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="demandeur_prenom"
-                                                placeholder="" name="demandeur_prenom" value="{{ $user->username }}" @readonly(true)>
+                                                placeholder="" name="demandeur_prenom" value="{{ $user->first_name }}" @readonly(true)>
                                         </div>
                                         <div class="form-group">
                                             <label for="demandeur_directeur">Direction <span class="text-danger">*</span></label>
@@ -67,7 +67,7 @@
                                         <div class="form-group">
                                             <label for="demandeur_telephone">Numero téléphone <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="demandeur_telephone"
-                                                placeholder="" name="demandeur_telephone" @required(true)>
+                                                placeholder="" name="demandeur_telephone" value="{{ $user->phone }}" @readonly(true)>
                                         </div>
                                         <div class="form-group">
                                             <label for="demandeur_matricule">Matricule <span class="text-danger">*</span></label>
@@ -77,7 +77,7 @@
                                         <div class="form-group">
                                             <label for="date">Date <span class="text-danger">*</span></label>
                                             <input type="date" class="form-control" id="date"
-                                                placeholder="" name="date" @required(true)>
+                                                placeholder="" name="date" value="{{ now()->format('Y-m-d') }}" @readonly(true)>
                                         </div>
                                         
                                         <a class="btn btn-primary" onclick="stepper.next()">Suivant</a>
@@ -98,9 +98,17 @@
                                                     placeholder="" name="beneficiaire_prenom" @required(true)>
                                             </div>
                                             <div class="form-group">
-                                                <label for="beneficiaire_direction">Direction <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="beneficiaire_direction"
-                                                    placeholder="" name="beneficiaire_direction" @required(true)>
+                                                <div class="form-group">
+                                                    <label for="beneficiaire_direction">Direction </label>
+                                                    <select name="beneficiaire_direction" id="beneficiaire_direction" class="form-control">
+                                                        <option value="">Choisir une direction</option>
+                                                        @foreach ($directions as $direction)
+                                                            <option value="{{ $direction->nom }}">
+                                                                {{ $direction->nom }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="beneficiaire_fonction">Fonction <span class="text-danger">*</span></label>
@@ -113,17 +121,9 @@
                                                     placeholder="" name="beneficiaire_telephone" @required(true)>
                                             </div>
                                             <div class="form-group">
-                                                <div class="form-group">
-                                                    <label for="manager">Employeur </label>
-                                                    <select name="manager" id="manager" class="form-control">
-                                                        <option value="">Choisir un manager</option>
-                                                        @foreach ($managers as $manager)
-                                                            <option value="{{ $manager->id }}" {{$manager->id === $user->manager_id ? 'selected' : ''}}>
-                                                            {{ $manager->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                            </div>
+                                                <label for="beneficiaire_employeur">Employeur <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="beneficiaire_employeur"
+                                                    placeholder="" name="beneficiaire_employeur" @required(true)>
                                             </div>
                                             <div class="form-group">
                                                 <label for="beneficiaire_matricule">Matricule <span class="text-danger">*</span></label>
