@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BadgeRequestController;
 
 
@@ -15,3 +16,4 @@ use App\Http\Controllers\BadgeRequestController;
 |
 */
 Route::resource('badge',BadgeRequestController::class);
+Route::resource('profile',ProfileController::class);

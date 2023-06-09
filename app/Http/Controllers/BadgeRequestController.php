@@ -50,7 +50,7 @@ class BadgeRequestController extends Controller
         $badgeRequest->user()->associate($user);
         $badgeRequest->save();
         
-        return redirect()->route('home')->with("success","votre demande de badge a été enregistrée");
+        return redirect()->route('badge.index');
     }
 
     public function user(){
