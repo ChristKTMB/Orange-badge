@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Direction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -11,8 +12,9 @@ class ProfileController extends Controller
 
         $user = auth()->user();
         $managers = User::all();
+        $directions = Direction::all();
 
-        return view("profile",compact("user", "managers"));
+        return view("profile",compact("user", "managers","directions"));
     }
 
     public function update(Request $request){ 
@@ -31,6 +33,7 @@ class ProfileController extends Controller
         $user->matricule = $data['matricule'];
         $user->manager = $data['manager'];
         $user->save();
+        
         return redirect()->route('home');
     }
 }

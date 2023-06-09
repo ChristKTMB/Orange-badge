@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Direction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +28,8 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $managers = User::all();
+        $directions = Direction::all();
         
-        return view('home', compact('user','managers'));
+        return view('home', compact('user','managers','directions'));
     }
 }

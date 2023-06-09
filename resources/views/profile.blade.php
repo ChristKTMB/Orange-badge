@@ -27,9 +27,17 @@
                         readonly>
                 </div>
                 <div class="form-group">
-                    <label for="direction">Direction</label>
-                    <input type="text" class="form-control" id="direction" name="direction"
-                        value="{{ $user->direction }}">
+                    <div class="form-group">
+                        <label for="direction">Direction </label>
+                        <select name="direction" id="direction" class="form-control">
+                            <option value="{{ $user->direction }}">Choisir une direction</option>
+                            @foreach ($directions as $direction)
+                                <option value="{{ $direction->nom }}">
+                                    {{ $direction->nom }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="fonction">Fonction</label>
@@ -46,7 +54,7 @@
                         <select name="manager" id="manager" class="form-control">
                             <option value="">Choisir un manager</option>
                             @foreach ($managers as $manager)
-                                <option value="{{ $manager->id }}"
+                                <option value="{{ $manager->email }}"
                                     {{ $manager->id === $user->manager_id ? 'selected' : '' }}>
                                     {{ $manager->name }}
                                 </option>
