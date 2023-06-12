@@ -34,6 +34,6 @@ class ProfileController extends Controller
         $user->manager = $data['manager'];
         $user->save();
         
-        return redirect()->route('home');
+        return redirect()->route('historic');
     }
 }

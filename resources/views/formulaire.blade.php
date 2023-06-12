@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('title')
+Formulaire
+@endsection
 @section('content')
 
 <div class="container">
@@ -43,6 +45,7 @@
 
                                 <div class="bs-stepper-content">
                                     <!-- your steps content here -->
+                                    
                                     <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
                                         <div class="form-group">
                                             <label for="demandeur_nom">Nom <span class="text-danger">*</span></label>
@@ -174,13 +177,11 @@
                             </div>
                         </div>
                 <!-- /.card-body -->
-                <div class="card-footer text-black">
-                    Orange Digital Center
-                </div>
             </div>
             <!-- /.card -->
         </div>
     </form>
+    <br>
 </div>
 
 @endsection

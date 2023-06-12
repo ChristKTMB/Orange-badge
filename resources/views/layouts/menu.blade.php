@@ -17,3 +17,9 @@
         <p>Approving</p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{ route('direction.index') }}" class="nav-link {{ Request::is('direction.index') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-user"></i>
+        <p>Direction</p>
+    </a>
+</li>

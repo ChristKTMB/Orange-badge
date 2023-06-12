@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApprovingController;
+use App\Http\Controllers\BadgeRequestController;
 @include('routeweb.php');
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +17,11 @@ use App\Http\Controllers\ApprovingController;
 */
 
 Route::get('/', function () {
-    return redirect('/home');
+    return redirect('/historic');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/historic', [BadgeRequestController::class, 'index'])->name('historic');
 
 
 Route::get('approving/confirm-delete', [App\Http\Controllers\ApprovingController::class, 'confirmDelete'])->name('approving.confirmDelete');
