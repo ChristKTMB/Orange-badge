@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('formulaire')
+    <div class="container-fluid">
+        <h1 class="text-black-50">You are logged in!</h1>
+    </div>
 @endsection

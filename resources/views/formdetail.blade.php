@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('title')
+Detail du formulaire
+@endsection
 @section('content')
 <div class="container">
     <form action="" method="" enctype="multipart/form-data">
@@ -158,7 +160,6 @@
                                             </div>
                                        
                                         <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
-                                        <a class="btn btn-primary" href="{{ route('badge.index')}}">Retourné vers l'historique</a>
                                         <button class="btn btn-light disable" style="display: none" id="test" type=""></button>
                                     </div>
                                 </div>
@@ -172,6 +173,7 @@
             <!-- /.card -->
         </div>
     </form>
+    <br>
 </div>
 
 @endsection

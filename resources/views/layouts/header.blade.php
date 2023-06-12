@@ -29,7 +29,7 @@
                 <!-- Menu Footer-->
                 <li class="user-footer">
                     <a href="{{ route('profile.edit',auth()->user()) }}" class="btn btn-default btn-flat">Profile</a>
-                    <a href="#" class="btn btn-default btn-flat float-right"
+                    <a href="" class="btn btn-default btn-flat float-right"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         Sign out
                     </a>

@@ -1,7 +1,16 @@
 @extends('layouts.app')
+@section('title')
+Historic
+@endsection
 @section('content')
-    <h1>Historic</h1>
     <br>
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="text-right mx-4">
+                <a class="btn btn-primary m-2" href="{{route('formulaire.index')}}"><b></b>+</a>
+            </div>
+        </div>
+     </div>
     <section class="content">
         <div class="card">
             <div class="card-body p-0">

@@ -9,6 +9,10 @@ use App\Models\User;
 
 class BadgeRequestController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /*
     public function create(){
         return view('formulaire');

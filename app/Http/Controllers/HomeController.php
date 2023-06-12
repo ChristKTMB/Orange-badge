@@ -26,10 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $managers = User::all();
-        $directions = Direction::all();
         
-        return view('home', compact('user','managers','directions'));
+        return view('home');
     }
 }
