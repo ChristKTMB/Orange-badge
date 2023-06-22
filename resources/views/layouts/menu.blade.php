@@ -6,9 +6,9 @@
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{ route('badge.index') }}" class="nav-link {{ Request::is('badge.index') ? 'active' : '' }}">
+    <a href="{{ route('badge.index') }}" class="nav-link {{ Request::is('badge') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Historic</p>
+        <p>Mes demandes</p>
     </a>
 </li>
 <li class="nav-item">
@@ -18,8 +18,14 @@
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{ route('direction.index') }}" class="nav-link {{ Request::is('direction.index') ? 'active' : '' }}">
+    <a href="{{ route('direction.index') }}" class="nav-link {{ Request::is('direction') ? 'active' : '' }}">
         <i class="nav-icon fas fa-user"></i>
-        <p>Direction</p>
+        <p>Directions</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('approbation.index') }}" class="nav-link {{ Request::is('approbation') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-user"></i>
+        <p>Approbations</p>
     </a>
 </li>
