@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\approving;
@@ -9,6 +10,10 @@ use App\Models\BadgeRequest;
 use Illuminate\Http\Request;
 use App\Models\ApprovalProgress;
 use Illuminate\Support\Facades\Auth;
+use Dompdf\Dompdf;
+use Illuminate\Contracts\Config\Repository as Config;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\ApprovalNotification;
 
@@ -78,4 +83,36 @@ class BadgeRequestController extends Controller
         return view('formdetail',compact("badgeRequest"));
     }
 
+    public function showBadge() {
+        $badgeRequest = BadgeRequest::all();
+        return view('index', compact('badgeRequest'));
+    }
+
+    public function createPDF() {
+        // Récupère les demandes de badge de l'utilisateur authentifié
+        $badgeRequest = BadgeRequest::where('user_id', Auth::user()->id)->get();
+        
+        // Convertit le résultat en array
+        $badgeRequestArray = $badgeRequest->toArray();
+        
+        // Passe l'array à la vue Blade index
+        $html = view('index', ['badgeRequest' => $badgeRequestArray])->render();
+        
+        // Utilise Dompdf pour convertir le HTML en PDF
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        
+        // Récupère les objets Config, Filesystem et ViewFactory
+        $config = app(Config::class);
+        $filesystem = app(Filesystem::class);
+        $view = app(ViewFactory::class);
+        
+        // Encapsule Dompdf dans une classe helper PDF
+        $pdf = new PDF($dompdf, $config, $filesystem, $view);
+        
+        // Renvoie le PDF au téléchargement
+        return $pdf->download('badge_request.pdf');
+    }
 }
+
+

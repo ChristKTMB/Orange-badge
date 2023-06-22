@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-Detail du formulaire
+  Detail du formulaire
 @endsection
 @section('content')
 <div class="container">
