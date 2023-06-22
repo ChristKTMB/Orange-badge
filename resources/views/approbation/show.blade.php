@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-  Detail du formulaire
+Detail du formulaire
 @endsection
 @section('content')
 <div class="container">
@@ -37,6 +37,13 @@
                                             id="complexity-part-trigger">
                                             <span class="bs-stepper-circle">3</span>
                                             <span class="bs-stepper-label">Catégorie et motivation</span>
+                                        </button>
+                                    </div>
+                                    <div class="step" data-target="#approvers-part">
+                                        <button type="button" class="step-trigger" role="tab" aria-controls="approvers-part"
+                                            id="approvers-part-trigger">
+                                            <span class="bs-stepper-circle">4</span>
+                                            <span class="bs-stepper-label">Approbation</span>
                                         </button>
                                     </div>
                                 </div>
@@ -160,10 +167,19 @@
                                             </div>
                                        
                                             <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
+                                            <a class="btn btn-primary" onclick="stepper.next()">Suivant</a>
                                     </div>
                                     {{-- fin de la 3e partie --}}
 
-                                    
+                                    <div id="approvers-part" class="content" role="tab" aria-labelledby="#approvers-part-trigger">
+                                        <div class="form-group">
+                                            <p>Approbation</p>
+                                        </div>
+                                        
+                                        <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
+                                        <a class="btn btn-success" href="{{ route('badge-request.approve', $badgeRequest->id) }}">Approuver</a>
+                                        
+                                    </div>
                                     {{-- fin de la 4e partie --}}
                                     
                                     <button class="btn btn-light disable" style="display: none" id="test" type=""></button>

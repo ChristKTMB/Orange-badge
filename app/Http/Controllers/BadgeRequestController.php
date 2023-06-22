@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use Barryvdh\DomPDF\PDF;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\BadgeRequest;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\approving;
+use App\Models\BadgeRequest;
+use Illuminate\Http\Request;
+use App\Models\ApprovalProgress;
+use Illuminate\Support\Facades\Auth;
 use Dompdf\Dompdf;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Support\Facades\Mail;
+use App\Notifications\ApprovalNotification;
 
 class BadgeRequestController extends Controller
 {
@@ -22,7 +27,7 @@ class BadgeRequestController extends Controller
     public function index(){
         $user = Auth::user()->id;
         $badgeRequest = BadgeRequest::all()->where("user_id",$user);
-
+    
         return view("history",compact("badgeRequest"));
     }
 
@@ -54,7 +59,17 @@ class BadgeRequestController extends Controller
         $user = Auth::user();
         $badgeRequest->user()->associate($user);
         $badgeRequest->save();
-        
+
+         // Insertion des données dans la table de liaison "approvals_progress"
+        $approvalsProgress = new ApprovalProgress();
+        $approvalsProgress->demandeur_id = Auth::user()->id; // ID de l'utilisateur connecté
+        $approvalsProgress->badge_request_id = $badgeRequest->id; // ID du formulaire nouvellement créé
+        $approvalsProgress->total_approvers = approving::count() + 1; // Nombre total d'approbateurs
+        $approvalsProgress->step = 1; // L'utilisateur initiateur doit approuver en premier
+        $approvalsProgress->approved = false; // Le formulaire n'est pas encore approuvé
+        $approvalsProgress->approval_date = now();
+        $approvalsProgress->save();
+
         return redirect()->route('badge.index');
     }
 
@@ -99,3 +114,5 @@ class BadgeRequestController extends Controller
         return $pdf->download('badge_request.pdf');
     }
 }
+
+
