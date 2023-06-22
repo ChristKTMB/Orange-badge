@@ -13,10 +13,13 @@ Mes Approbations
                             <th style="width: 10%">
                                 id
                             </th>
-                            <th style="width: 30%">
+                            <th style="width: 20%">
                                 Nom demandeur
                             </th>
-                            <th style="width: 40%">
+                            <th style="width: 28%">
+                                Nom beneficiaire
+                            </th>
+                            <th style="width: 20%">
                                 Date de démande
                             </th>
                             <th style="width: 30%">
@@ -29,6 +32,7 @@ Mes Approbations
                             <tr>
                                 <td>{{ $approvalForm->badgeRequest->id }}</td>
                                 <td>{{ $approvalForm->badgeRequest->demandeur_nom }}</td>
+                                <td>{{ $approvalForm->badgeRequest->beneficiaire_nom }}</td>
                                 <td>{{ $approvalForm->badgeRequest->date }}</td>
                                 <td>
                                     <a class="btn btn-primary btn-sm" href="{{ route('approbation.show', $approvalForm->badgeRequest->id) }}">

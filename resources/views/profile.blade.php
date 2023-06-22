@@ -1,12 +1,12 @@
 @extends('layouts.app')
+@section('title')
+Profil utilisateur
+@endsection
 @section('content')
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
     <div class="card card-primary col-lg-8 mx-auto">
-        <div class="card-header">
-            <h3 class="card-title">Modifier votre profile</h3>
-        </div>
         <form method="POST" action="{{ route('profile.update', ['profile' => $user->id]) }}">
             @csrf
             @method('PUT')
@@ -62,8 +62,6 @@
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary ml-auto">Submit</button>
             </div>
         </form>

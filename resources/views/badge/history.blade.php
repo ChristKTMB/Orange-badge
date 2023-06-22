@@ -20,10 +20,13 @@ Mes demandes
                             <th style="width: 10%">
                                 id
                             </th>
-                            <th style="width: 30%">
+                            <th style="width: 20%">
                                 Nom demandeur
                             </th>
-                            <th style="width: 40%">
+                            <th style="width: 28%">
+                                Nom beneficiaire
+                            </th>
+                            <th style="width: 20%">
                                 Date de démande
                             </th>
                             <th style="width: 30%">
@@ -32,10 +35,11 @@ Mes demandes
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($badgeRequest as $badgeRequest)
+                        @foreach ($badgeRequests as $badgeRequest)
                             <tr>
                                 <td>{{ $badgeRequest->id }}</td>
                                 <td>{{ $badgeRequest->demandeur_nom }}</td>
+                                <td>{{ $badgeRequest->beneficiaire_nom }}</td>
                                 <td>{{ $badgeRequest->date }}</td>
                                 <td>
                                     <a class="btn btn-primary btn-sm" href="{{ route('badge.show', $badgeRequest->id) }}">
@@ -43,6 +47,12 @@ Mes demandes
                                         </i>
                                         View
                                     </a>
+                                    @if ($badgeRequest->isApproved)
+                                    <a class="btn btn-success btn-sm">
+                                        Approuvé
+                                    </a>
+                                    @endif
+                                    
                                 </td>
                             </tr>
                         @endforeach
