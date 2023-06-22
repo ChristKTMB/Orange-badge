@@ -14,7 +14,7 @@
 <li class="nav-item">
     <a href="{{ route('approving.index') }}" class="nav-link {{ Request::is('approving') ? 'active' : '' }}">
         <i class="nav-icon fas fa-user"></i>
-        <p>Approving</p>
+        <p>Approbateurs</p>
     </a>
 </li>
 <li class="nav-item">
@@ -23,3 +23,9 @@
         <p>Direction</p>
     </a>
 </li>
+<!-- <li class="nav-item">
+    <a href="{{ route('badge.showBadge') }}" class="nav-link {{ Request::is('badge.showBadge') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-user"></i>
+        <p>Badge</p>
+    </a>
+</li> -->

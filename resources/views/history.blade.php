@@ -43,6 +43,8 @@ Historic
                                         </i>
                                         View
                                     </a>
+                                    <a class="btn btn-success" href="{{ URL::to('/badgeRequest/pdf') }}">
+                                    <i class="fas fa-file-pdf"></i></a>
                                 </td>
                             </tr>
                         @endforeach
