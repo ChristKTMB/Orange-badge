@@ -3,11 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\BadgeRequest;
+use App\Models\ApprovalProgress;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use App\Models\BadgeRequest;
 
 class User extends Authenticatable
 {
@@ -15,6 +16,10 @@ class User extends Authenticatable
 
     public function badgeRequests(){
         return $this->hasMany(BadgeRequest::class);
+    }
+
+    public function approvalProgress(){
+        return $this->hasMany(ApprovalProgress::class);
     }
 
     /**

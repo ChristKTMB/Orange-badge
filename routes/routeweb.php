@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApproveController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DirectionController;
 use App\Http\Controllers\FormulaireController;
@@ -21,3 +22,5 @@ Route::resource('badge',BadgeRequestController::class);
 Route::resource('profile',ProfileController::class);
 Route::resource('direction',DirectionController::class);
 Route::resource('formulaire',FormulaireController::class);
+Route::get('/badge-request/approve/{approval}', [ApproveController::class, 'approve'])->name('badge-request.approve');
+Route::resource('approbation',ApproveController::class);

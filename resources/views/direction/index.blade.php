@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-Direction
+Directions
 @endsection
 @section('content')
 <section class="content">

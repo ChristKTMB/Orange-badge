@@ -1,16 +1,9 @@
 @extends('layouts.app')
 @section('title')
-Mes demandes
+Mes Approbations
 @endsection
 @section('content')
     <br>
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="text-right mx-4">
-                <a class="btn btn-primary m-2" href="{{route('formulaire.index')}}"><b></b>+</a>
-            </div>
-        </div>
-     </div>
     <section class="content">
         <div class="card">
             <div class="card-body p-0">
@@ -32,13 +25,13 @@ Mes demandes
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($badgeRequest as $badgeRequest)
+                        @foreach ($approvalForms as $approvalForm)
                             <tr>
-                                <td>{{ $badgeRequest->id }}</td>
-                                <td>{{ $badgeRequest->demandeur_nom }}</td>
-                                <td>{{ $badgeRequest->date }}</td>
+                                <td>{{ $approvalForm->badgeRequest->id }}</td>
+                                <td>{{ $approvalForm->badgeRequest->demandeur_nom }}</td>
+                                <td>{{ $approvalForm->badgeRequest->date }}</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" href="{{ route('badge.show', $badgeRequest->id) }}">
+                                    <a class="btn btn-primary btn-sm" href="{{ route('approbation.show', $approvalForm->badgeRequest->id) }}">
                                         <i class="fas fa-eye">
                                         </i>
                                         View
