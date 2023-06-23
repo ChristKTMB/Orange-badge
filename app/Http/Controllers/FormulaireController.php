@@ -15,6 +15,6 @@ class FormulaireController extends Controller
         $managers = User::all();
         $directions = Direction::all();
 
-        return view('formulaire', compact('user','managers','directions'));
+        return view('badge.formulaire', compact('user','managers','directions'));
     }
 }

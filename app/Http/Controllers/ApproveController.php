@@ -18,17 +18,18 @@ class ApproveController extends Controller
 
         $userId = auth()->user()->id;
         $userEmail = auth()->user()->email;
-        $approvalForms = ApprovalProgress::where('demandeur_id', $userId)->with('badgeRequest')->get();
+        $demandeurForms = ApprovalProgress::where('demandeur_id', $userId)->with('badgeRequest')->get();
+        $userApprover = approving::where('email', $userEmail)->first();
 
-        $approver = approving::where('email', $userEmail)->first();
+        $approverForms = [];
         
-        if ($approver){
-            $approvalForms = ApprovalProgress::where('approver_id', $approver->id)
+        if ($userApprover){
+            $approverForms = ApprovalProgress::where('approver_id', $userApprover->id)
             ->with('badgeRequest')
-            ->get();
-
-            return view('approbation.index', compact("approvalForms")); 
+            ->get(); 
         }
+
+        $approvalForms = collect($approverForms)->concat($demandeurForms);
         
         return view('approbation.index', compact("approvalForms"));
     }
@@ -72,10 +73,11 @@ class ApproveController extends Controller
 
     public function show($badgeRequestId){
 
-        $approval = ApprovalProgress::where('badge_request_id', $badgeRequestId)->firstOrFail();
+        $approval = ApprovalProgress::with('approver')->where('badge_request_id', $badgeRequestId)->firstOrFail();
         $badgeRequest = $approval->badgeRequest;
+        $isApproved = $approval->approved == 1 ? true : false;
 
-        return view('approbation.show', compact("badgeRequest"));
+        return view('approbation.show', compact("badgeRequest","isApproved"));
     }
 
 }

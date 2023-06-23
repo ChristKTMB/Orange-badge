@@ -20,10 +20,13 @@ Mes demandes
                             <th style="width: 10%">
                                 id
                             </th>
-                            <th style="width: 30%">
+                            <th style="width: 20%">
                                 Nom demandeur
                             </th>
-                            <th style="width: 40%">
+                            <th style="width: 28%">
+                                Nom beneficiaire
+                            </th>
+                            <th style="width: 20%">
                                 Date de démande
                             </th>
                             <th style="width: 30%">
@@ -32,19 +35,28 @@ Mes demandes
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($badgeRequest as $badgeRequest)
+                        @foreach ($badgeRequests as $badgeRequest)
                             <tr>
                                 <td>{{ $badgeRequest->id }}</td>
                                 <td>{{ $badgeRequest->demandeur_nom }}</td>
+                                <td>{{ $badgeRequest->beneficiaire_nom }}</td>
                                 <td>{{ $badgeRequest->date }}</td>
                                 <td>
+                                    <a class="btn btn-primary btn-sm" href="{{ URL::to('/badgeRequest/pdf') }}">
+                                        <i class="fas fa-file-pdf">
+                                        </i>
+                                        PDF
+                                    </a>
                                     <a class="btn btn-primary btn-sm" href="{{ route('badge.show', $badgeRequest->id) }}">
                                         <i class="fas fa-eye">
                                         </i>
                                         View
                                     </a>
-                                    <a class="btn btn-success" href="{{ URL::to('/badgeRequest/pdf') }}">
-                                    <i class="fas fa-file-pdf"></i></a>
+                                    @if ($badgeRequest->isApproved)
+                                    <a class="btn btn-success btn-sm">
+                                        Approuvée
+                                    </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

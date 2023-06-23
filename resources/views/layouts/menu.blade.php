@@ -26,12 +26,6 @@
 <li class="nav-item">
     <a href="{{ route('approbation.index') }}" class="nav-link {{ Request::is('approbation') ? 'active' : '' }}">
         <i class="nav-icon fas fa-user"></i>
-        <p>Approbations</p>
+        <p>Mes approbations</p>
     </a>
 </li>
-<!-- <li class="nav-item">
-    <a href="{{ route('badge.showBadge') }}" class="nav-link {{ Request::is('badge.showBadge') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-user"></i>
-        <p>Badge</p>
-    </a>
-</li> -->
