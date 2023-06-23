@@ -21,7 +21,6 @@ class BadgeRequestController extends Controller
 
     public function index(){
         $user = Auth::user()->id;
-        $userEmail = auth()->user()->email;
         $badgeRequests = BadgeRequest::all()->where("user_id",$user);
 
         foreach ($badgeRequests as $badgeRequest){

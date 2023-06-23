@@ -18,17 +18,19 @@ class ApproveController extends Controller
 
         $userId = auth()->user()->id;
         $userEmail = auth()->user()->email;
-        $approvalForms = ApprovalProgress::where('demandeur_id', $userId)->with('badgeRequest')->get();
+        $demandeurForms = ApprovalProgress::where('demandeur_id', $userId)->with('badgeRequest')->get();
 
-        $approver = approving::where('email', $userEmail)->first();
+        $userApprover = approving::where('email', $userEmail)->first();
+
+        $approverForms = [];
         
-        if ($approver){
-            $approvalForms = ApprovalProgress::where('approver_id', $approver->id)
+        if ($userApprover){
+            $approverForms = ApprovalProgress::where('approver_id', $userApprover->id)
             ->with('badgeRequest')
-            ->get();
-
-            return view('approbation.index', compact("approvalForms")); 
+            ->get(); 
         }
+
+        $approvalForms = collect($approverForms)->concat($demandeurForms);
         
         return view('approbation.index', compact("approvalForms"));
     }
