@@ -42,6 +42,11 @@ Mes demandes
                                 <td>{{ $badgeRequest->beneficiaire_nom }}</td>
                                 <td>{{ $badgeRequest->date }}</td>
                                 <td>
+                                    <a class="btn btn-primary btn-sm" href="{{ URL::to('/badgeRequest/pdf') }}">
+                                        <i class="fas fa-file-pdf">
+                                        </i>
+                                        PDF
+                                    </a>
                                     <a class="btn btn-primary btn-sm" href="{{ route('badge.show', $badgeRequest->id) }}">
                                         <i class="fas fa-eye">
                                         </i>
@@ -49,10 +54,9 @@ Mes demandes
                                     </a>
                                     @if ($badgeRequest->isApproved)
                                     <a class="btn btn-success btn-sm">
-                                        Approuvé
+                                        Approuvée
                                     </a>
                                     @endif
-                                    
                                 </td>
                             </tr>
                         @endforeach

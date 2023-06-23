@@ -40,6 +40,15 @@ Mes Approbations
                                         </i>
                                         View
                                     </a>
+                                    @if ($approvalForm->approved)
+                                        <a class="btn btn-success btn-sm">
+                                            Validé
+                                        </a>
+                                    @else
+                                        <a class="btn btn-secondary btn-sm">
+                                            En attente
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

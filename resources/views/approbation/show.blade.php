@@ -172,20 +172,23 @@ Detail du formulaire
                                     {{-- fin de la 3e partie --}}
 
                                     <div id="approvers-part" class="content" role="tab" aria-labelledby="#approvers-part-trigger">
-                                        <div class="form-group">
-                                            <p>Approbation</p>
-                                        </div>
-                                        
+                                        <p>APPROBATION</p>
+
+                                        @if ($isApproved)
+                                            <div class="alert alert-success">
+                                                Le formulaire a été validé par l'approbateur<span class="badge">&#10004</span>
+                                            </div>
+                                        @else
+                                            <div class="alert alert-secondary">
+                                                Veuillez vérifier les détails de la demande et valider s'il le faut!
+                                            </div>
+                                            <a class="btn btn-success" href="{{ route('badge-request.approve', $badgeRequest->id) }}">Validé</a>
+                                        @endif
                                         <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
-                                        <a class="btn btn-success" href="{{ route('badge-request.approve', $badgeRequest->id) }}">Approuver</a>
-                                        
                                     </div>
                                     {{-- fin de la 4e partie --}}
                                     
                                     <button class="btn btn-light disable" style="display: none" id="test" type=""></button>
-
-
-
                                 </div>
                             </div>
                         </div>
