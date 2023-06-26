@@ -12,17 +12,55 @@ table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
 }
+* {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th,
+        table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #F2F2F2;
+            text-align: left;
+        }
+        table td {
+            text-align: center;
+        }
+        p {
+            margin: 0;
+        }
+        .text-right {
+            text-align: right;
+        }
 </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="text-center mb-3">FORMULAIRE DE DEMANDE DE BADGE</h2>
+        <h2 class="text-center mb-3">FORMULAIRE DE DEMANDE DE BADGE</h2><hr>
         <div class="d-flex justify-content-end mb-4">
-        
         </div>
-      
         <div class="mb-5">
-            <h3>1. Information du demandeur</h3> 
+            <h3>1. Information du demandeur</h3>
             <table class="table table-bordered">
                 <tbody>
                     <tr>
@@ -45,13 +83,11 @@ table, th, td {
                     </tr>
                     <tr>
                         <td><p >Fonction :</p></td>
-                        <td colspan="3"><p>{{ $badgeRequest[0]['demandeur_fonction'] }}</p></td>
+                        <td><p>{{ $badgeRequest[0]['demandeur_fonction'] }}</p></td>
                     </tr>
                 </tbody>
             </table>
-         
         </div>
-        
         <div class="mb-5">
             <h3>2. Information du bénéficiaire</h3>
             <table >
@@ -76,36 +112,30 @@ table, th, td {
                     </tr>
                     <tr>
                         <td><p >Fonction :</p></td>
-                        <td colspan="3"><p>{{ $badgeRequest[0]['beneficiaire_fonction'] }}</p></td>
+                        <td><p>{{ $badgeRequest[0]['beneficiaire_fonction'] }}</p></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        
         <div class="mb-5">
             <h3>3. Catégorie de badge</h3>
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Catégorie de badge</th>
-                        <th style="width: 150px;"></th>
                         <th>Date début</th>
-                        <th style="width: 150px;"></th>
                         <th>Date fin</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>{{ $badgeRequest[0]['categorie_badge'] }}</td>
-                        <td style="height: 50px;"></td>
                         <td>{{ $badgeRequest[0]['date_debut'] }}</td>
-                        <td style="height: 50px;"></td>
                         <td>{{ $badgeRequest[0]['date_fin'] }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        
         <div class="mb-5">
             <h3>4. Motivation</h3>
             <table>
@@ -113,28 +143,23 @@ table, th, td {
                 <tr>
                     <td><p>{{ $badgeRequest[0]['motivation'] }}</p></td>
                 </tr>
-                </tbody>                
+                </tbody>
             </table>
          </div>
-         <div class="mb-5"><br>            
+         <div class="mb-5"><br>
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Demandeur <br> (Date et signature) </th>
-                        <th style="width: 150px;"></th>
                         <th>Responsable humain <br> (Date et signature)</th>
-                        <th style="width: 150px;"></th>
                         <th>Resp. Sec Physique <br> (Date et signature)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td></td>
                         <td style="height: 50px;"></td>
-                          <td></td>    
-                        <td style="height: 50px;"></td>
-                          <td></td>  
-                        <td style="height: 50px;"></td>
+                          <td style="height: 50px;"></td>
+                          <td></td>
                     </tr>
                 </tbody>
             </table>

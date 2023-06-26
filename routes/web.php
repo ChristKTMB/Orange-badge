@@ -27,7 +27,7 @@ Route::get('/historic', [BadgeRequestController::class, 'index'])->name('histori
 Route::get('approving/confirm-delete', [App\Http\Controllers\ApprovingController::class, 'confirmDelete'])->name('approving.confirmDelete');
 Route::post('approving/delete', [App\Http\Controllers\ApprovingController::class, 'delete'])->name('approving.delete');
 Route::resource('approving', ApprovingController::class);
-Route::get('/', [BadgeRequestController::class, 'showBadge']);
+Route::get('/badgeRequest', [BadgeRequestController::class, 'showBadge']);
 Route::get('/badgeRequest/pdf', [BadgeRequestController::class, 'createPDF'])->name('badge.showBadge');
 
 
