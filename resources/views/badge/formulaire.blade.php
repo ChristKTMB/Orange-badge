@@ -167,7 +167,7 @@ Formulaire de demande
                                             </div>
                                        
                                         <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
-                                        <button class="btn btn-primary" id="test" type="submit">Submit</button>
+                                        <button class="btn btn-success" id="test" type="submit">Envoyé</button>
                                     </div>
                                 </div>
                             </div>

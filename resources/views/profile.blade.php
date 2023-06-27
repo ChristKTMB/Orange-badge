@@ -62,7 +62,7 @@ Profil utilisateur
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary ml-auto">Submit</button>
+                <button type="submit" class="btn btn-primary ml-auto"><i class="fas fa-save"></i> Enregistré</button>
             </div>
         </form>
     </div>
