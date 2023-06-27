@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\approving;
 use App\Models\BadgeRequest;
 use App\Models\ApprovalProgress;
 use Laravel\Sanctum\HasApiTokens;
@@ -20,6 +21,10 @@ class User extends Authenticatable
 
     public function approvalProgress(){
         return $this->hasMany(ApprovalProgress::class);
+    }
+
+    public function isApprover(){
+        return approving::where('email', $this->email)->exists();
     }
 
     /**

@@ -1,205 +1,116 @@
 @extends('layouts.app')
 @section('title')
-Detail du formulaire
+    Detail du formulaire
 @endsection
 @section('content')
-<div class="container">
-    <form action="" method="" enctype="multipart/form-data">
-        @csrf
-        <div class="col-md-10 container my-5">
-            <div class="card card-default">
-                <div class="card-header">
-                </div>
-                    <div class="card-body p-0">
-                            <div class="bs-stepper">
-                                <div class="bs-stepper-header" role="tablist">
-                                    <!-- your steps here -->
-                                    <div class="step" data-target="#logins-part">
-                                        <button type="button" class="step-trigger" role="tab" aria-controls="logins-part"
-                                            id="logins-part-trigger">
-                                            <span class="bs-stepper-circle">1</span>
-                                            <span class="bs-stepper-label">Demandeur</span>
-                                        </button>
-                                    </div>
-                                    <div class="line"></div>
-        
-                                    <div class="step" data-target="#information-part">
-                                        <button type="button" class="step-trigger" role="tab" aria-controls="information-part"
-                                            id="information-part-trigger">
-                                            <span class="bs-stepper-circle">2</span>
-                                            <span class="bs-stepper-label">Bénéficiaire</span>
-                                        </button>
-                                    </div>
-                                    <div class="line"></div>
-        
-                                    <div class="step" data-target="#complexity-part">
-                                        <button type="button" class="step-trigger" role="tab" aria-controls="complexity-part"
-                                            id="complexity-part-trigger">
-                                            <span class="bs-stepper-circle">3</span>
-                                            <span class="bs-stepper-label">Catégorie et motivation</span>
-                                        </button>
-                                    </div>
-                                    <div class="step" data-target="#approvers-part">
-                                        <button type="button" class="step-trigger" role="tab" aria-controls="approvers-part"
-                                            id="approvers-part-trigger">
-                                            <span class="bs-stepper-circle">4</span>
-                                            <span class="bs-stepper-label">Approbation</span>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="bs-stepper-content">
-                                    <!-- your steps content here -->
-                                    <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-                                        <div class="form-group">
-                                            <label for="demandeur_nom">Nom </label>
-                                            <input type="text" class="form-control" id="demandeur_nom"
-                                                placeholder="" value="{{$badgeRequest->demandeur_nom}}" name="demandeur_nom" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="demandeur_prenom">Prénom </label>
-                                            <input type="text" class="form-control" id="demandeur_prenom"
-                                                placeholder="" value="{{$badgeRequest->demandeur_prenom}}" name="demandeur_prenom" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="demandeur_directeur">Direction </label>
-                                            <input type="text" class="form-control" id="demandeur_directeur"
-                                                placeholder="" value="{{$badgeRequest->demandeur_directeur}}" name="demandeur_directeur" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="demandeur_fonction">Fonction </label>
-                                            <input type="text" class="form-control" id="demandeur_fonction"
-                                                placeholder=""  value="{{$badgeRequest->demandeur_fonction}}" name="demandeur_fonction" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="demandeur_telephone">Numero téléphone </label>
-                                            <input type="text" class="form-control" id="demandeur_telephone"
-                                                placeholder="" value="{{$badgeRequest->demandeur_telephone}}" name="demandeur_telephone" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="demandeur_matricule">Matricule </label>
-                                            <input type="text" class="form-control" id="demandeur_matricule"
-                                                placeholder="" value="{{$badgeRequest->demandeur_matricule}}" name="demandeur_matricule" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="date">Date </label>
-                                            <input type="date" class="form-control" id="date"
-                                                placeholder="" value="{{$badgeRequest->date}}" name="date" readonly>
-                                        </div>
-                                        
-                                        <a class="btn btn-primary" onclick="stepper.next()">Suivant</a>
-                                    </div>
-                                    {{-- fin de la partie 1 --}}
-        
-                                    <div id="information-part" class="content" role="tabpanel"
-                                        aria-labelledby="information-part-trigger">
-                                        <div class="form-group">
-                                            <div class="form-group">
-                                                <label for="beneficiaire_nom">Nom </label>
-                                                <input type="text" class="form-control" id="beneficiaire_nom"
-                                                    placeholder="" value="{{$badgeRequest->beneficiaire_nom}}" name="beneficiaire_nom" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="beneficiaire_prenom">Prénom </label>
-                                                <input type="text" class="form-control" id="beneficiaire_prenom"
-                                                    placeholder="" value="{{$badgeRequest->beneficiaire_prenom}}" name="beneficiaire_prenom" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="beneficiaire_direction">Direction </label>
-                                                <input type="text" class="form-control" id="beneficiaire_direction"
-                                                    placeholder="" value="{{$badgeRequest->beneficiaire_direction}}" name="beneficiaire_direction" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="beneficiaire_fonction">Fonction </label>
-                                                <input type="text" class="form-control" id="beneficiaire_fonction"
-                                                    placeholder="" value="{{$badgeRequest->beneficiaire_fonction}}" name="beneficiaire_fonction" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="beneficiaire_telephone">Numero téléphone </label>
-                                                <input type="text" class="form-control" id="beneficiaire_telephone"
-                                                    placeholder="" value="{{$badgeRequest->beneficiaire_telephone}}" name="beneficiaire_telephone" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="beneficiaire_employeur">Employeur </label>
-                                                <input type="text" class="form-control" id="beneficiaire_employeur"
-                                                    placeholder="" value="{{$badgeRequest->beneficiaire_employeur}}" name="beneficiaire_employeur" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="beneficiaire_matricule">Matricule </label>
-                                                <input type="text" class="form-control" id="beneficiaire_matricule"
-                                                    placeholder="" value="{{$badgeRequest->beneficiaire_matricule}}" name="beneficiaire_matricule" readonly>
-                                            </div>
-                                            
-                                        </div>
-                                        <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
-                                        <a class="btn btn-primary" onclick="stepper.next()">Suivant</a>
-        
-                                    </div>
-                                    {{-- fin de la partie 2 --}}
-                                    
-                                    <div id="complexity-part" class="content" role="tabpanel"
-                                        aria-labelledby="complexity-part-trigger">
-                                        
-                                            <div class="form-group">
-                                                <div class="form-group">
-                                                    <label for="categorie_badge">Catégorie de Badge </label>
-                                                    <select id="categorie_badge" name="categorie_badge" class="form-control" readonly>
-                                                    <option value=""></option>
-                                                    <option value="Permanent staff" {{$badgeRequest->categorie_badge == 'Permanent staff' ? 'selected' : ''}}> Permanent staff</option>
-                                                    <option value="Consultant" {{$badgeRequest->categorie_badge == 'Consultant' ? 'selected' : ''}}> Consultant</option>
-                                                    <option value="Temporaire" {{$badgeRequest->categorie_badge == 'Temporaire' ? 'selected' : ''}}> Temporaire</option>
-                                                    </select>
-                                                    </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="date_debut">Date début </label>
-                                                <input type="date" class="form-control" id="date_debut"
-                                                    placeholder="" value="{{$badgeRequest->date_debut}}" name="date_debut" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="date_fin">Date fin </label>
-                                                <input type="date" class="form-control" id="date_fin"
-                                                    placeholder="" value="{{$badgeRequest->date_fin}}" name="date_fin" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="motivation">Motivation</label>
-                                                <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Votre motivation ..." readonly>{{$badgeRequest->motivation}}</textarea>
-                                            </div>
-                                       
-                                            <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
-                                            <a class="btn btn-primary" onclick="stepper.next()">Suivant</a>
-                                    </div>
-                                    {{-- fin de la 3e partie --}}
-
-                                    <div id="approvers-part" class="content" role="tab" aria-labelledby="#approvers-part-trigger">
-                                        <p>APPROBATION</p>
-
-                                        @if ($isApproved)
-                                            <div class="alert alert-success">
-                                                Le formulaire a été validé par l'approbateur<span class="badge">&#10004</span>
-                                            </div>
-                                        @else
-                                            <div class="alert alert-secondary">
-                                                Veuillez vérifier les détails de la demande et valider s'il le faut!
-                                            </div>
-                                            <a class="btn btn-success" href="{{ route('badge-request.approve', $badgeRequest->id) }}">Validé</a>
-                                        @endif
-                                        <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
-                                    </div>
-                                    {{-- fin de la 4e partie --}}
-                                    
-                                    <button class="btn btn-light disable" style="display: none" id="test" type=""></button>
-                                </div>
-                            </div>
+    <div class="card card-warning container">
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card-header">
+                            <h4 class="card-title">DEMANDEUR</h4>
                         </div>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-        </div>
-    </form>
-    <br>
-</div>
+                        <div class="form-group">
+                            <label>Nom</label>
+                            <input type="text" class="form-control" value="{{$badgeRequest->demandeur_prenom}}" placeholder="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Prenom</label>
+                            <input type="text" class="form-control" value="{{$badgeRequest->demandeur_prenom}}" placeholder="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Direction</label>
+                            <input type="text" class="form-control" value="{{$badgeRequest->demandeur_directeur}}" placeholder="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Fonction</label>
+                            <input type="text" class="form-control" value="{{$badgeRequest->demandeur_fonction}}" placeholder="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Numero telephone</label>
+                            <input type="text" class="form-control" value="{{$badgeRequest->demandeur_telephone}}" placeholder="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Matricule</label>
+                            <input type="text" class="form-control" value="{{$badgeRequest->demandeur_matricule}}" placeholder="" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card-header">
+                            <h4 class="card-title">BENEFICIAIRE</h4>
+                        </div>
+                        <div class="form-group">
+                            <label>Nom</label>
+                            <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_nom}}" placeholder="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Prenom</label>
+                            <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_prenom}}" placeholder="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Direction</label>
+                            <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_direction}}" placeholder="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Fonction</label>
+                            <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_fonction}}" name="beneficiaire_fonction" placeholder="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Numero telephone</label>
+                            <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_telephone}}" placeholder="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Employeur</label>
+                            <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_employeur}}" placeholder="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Matricule</label>
+                            <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_matricule}}" placeholder="" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label for="categorie_badge">Catégorie de Badge </label>
+                        <select id="categorie_badge" name="categorie_badge" class="form-control" readonly>
+                        <option value=""></option>
+                        <option value="Permanent staff" {{$badgeRequest->categorie_badge == 'Permanent staff' ? 'selected' : ''}}> Permanent staff</option>
+                        <option value="Consultant" {{$badgeRequest->categorie_badge == 'Consultant' ? 'selected' : ''}}> Consultant</option>
+                        <option value="Temporaire" {{$badgeRequest->categorie_badge == 'Temporaire' ? 'selected' : ''}}> Temporaire</option>
+                        </select>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="date_debut">Date début </label>
+                        <input type="date" class="form-control" id="date_debut"
+                            placeholder="" value="{{$badgeRequest->date_debut}}" name="date_debut" readonly>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="date_debut">Date début </label>
+                        <input type="date" class="form-control" id="date_debut"
+                            placeholder="" value="{{$badgeRequest->date_fin}}" name="date_debut" readonly>
+                    </div>
+                </div><br>
 
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="motivation">Motivation</label>
+                        <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Votre motivation ..." readonly>{{$badgeRequest->motivation}}</textarea>
+                    </div>
+                </div>
+                    @if ($approved)
+                        <div class="alert alert-success">
+                            Le formulaire a été validé!
+                        </div>
+                    @else
+                        <div class="alert alert-secondary">
+                            Veuillez vérifier les détails de la demande et valider s'il le faut!
+                        </div>
+                        <a class="btn btn-success" href="{{ route('badge-request.approve', $badgeRequest->id) }}">Validé</a>
+                    @endif
+            </form>
+        </div>
+    </div><br>
 @endsection
 
 @section('scripts')

@@ -40,8 +40,8 @@ class ApprovalNotification extends Notification
         return (new MailMessage)
                     ->subject('Nouvelle demande de badge à approuver')
                     ->line('Vous avez une nouvelle demande de badge à approuver.')
-                    ->line('Cliquez sur le lien ci-dessous pour vous connecter et voir le formulaire :')
-                    ->action('Se connecter', $url );
+                    ->line('Cliquez sur le lien ci-dessous pour vous connecter et voir la demande :')
+                    ->action('Voir la demande', $url );
     }
 
     /**
