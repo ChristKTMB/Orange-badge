@@ -1,17 +1,13 @@
 @extends('layouts.app')
 @section('title')
-Formulaire
+Formulaire de demande
 @endsection
 @section('content')
-
 <div class="container">
     <form action="{{ route('badge.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="col-md-10 container my-5">
+        <div class="col-md-10 container my-0">
             <div class="card card-default">
-                <div class="card-header">
-                    <h3 class="card-header">FORMULAIRE DE DEMANDE DE BADGE</h3>
-                </div>
                     <div class="card-body p-0">
                             <div class="bs-stepper">
                                 <div class="bs-stepper-header" role="tablist">
@@ -171,7 +167,7 @@ Formulaire
                                             </div>
                                        
                                         <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
-                                        <button class="btn btn-primary" id="test" type="submit">Submit</button>
+                                        <button class="btn btn-success" id="test" type="submit">Envoyé</button>
                                     </div>
                                 </div>
                             </div>
@@ -181,9 +177,7 @@ Formulaire
             <!-- /.card -->
         </div>
     </form>
-    <br>
 </div>
-
 @endsection
 
 @section('scripts')

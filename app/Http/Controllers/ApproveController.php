@@ -7,8 +7,10 @@ use App\Models\User;
 use App\Models\approving;
 use Illuminate\Http\Request;
 use App\Models\ApprovalProgress;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Notifications\confimNotification;
 use App\Notifications\ApprovalNotification;
 
 class ApproveController extends Controller
@@ -18,28 +20,39 @@ class ApproveController extends Controller
 
         $userId = auth()->user()->id;
         $userEmail = auth()->user()->email;
-        $approvalForms = ApprovalProgress::where('demandeur_id', $userId)->with('badgeRequest')->get();
 
-        $approver = approving::where('email', $userEmail)->first();
-        
-        if ($approver){
-            $approvalForms = ApprovalProgress::where('approver_id', $approver->id)
+        //Recupere le premier id dans le groupe de donner capturer
+        $demandeurForms = ApprovalProgress::whereIn('id', function ($query){
+            $query->selectRaw('MIN(id)')
+                ->from('approvals_progress')
+                ->groupBy('badge_request_id');
+        })
+            ->where('demandeur_id',$userId)
             ->with('badgeRequest')
             ->get();
-
-            return view('approbation.index', compact("approvalForms")); 
+        
+        $userApprover = approving::where('email', $userEmail)->first();
+        $approverForms = [];
+        
+        if ($userApprover){
+            $approverForms = ApprovalProgress::where('approver_id', $userApprover->id)
+            ->with('badgeRequest')
+            ->get(); 
         }
+        $approvalForms = collect($approverForms)->concat($demandeurForms);
         
         return view('approbation.index', compact("approvalForms"));
     }
     
     public function approve(Request $request, $id){
-
+      
         // Recherche de l'approbation en fonction de l'ID du formulaire
-        $approval = ApprovalProgress::findOrFail($id);
-
+        $approval = ApprovalProgress::where('badge_request_id', $id)
+            ->orderBy('id', 'desc')
+            ->first();
+        
         // Récupération de la dernière entrée liée au formulaire concerné
-        $lastAprroval = ApprovalProgress::where('badge_request_id', $approval->badge_request_id)
+        $lastAprroval = ApprovalProgress::where('badge_request_id', $id)
             ->orderBy('id', 'desc')
             ->first();
 
@@ -66,16 +79,37 @@ class ApproveController extends Controller
 
             $nextApprover->notify(new ApprovalNotification());
         }
+        
+        if ($lastAprroval->step === $approval->total_approvers) {
+            $demandeur = User::find($approval->demandeur_id);
+            $detailUrl = URL::route('approbation.show', $approval->badge_request_id);
+            $demandeur->notify(new confimNotification());
+        }
+        
 
         return redirect()->route('approbation.index');
     }
 
-    public function show($badgeRequestId){
+    public function show($id){
+        
+        // Verifie si l'utilisateur connecté est un approbateur
+        $userApprover = approving::where('email', auth()->user()->email)->first();
 
-        $approval = ApprovalProgress::where('badge_request_id', $badgeRequestId)->firstOrFail();
-        $badgeRequest = $approval->badgeRequest;
+        if ($userApprover) {
+            // Récupérez l'entrée dans la table de liaison ou l'approbateur correspondant à user connecté est associé au formulaire
+            $approval = ApprovalProgress::where('badge_request_id', $id)
+                ->where('approver_id', $userApprover->id)
+                ->first();
+            if ($approval) {
+                $badgeRequest = $approval->badgeRequest;
+            }
+        } else {
+            $approval = ApprovalProgress::where('badge_request_id', $id)
+                ->first();
+            $badgeRequest = $approval->badgeRequest;
+        }
+        $approved = $approval->approved == 1 ? true : false;
 
-        return view('approbation.show', compact("badgeRequest"));
+        return view('approbation.show', compact("badgeRequest","approved"));
     }
-
 }

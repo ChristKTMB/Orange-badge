@@ -3,13 +3,15 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class ApprovalNotification extends Notification
+class confimNotification extends Notification
 {
     use Queueable;
+    protected $badgeRequest;
 
     /**
      * Create a new notification instance.
@@ -17,7 +19,6 @@ class ApprovalNotification extends Notification
     public function __construct()
     {
         //
-       
     }
 
     /**
@@ -35,13 +36,12 @@ class ApprovalNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $url = route('badge.index');
-
+        $url = route('approbation.index');
         return (new MailMessage)
-                    ->subject('Nouvelle demande de badge à approuver')
-                    ->line('Vous avez une nouvelle demande de badge à approuver.')
-                    ->line('Cliquez sur le lien ci-dessous pour vous connecter et voir la demande :')
-                    ->action('Voir la demande', $url );
+                    ->subject("Demande de badge approuvée")
+                    ->line('votre demande de badge a été approuvée')
+                    ->action('Voir les details de la demande', $url)
+                    ->line('Merci pour votre demande.');
     }
 
     /**
