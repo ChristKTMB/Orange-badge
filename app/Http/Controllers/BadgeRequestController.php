@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
 use App\Models\User;
+use Barryvdh\DomPDF\PDF;
 use App\Models\approving;
 use App\Models\BadgeRequest;
 use Illuminate\Http\Request;
 use App\Models\ApprovalProgress;
 use Illuminate\Support\Facades\Auth;
-use Dompdf\Dompdf;
-use Illuminate\Contracts\Config\Repository as Config;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Filesystem\Filesystem;
 use App\Notifications\ApprovalNotification;
+use Illuminate\Contracts\Config\Repository as Config;
+use Illuminate\Contracts\View\Factory as ViewFactory;
 
 class BadgeRequestController extends Controller
 {
@@ -118,7 +118,11 @@ class BadgeRequestController extends Controller
         $pdf = new PDF($dompdf, $config, $filesystem, $view);
         
         // Renvoie le PDF au téléchargement
-        return $pdf->download('badge_request.pdf');
+//    echo $html;
+//    die();
+
+     return $pdf->download('badge_request.pdf');
+       
     }
 }
 

@@ -52,13 +52,11 @@ Mes demandes
                                     @endif
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" href="{{ URL::to('/badgeRequest/pdf') }}">
-                                        <i class="fas fa-file-pdf">
-                                        </i>
-                                    </a>
                                     <a class="btn btn-primary btn-sm" href="{{ route('badge.show', $badgeRequest->id) }}">
-                                        <i class="fas fa-eye">
-                                        </i>
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a class="btn btn-success btn-sm" href="{{ URL::to('/badgeRequest/pdf') }}">
+                                       <i class="fas fa-file-pdf"></i>
                                     </a>
                                 </td>
                             </tr>
