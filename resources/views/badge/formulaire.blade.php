@@ -4,7 +4,7 @@ Formulaire de demande
 @endsection
 @section('content')
 <div class="container">
-    <form action="{{ route('badge.store')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('badge.store')}}" method="POST" onsubmit="return confirmerEnvoi()" enctype="multipart/form-data">
         @csrf
         <div class="col-md-10 container my-0">
             <div class="card card-default">
@@ -154,16 +154,16 @@ Formulaire de demande
                                             <div class="form-group">
                                                 <label for="date_debut">Date début <span class="text-danger">*</span></label>
                                                 <input type="date" class="form-control" id="date_debut"
-                                                    placeholder="" name="date_debut" @required(true)>
+                                                    placeholder="" name="date_debut" min="{{ date('Y-m-d') }}" @required(true)>
                                             </div>
                                             <div class="form-group">
                                                 <label for="date_fin">Date fin <span class="text-danger">*</span></label>
                                                 <input type="date" class="form-control" id="date_fin"
-                                                    placeholder="" name="date_fin" @required(true)>
+                                                    placeholder="" name="date_fin" min="{{ date('Y-m-d') }}" @required(true)>
                                             </div>
                                             <div class="form-group">
                                                 <label for="motivation">Motivation</label>
-                                                <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Votre motivation ..." @required(true)></textarea>
+                                                <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Votre motivation ..." maxlength="400" @required(true)></textarea>
                                             </div>
                                        
                                         <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
@@ -245,6 +245,11 @@ Formulaire de demande
         }
         document.querySelector("#actions .cancel").onclick = function() {
             myDropzone.removeAllFiles(true)
+        }
+
+        // Fonction qui affiche un pop up pour confirmer
+        function confirmerEnvoi() {
+            return confirm("Êtes-vous sûr de vouloir envoyer le formulaire ?");
         }
     </script>
 @endsection

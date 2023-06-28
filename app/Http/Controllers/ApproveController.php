@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\approving;
+use App\Mail\ApproverMail;
 use Illuminate\Http\Request;
+use App\Mail\ConfirmationMail;
 use App\Models\ApprovalProgress;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Notifications\confimNotification;
-use App\Notifications\ApprovalNotification;
 
 class ApproveController extends Controller
 {
@@ -30,14 +30,14 @@ class ApproveController extends Controller
             ->where('demandeur_id',$userId)
             ->with('badgeRequest')
             ->get();
-        
+            
         $userApprover = approving::where('email', $userEmail)->first();
         $approverForms = [];
         
         if ($userApprover){
             $approverForms = ApprovalProgress::where('approver_id', $userApprover->id)
-            ->with('badgeRequest')
-            ->get(); 
+                ->with('badgeRequest')
+                ->get(); 
         }
         $approvalForms = collect($approverForms)->concat($demandeurForms);
         
@@ -76,40 +76,51 @@ class ApproveController extends Controller
             $nextApproval->approved = false;
             $nextApproval->approval_date = Carbon::now();
             $nextApproval->save();
-
-            $nextApprover->notify(new ApprovalNotification());
+            
+            $nextApproverEmail = $nextApprover->email;
+            $detailUrl = URL::route('approbation.show', $approval->badge_request_id);
+            $email = new ApproverMail($detailUrl);
+            Mail::to($nextApproverEmail)->send($email);
         }
         
+        // Condition pour envoyer un mail au demandeur pour lui informer que sa demande a été validé
         if ($lastAprroval->step === $approval->total_approvers) {
             $demandeur = User::find($approval->demandeur_id);
+            $demandeurEmail = $demandeur->email;
             $detailUrl = URL::route('approbation.show', $approval->badge_request_id);
-            $demandeur->notify(new confimNotification());
+            $email = new ConfirmationMail($detailUrl);
+            Mail::to($demandeurEmail)->send($email);
         }
         
-
         return redirect()->route('approbation.index');
     }
 
     public function show($id){
         
-        // Verifie si l'utilisateur connecté est un approbateur
-        $userApprover = approving::where('email', auth()->user()->email)->first();
+        // Verifie si le user est connecté pour affichier le detail de la demande sinon il lui redirige vers la page de connexion
+        if (auth()->check()) {
+            // Verifie si l'utilisateur connecté est un approbateur
+            $userApprover = approving::where('email', auth()->user()->email)->first();
 
-        if ($userApprover) {
-            // Récupérez l'entrée dans la table de liaison ou l'approbateur correspondant à user connecté est associé au formulaire
-            $approval = ApprovalProgress::where('badge_request_id', $id)
-                ->where('approver_id', $userApprover->id)
-                ->first();
-            if ($approval) {
-                $badgeRequest = $approval->badgeRequest;
-            }
+            if ($userApprover) {
+                // Récupérez l'entrée dans la table de liaison ou l'approbateur correspondant à user connecté est associé au formulaire
+                $approval = ApprovalProgress::where('badge_request_id', $id)
+                    ->where('approver_id', $userApprover->id)
+                    ->first();
+                if ($approval) {
+                    $badgeRequest = $approval->badgeRequest;
+                }
         } else {
             $approval = ApprovalProgress::where('badge_request_id', $id)
                 ->first();
             $badgeRequest = $approval->badgeRequest;
         }
-        $approved = $approval->approved == 1 ? true : false;
+            $approved = $approval->approved == 1 ? true : false;
 
-        return view('approbation.show', compact("badgeRequest","approved"));
+            return view('approbation.show', compact("badgeRequest","approved"));
+        } else {
+            
+            return redirect()->guest('login');
+        } 
     }
 }
