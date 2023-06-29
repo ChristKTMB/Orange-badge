@@ -31,7 +31,10 @@ return new class extends Migration
             $table->date('date_debut');
             $table->date('date_fin');
             $table->text('motivation');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

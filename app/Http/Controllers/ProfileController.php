@@ -5,13 +5,16 @@ use App\Models\User;
 use App\Models\Direction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class ProfileController extends Controller
 {
     public function edit($id){
 
         $user = auth()->user();
-        $managers = User::all();
+
+        $usersResponse = Http::get('http://10.143.41.70:8000/promo2/odcapi/?method=getUsers');
+        $managers = json_decode($usersResponse->body());
         $directions = Direction::all();
 
         return view("profile",compact("user", "managers","directions"));

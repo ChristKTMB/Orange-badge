@@ -53,10 +53,9 @@ Profil utilisateur
                         <label for="manager">Manager </label>
                         <select name="manager" id="manager" class="form-control">
                             <option value="">Choisir un manager</option>
-                            @foreach ($managers as $manager)
-                                <option value="{{ $manager->email }}"
-                                    {{ $manager->id === $user->manager_id ? 'selected' : '' }}>
-                                    {{ $manager->name }}
+                            @foreach ($managers->users as $manager)
+                                <option value="{{ $manager->email }}">
+                                    {{ $manager->first_name }} {{ $manager->last_name }}
                                 </option>
                             @endforeach
                         </select>

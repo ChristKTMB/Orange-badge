@@ -84,11 +84,19 @@ class LoginController extends Controller{
                     'email' => $req->user->email,
                     'phone' => $req->user->phone,
                     'password' => Hash::make("password"),
+                    'profil_complete' => false,
                 ]);
             }
             $this->guard()->login($user);
+
+            if (!$user->profil_complete){
+
+                return redirect()->route('profile.edit',auth()->user());
+            }
+
             return $this->sendLoginResponse($request);
         }else{
+
             return $this->sendFailedLoginResponse($request);
         }
     }

@@ -101,6 +101,11 @@ class ApproveController extends Controller
         if (auth()->check()) {
             // Verifie si l'utilisateur connecté est un approbateur
             $userApprover = approving::where('email', auth()->user()->email)->first();
+            
+            $approval = ApprovalProgress::where('badge_request_id', $id)
+                ->first();
+            $badgeRequest = $approval->badgeRequest;
+            $approved = $approval->approved == 1 ? true : false;
 
             if ($userApprover) {
                 // Récupérez l'entrée dans la table de liaison ou l'approbateur correspondant à user connecté est associé au formulaire
@@ -109,13 +114,9 @@ class ApproveController extends Controller
                     ->first();
                 if ($approval) {
                     $badgeRequest = $approval->badgeRequest;
+                    $approved = $approval->approved == 1 ? true : false;
                 }
-        } else {
-            $approval = ApprovalProgress::where('badge_request_id', $id)
-                ->first();
-            $badgeRequest = $approval->badgeRequest;
-        }
-            $approved = $approval->approved == 1 ? true : false;
+            }
 
             return view('approbation.show', compact("badgeRequest","approved"));
         } else {
