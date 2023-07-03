@@ -43,42 +43,55 @@ Formulaire de demande
                                     <!-- your steps content here -->
                                     
                                     <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-                                        <div class="form-group">
-                                            <label for="demandeur_nom">Nom <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="demandeur_nom"
+                                        <div class="form-group row">
+                                            <label for="demandeur_nom" class="col-sm-4 col-form-label">Nom <span class="text-danger">*</span></label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="demandeur_nom"
                                                 placeholder="" name="demandeur_nom" value="{{ $user->name }}" @readonly(true)>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="demandeur_prenom">Prénom <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="demandeur_prenom"
+                                        <div class="form-group row">
+                                            <label for="demandeur_prenom" class="col-sm-4 col-form-label">Prénom <span class="text-danger">*</span></label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="demandeur_prenom"
                                                 placeholder="" name="demandeur_prenom" value="{{ $user->first_name }}" @readonly(true)>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="demandeur_directeur">Direction <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="demandeur_directeur"
+                                        <div class="form-group row">
+                                            <label for="demandeur_directeur" class="col-sm-4 col-form-label">Direction <span class="text-danger">*</span></label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="demandeur_directeur"
                                                 placeholder="" name="demandeur_directeur" value="{{ $user->direction }}" @readonly(true)>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="demandeur_fonction">Fonction <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="demandeur_fonction"
+                                        <div class="form-group row">
+                                            <label for="demandeur_fonction" class="col-sm-4 col-form-label">Fonction <span class="text-danger">*</span></label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="demandeur_fonction"
                                                 placeholder="" name="demandeur_fonction" value="{{ $user->fonction }}" @readonly(true)>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="demandeur_telephone">Numero téléphone <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="demandeur_telephone"
+                                        <div class="form-group row">
+                                            <label for="demandeur_telephone" class="col-sm-4 col-form-label">Numero téléphone <span class="text-danger">*</span></label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="demandeur_telephone"
                                                 placeholder="" name="demandeur_telephone" value="{{ $user->phone }}" @readonly(true)>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="demandeur_matricule">Matricule <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="demandeur_matricule"
+                                        <div class="form-group row">
+                                            <label for="demandeur_matricule" class="col-sm-4 col-form-label">Matricule <span class="text-danger">*</span></label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="demandeur_matricule"
                                                 placeholder="" name="demandeur_matricule" value="{{ $user->matricule }}" @readonly(true)>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="date">Date <span class="text-danger">*</span></label>
-                                            <input type="date" class="form-control" id="date"
+                                        <div class="form-group row">
+                                            <label for="date" class="col-sm-4 col-form-label">Date <span class="text-danger">*</span></label>
+                                            <div class="col-sm-8">
+                                                <input type="date" class="form-control" id="date"
                                                 placeholder="" name="date" value="{{ now()->format('Y-m-d') }}" @readonly(true)>
+                                            </div>
                                         </div>
-                                        
                                         <a class="btn btn-primary" onclick="stepper.next()">Suivant</a>
                                     </div>
                                     {{-- fin de la partie 1 --}}
@@ -86,50 +99,63 @@ Formulaire de demande
                                     <div id="information-part" class="content" role="tabpanel"
                                         aria-labelledby="information-part-trigger">
                                         <div class="form-group">
-                                            <div class="form-group">
-                                                <label for="beneficiaire_nom">Nom <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="beneficiaire_nom"
+                                            <div class="form-group row">
+                                                <label for="beneficiaire_nom" class="col-sm-4 col-form-label">Nom <span class="text-danger">*</span></label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="beneficiaire_nom"
                                                     placeholder="" name="beneficiaire_nom" @required(true)>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="beneficiaire_prenom">Prénom <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="beneficiaire_prenom"
+                                            <div class="form-group row">
+                                                <label for="beneficiaire_prenom" class="col-sm-4 col-form-label">Prénom <span class="text-danger">*</span></label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="beneficiaire_prenom"
                                                     placeholder="" name="beneficiaire_prenom" @required(true)>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="form-group">
-                                                    <label for="beneficiaire_direction">Direction </label>
-                                                    <select name="beneficiaire_direction" id="beneficiaire_direction" class="form-control">
-                                                        <option value="">Choisir une direction</option>
-                                                        @foreach ($directions as $direction)
-                                                            <option value="{{ $direction->nom }}">
-                                                                {{ $direction->nom }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="beneficiaire_fonction">Fonction <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="beneficiaire_fonction"
+                                                <div class="form-group row">
+                                                    <label for="beneficiaire_direction" class="col-sm-4 col-form-label">Direction <span class="text-danger">*</span></label>
+                                                    <div class="col-sm-8">
+                                                        <select name="beneficiaire_direction" id="beneficiaire_direction" class="form-control">
+                                                            <option value="">Choisir une direction</option>
+                                                            @foreach ($directions as $direction)
+                                                                <option value="{{ $direction->nom }}">
+                                                                    {{ $direction->nom }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="beneficiaire_fonction" class="col-sm-4 col-form-label">Fonction <span class="text-danger">*</span></label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="beneficiaire_fonction"
                                                     placeholder="" name="beneficiaire_fonction" @required(true)>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="beneficiaire_telephone">Numero téléphone <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="beneficiaire_telephone"
+                                            <div class="form-group row">
+                                                <label for="beneficiaire_telephone" class="col-sm-4 col-form-label">Numero téléphone <span class="text-danger">*</span></label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="beneficiaire_telephone"
                                                     placeholder="" name="beneficiaire_telephone" @required(true)>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="beneficiaire_employeur">Employeur <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="beneficiaire_employeur"
+                                            <div class="form-group row">
+                                                <label for="beneficiaire_employeur" class="col-sm-4 col-form-label">Employeur <span class="text-danger">*</span></label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="beneficiaire_employeur"
                                                     placeholder="" name="beneficiaire_employeur" @required(true)>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="beneficiaire_matricule">Matricule <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="beneficiaire_matricule"
+                                            <div class="form-group row">
+                                                <label for="beneficiaire_matricule" class="col-sm-4 col-form-label">Matricule <span class="text-danger">*</span></label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="beneficiaire_matricule"
                                                     placeholder="" name="beneficiaire_matricule" @required(true)>
-                                            </div>
-                                            
+                                                </div>
+                                            </div>  
                                         </div>
                                         <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
                                         <a class="btn btn-primary" onclick="stepper.next()">Suivant</a>
@@ -139,33 +165,47 @@ Formulaire de demande
                                     
                                     <div id="complexity-part" class="content" role="tabpanel"
                                         aria-labelledby="complexity-part-trigger">
-                                        
-                                            <div class="form-group">
-                                                <div class="form-group">
-                                                    <label for="categorie_badge">Catégorie de Badge <span class="text-danger">*</span></label>
-                                                    <select id="categorie_badge" name="categorie_badge" class="form-control" @required(true)>
-                                                    <option value=""></option>
-                                                    <option value="Permanent staff">Permanent staff</option>
-                                                    <option value="Consultant">Consultant</option>
-                                                    <option value="Temporaire">Temporaire</option>
-                                                    </select>
+                                            <div class="form-group row">
+                                                    <label for="categorie_badge" class="col-sm-4 col-form-label">Catégorie de Badge <span class="text-danger">*</span></label>
+                                                    <div class="col-sm-8">
+                                                        <select id="categorie_badge" name="categorie_badge" class="form-control" @required(true)>
+                                                            <option value=""></option>
+                                                            <option value="Permanent staff">Permanent staff</option>
+                                                            <option value="Consultant">Consultant</option>
+                                                            <option value="Temporaire">Temporaire</option>
+                                                        </select>
                                                     </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="date_debut">Date début <span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control" id="date_debut"
+                                            <div class="form-group row">
+                                                <label for="date_debut" class="col-sm-4 col-form-label">Date début <span class="text-danger">*</span></label>
+                                                <div class="col-sm-8">
+                                                    <input type="date" class="form-control" id="date_debut"
                                                     placeholder="" name="date_debut" min="{{ date('Y-m-d') }}" @required(true)>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="date_fin">Date fin <span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control" id="date_fin"
+                                            <div class="form-group row">
+                                                <label for="date_fin" class="col-sm-4 col-form-label">Date fin <span class="text-danger">*</span></label>
+                                                <div class="col-sm-8">
+                                                    <input type="date" class="form-control" id="date_fin"
                                                     placeholder="" name="date_fin" min="{{ date('Y-m-d') }}" @required(true)>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="motivation">Motivation</label>
-                                                <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Votre motivation ..." maxlength="400" @required(true)></textarea>
+                                            <div class="form-group row">
+                                                <label for="motivation" class="col-sm-4 col-form-label">Motivation</label>
+                                                <div class="col-sm-8">
+                                                    <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Votre motivation ..." maxlength="400" @required(true)></textarea>
+                                                </div>
                                             </div>
-                                       
+                                            <div class="form-group row">
+                                                <label for="approvers" class="col-sm-4 col-form-label">Les approbateurs</label>
+                                                <div class="col-sm-8">
+                                                    <select name="approvers[]" id="approvers" class="form-control" multiple>
+                                                        @foreach ($approvers as $approver)
+                                                            <option value="{{ $approver->id }}">{{ $approver->id }} {{ $approver->name }} {{ $approver->fonction }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                         <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
                                         <button class="btn btn-success" id="test" type="submit">Envoyé</button>
                                     </div>

@@ -48,7 +48,6 @@ Mes Approbations
                                     <a class="btn btn-primary btn-sm" href="{{ route('approbation.show', $approvalForm->badgeRequest->id) }}">
                                         <i class="fas fa-eye">
                                         </i>
-                                        View
                                     </a>
                                 </td>
                             </tr>

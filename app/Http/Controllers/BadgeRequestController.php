@@ -85,9 +85,12 @@ class BadgeRequestController extends Controller
     }
     
     public function show(int $badgeRequest){
-        $badgeRequest = BadgeRequest::find($badgeRequest);
+        $approval = ApprovalProgress::where('badge_request_id', $badgeRequest)
+                ->first();
+        $badgeRequest = $approval->badgeRequest;
+        $approved = $approval->approved == 1 ? true : false;
 
-        return view('badge.formdetail',compact("badgeRequest"));
+        return view('badge.formdetail',compact("badgeRequest", "approved"));
     }
 
     public function showBadge() {

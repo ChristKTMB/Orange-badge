@@ -35,6 +35,7 @@ class ProfileController extends Controller
         $user->fonction = $data['fonction'];
         $user->matricule = $data['matricule'];
         $user->manager = $data['manager'];
+        $user->profil_complete = true;
         $user->save();
         
         return redirect()->route('historic');
