@@ -135,6 +135,17 @@
                         <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Votre motivation ..." readonly>{{$badgeRequest->motivation}}</textarea>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="approvers" class="col-sm-2 col-form-label">Les approbateurs</label>
+                    <div class="col-sm-10">
+                        <select name="approvers[]" id="approvers" class="form-control" multiple>
+                            <option value=""></option>
+                            @foreach ($approvers as $approver)
+                                <option value="{{ $approver['id'] }}">{{ $approver['id'] }} {{ $approver['name'] }} {{ $approver['fonction'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                     @if ($approved)
                         <div class="alert alert-success">
                             Le formulaire a été validé!

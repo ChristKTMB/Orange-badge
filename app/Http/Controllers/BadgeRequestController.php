@@ -61,8 +61,11 @@ class BadgeRequestController extends Controller
              'motivation' => 'required',
              'user_id',
         ]);
+        $approvers = approving::pluck('id', 'name', 'fonction', 'email');
+        $approversData = json_encode($approvers);
 
         $badgeRequest = new BadgeRequest($data);
+        $badgeRequest->approvers = $approversData;
         $user = Auth::user();
         $badgeRequest->user()->associate($user);
         $badgeRequest->save();
@@ -88,9 +91,10 @@ class BadgeRequestController extends Controller
         $approval = ApprovalProgress::where('badge_request_id', $badgeRequest)
                 ->first();
         $badgeRequest = $approval->badgeRequest;
+        $approvers = approving::all()->toArray();
         $approved = $approval->approved == 1 ? true : false;
 
-        return view('badge.formdetail',compact("badgeRequest", "approved"));
+        return view('badge.formdetail',compact("badgeRequest", "approved","approvers"));
     }
 
     public function showBadge() {

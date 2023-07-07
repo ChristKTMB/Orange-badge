@@ -6,7 +6,8 @@
         <p>Mes demandes</p>
     </a>
 </li>
-@if (auth()->user()->isApprover())
+
+@if (auth()->user()->isApprover() || auth()->user()->role === 'admin')
 <li class="nav-item">
     <a href="{{ route('approbation.index') }}" class="nav-link {{ Request::is('approbation') ? 'active' : '' }}">
         <i class="nav-icon fas fa-tags"></i>
@@ -14,6 +15,8 @@
     </a>
 </li>
 @endif
+
+@if (auth()->user()->role === 'admin')
 <li class="nav-item">
     <a href="#" class="nav-link">
         <i class="nav-icon fas fa-tree"></i>
@@ -36,5 +39,7 @@
             </a>
         </li>
     </ul>
+</li>
+@endif
 
 

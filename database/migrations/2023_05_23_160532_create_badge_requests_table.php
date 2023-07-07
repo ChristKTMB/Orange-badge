@@ -31,6 +31,7 @@ return new class extends Migration
             $table->date('date_debut');
             $table->date('date_fin');
             $table->text('motivation');
+            $table->json('approvers')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
 

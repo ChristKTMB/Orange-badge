@@ -196,12 +196,24 @@ Formulaire de demande
                                                     <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Votre motivation ..." maxlength="400" @required(true)></textarea>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
+                                            {{-- <div class="form-group row">
                                                 <label for="approvers" class="col-sm-4 col-form-label">Les approbateurs</label>
                                                 <div class="col-sm-8">
                                                     <select name="approvers[]" id="approvers" class="form-control" multiple>
                                                         @foreach ($approvers as $approver)
                                                             <option value="{{ $approver->id }}">{{ $approver->id }} {{ $approver->name }} {{ $approver->fonction }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div> --}}
+
+                                            <div class="form-group row">
+                                                <label for="approvers" class="col-sm-4 col-form-label">Les approbateurs</label>
+                                                <div class="col-sm-8">
+                                                    <select name="approvers[]" id="approvers" class="form-control" multiple>
+                                                        <option value=""></option>
+                                                        @foreach ($approvers as $approver)
+                                                            <option value="{{ $approver['id'] }}">{{ $approver['id'] }} {{ $approver['name'] }} {{ $approver['fonction'] }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

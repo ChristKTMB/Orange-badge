@@ -37,8 +37,10 @@ class ApproveController extends Controller
             $approverForms = ApprovalProgress::where('approver_id', $userApprover->id)
                 ->with('badgeRequest')
                 ->get(); 
+            $approvalForms = $approverForms;
+        } else {
+            abort(404);
         }
-        $approvalForms = $approverForms;
         
         return view('approbation.index', compact("approvalForms"));
     }
@@ -90,7 +92,9 @@ class ApproveController extends Controller
             $email = new ConfirmationMail($detailUrl);
             Mail::to($demandeurEmail)->send($email);
         }
-        
+        if (!auth()->user()->isApprover()){
+            return redirect()->route('badge.index'); 
+        }
         return redirect()->route('approbation.index');
     }
 

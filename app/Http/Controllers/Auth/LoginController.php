@@ -67,7 +67,21 @@ class LoginController extends Controller{
     }
 
     public function login(Request $request){
+        
         $this->validateLogin($request);
+        $username = $request->username;
+        $password = $request->password;
+
+        $userAdmin = User::where('username', $username)?->get()->first();
+        
+        if ($userAdmin){
+            if ($userAdmin->role === 'admin' && Hash::check($password, $userAdmin->password)) {
+                $this->guard()->login($userAdmin);
+    
+                return redirect()->route('home');
+            }
+        }
+        
         $req = Http::post('http://10.143.41.70:8000/promo2/odcapi/?method=login', [
             'username' => $request->username,
             'password' => $request->password,
