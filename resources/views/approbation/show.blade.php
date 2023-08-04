@@ -6,6 +6,11 @@
     <div class="card card-warning container">
         <div class="card-body">
             <form>
+                @if ($approved)
+                        <div class="alert alert-success">
+                            Le formulaire a été validé!
+                        </div>
+                @endif
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="card-header">
@@ -69,7 +74,7 @@
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Direction</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_directeur}}" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_direction}}" placeholder="" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -135,14 +140,7 @@
                         <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Votre motivation ..." readonly>{{$badgeRequest->motivation}}</textarea>
                     </div>
                 </div>
-                    @if ($approved)
-                        <div class="alert alert-success">
-                            Le formulaire a été validé!
-                        </div>
-                    @else
-                        <div class="alert alert-secondary">
-                            Veuillez vérifier les détails de la demande et valider s'il le faut!
-                        </div>
+                    @if (!$approved)
                         <a class="btn btn-success" href="{{ route('badge-request.approve', $badgeRequest->id) }}">Validé</a>
                     @endif
             </form>

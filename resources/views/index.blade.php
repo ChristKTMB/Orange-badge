@@ -60,6 +60,9 @@ table, th, td {
         <a class="btn btn-success" href="{{ URL::to('/badgeRequest/pdf') }}">
             <i class="fas fa-file-pdf"></i></a>
     <div class="container">
+        <img src="{{ public_path('images/logo.svg')}}"
+                    class="user-image img-circle elevation-2" alt="User Image">
+        <img src="<?php echo $_SERVER["DOCUMENT_ROOT"].'/resources/images/logo.svg';?>"/>            
         <h2 class="text-center mb-3">FORMULAIRE DE DEMANDE DE BADGE</h2><hr>
         <div class="mb-5">
             <h3>1. Information du demandeur</h3>

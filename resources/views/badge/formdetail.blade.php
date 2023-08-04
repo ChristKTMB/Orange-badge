@@ -69,7 +69,7 @@
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Direction</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_directeur}}" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_direction}}" placeholder="" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -146,16 +146,6 @@
                         </select>
                     </div>
                 </div>
-                    @if ($approved)
-                        <div class="alert alert-success">
-                            Le formulaire a été validé!
-                        </div>
-                    @else
-                        <div class="alert alert-secondary">
-                            Veuillez vérifier les détails de la demande et valider s'il le faut!
-                        </div>
-                        <a class="btn btn-success" href="{{ route('badge-request.approve', $badgeRequest->id) }}">Validé</a>
-                    @endif
             </form>
         </div>
     </div><br>

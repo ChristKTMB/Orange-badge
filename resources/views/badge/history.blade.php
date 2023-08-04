@@ -43,7 +43,7 @@ Mes demandes
                                 <td>{{ $badgeRequest->id }}</td>
                                 <td>{{ $badgeRequest->demandeur_nom }} {{ $badgeRequest->demandeur_prenom }} </td>
                                 <td>{{ $badgeRequest->beneficiaire_nom }}</td>
-                                <td>{{ $badgeRequest->date }}</td>
+                                <td>{{ $badgeRequest->created_at }}</td>
                                 <td>
                                     @if ($badgeRequest->isApproved)
                                         <span class="badge  bg-success">Aprrouvée</span>

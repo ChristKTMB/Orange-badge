@@ -13,6 +13,7 @@ use App\Models\ApprovalProgress;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Filesystem\Filesystem;
+use App\Http\Controllers\ApproveController;
 use App\Notifications\ApprovalNotification;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Contracts\View\Factory as ViewFactory;
@@ -30,7 +31,7 @@ class BadgeRequestController extends Controller
 
         foreach ($badgeRequests as $badgeRequest){
             $latestApproval = ApprovalProgress::where('badge_request_id', $badgeRequest->id)
-            ->latest()
+            ->orderBy('id', 'desc')
             ->first();
            $badgeRequest->isApproved = $latestApproval && $latestApproval->approved; 
         }
@@ -79,6 +80,10 @@ class BadgeRequestController extends Controller
         $approvalsProgress->approved = false; // Le formulaire n'est pas encore approuvé
         $approvalsProgress->approval_date = now();
         $approvalsProgress->save();
+
+        $approve = new ApproveController();
+        $id = $badgeRequest->id;
+        $appouver = $approve->approve($request, $id);
 
         return redirect()->route('badge.index');
     }

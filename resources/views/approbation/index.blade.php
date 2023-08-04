@@ -36,7 +36,7 @@ Mes Approbations
                                 <td>{{ $approvalForm->badgeRequest->id }}</td>
                                 <td>{{ $approvalForm->badgeRequest->demandeur_nom }}</td>
                                 <td>{{ $approvalForm->badgeRequest->beneficiaire_nom }}</td>
-                                <td>{{ $approvalForm->badgeRequest->date }}</td>
+                                <td>{{ $approvalForm->badgeRequest->created_at }}</td>
                                 <td>
                                     @if ($approvalForm->approved)
                                     <span class="badge  bg-success">Validé</span>
