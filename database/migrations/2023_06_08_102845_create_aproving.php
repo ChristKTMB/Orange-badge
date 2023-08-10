@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name'); 
             $table->string('fonction');
             $table->string('email')->unique();
+            $table->boolean('etat')->default(1);
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ class FormulaireController extends Controller
         $user = Auth::user();
         $managers = User::all();
         $directions = Direction::all();
-        $approvers = approving::all()->toArray();
+        $approvers = approving::where('etat', 1)->get()->toArray();
         return view('badge.formulaire', compact('user','managers','directions', 'approvers'));
     }
 }

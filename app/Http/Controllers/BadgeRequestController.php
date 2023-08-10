@@ -63,6 +63,7 @@ class BadgeRequestController extends Controller
              'user_id',
         ]);
         $approvers = approving::pluck('id', 'name', 'fonction', 'email');
+        
         $approversData = json_encode($approvers);
 
         $badgeRequest = new BadgeRequest($data);
@@ -75,7 +76,7 @@ class BadgeRequestController extends Controller
         $approvalsProgress = new ApprovalProgress();
         $approvalsProgress->demandeur_id = Auth::user()->id; // ID de l'utilisateur connecté
         $approvalsProgress->badge_request_id = $badgeRequest->id; // ID du formulaire nouvellement créé
-        $approvalsProgress->total_approvers = approving::count() + 1; // Nombre total d'approbateurs
+        $approvalsProgress->total_approvers = approving::where('etat', 1)->count() + 1; // Nombre total d'approbateurs
         $approvalsProgress->step = 1; // L'utilisateur initiateur doit approuver en premier
         $approvalsProgress->approved = false; // Le formulaire n'est pas encore approuvé
         $approvalsProgress->approval_date = now();

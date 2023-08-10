@@ -24,7 +24,7 @@ class User extends Authenticatable
     }
 
     public function isApprover(){
-        return approving::where('email', $this->email)->exists();
+        return approving::where('email', $this->email)->where('etat', 1)->exists();
     }
 
     /**

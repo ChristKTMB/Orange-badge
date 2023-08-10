@@ -31,7 +31,7 @@ class ApproveController extends Controller
         //     ->with('badgeRequest')
         //     ->get();
             
-        $userApprover = approving::where('email', $userEmail)->first();
+        $userApprover = approving::where('email', $userEmail)->where('etat', 1)->first();
         
         if ($userApprover){
             $approverForms = ApprovalProgress::where('approver_id', $userApprover->id)
@@ -39,7 +39,8 @@ class ApproveController extends Controller
                 ->get(); 
             $approvalForms = $approverForms;
         } else {
-            abort(404);
+            //abort(404);
+            $approvalForms = [];
         }
         
         return view('approbation.index', compact("approvalForms"));
@@ -62,7 +63,16 @@ class ApproveController extends Controller
         $lastAprroval->save();
 
         $nextStep = $lastAprroval->step + 1;
-        $nextApprover_id = $lastAprroval->approver_id + 1;
+
+        if($lastAprroval->approver_id == null) {
+            $nextApprover_id = approving::where('etat', 1)->first()->id;
+        }
+        else {
+            $nextApprover_id = approving::where('etat', 1)
+            ->orderBy('id', 'desc')
+            ->first()->id;
+        }
+        //$nextApprover_id = $lastAprroval->approver_id + 1;
 
         if ($nextStep <= $approval->total_approvers) {
             
