@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('beneficiaire_telephone');
             $table->string('beneficiaire_employeur');
             $table->string('beneficiaire_matricule');
-            $table->enum('categorie_badge', ['Permanent staff', 'Consultant', 'Temporaire']);
+            $table->enum('categorie_badge', ['Permanent staff', 'Consultant', 'Temporaire','Stagiaire','Visiteur']);
             $table->date('date_debut');
             $table->date('date_fin');
             $table->text('motivation');
