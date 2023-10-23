@@ -11,6 +11,11 @@
                             Le formulaire a été validé!
                         </div>
                 @endif
+                @if ($motif != null )
+                    <div class="alert alert-danger">
+                        Le formulaire a été rejeté!
+                    </div>  
+                @endif
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="card-header">
@@ -140,12 +145,61 @@
                         <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Votre motivation ..." readonly>{{$badgeRequest->motivation}}</textarea>
                     </div>
                 </div>
+                <div class="form-group row">
+                    @if ($badgeRequest->upload)
+                    <li><strong>Piece justificatif :</strong> <a href="{{ asset('storage/' . $badgeRequest->upload) }}" target="_blank">Télécharger le document</a></li>
+                    @endif
+                </div>
                     @if (!$approved)
+                        @if ($motif == null )
                         <a class="btn btn-success" href="{{ route('badge-request.approve', $badgeRequest->id) }}">Validé</a>
+                        <a class="btn btn-danger" href="" data-toggle="modal" data-target="#edit-" form="edit-">Rejeté</a>
+                        @endif
                     @endif
             </form>
         </div>
+        <div class="modal fade edit-form" id="edit-">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card card-light">
+                            <div class="card-header">
+                                <h3 class="card-title">Motivation</h3>
+                            </div>
+                            
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('badge-request.rejete', $badgeRequest->id) }}"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="row">
+                                        <div class="col">
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label> Motif <span class="text-red">*</span></label>
+                                                <textarea class="form-control" name="motif" required></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-secondary float-right text-white">Envoyer</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div><br>
+
 @endsection
 
 @section('scripts')

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('badge_requests', function (Blueprint $table) {
             $table->id();
+            $table->string('categorie');
             $table->string('demandeur_nom');
             $table->string('demandeur_prenom');
             $table->string('demandeur_directeur');
@@ -31,9 +32,12 @@ return new class extends Migration
             $table->date('date_debut');
             $table->date('date_fin');
             $table->text('motivation');
+            $table->string('upload', 255)->nullable();
             $table->json('approvers')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
+            
+
 
             $table->foreign('user_id')->references('id')->on('users');
         });

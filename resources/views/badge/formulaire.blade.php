@@ -19,6 +19,7 @@
                         </div>
                     </div>
                     <input type="hidden" name="categorie" id="categorie" value="">
+                    
                     <div class="card card-default">
                         <div class="card-body p-0">
                             <div class="bs-stepper">
@@ -246,7 +247,7 @@
                                                     document</label>
                                                 <div class="col-sm-8">
                                                     <input type="file" class="form-control" id="upload"
-                                                        placeholder="" name="upload" @required(true)>
+                                                        placeholder="" name="upload" >
                                                 </div>
                                             </div>
                                         </div>
@@ -273,11 +274,11 @@
     <script>
         const caseNouvelEmploye = document.getElementById("nouvelEmploye");
         const caseBadgePerdu = document.getElementById("badgePerdu");
-        const sectionNouvelEmploye = document.getElementById("sectionNouvelEmploye");
+        //const sectionNouvelEmploye = document.getElementById("sectionNouvelEmploye");
         const sectionBadgePerdu = document.getElementById("sectionBadgePerdu");
         caseNouvelEmploye.addEventListener("change", function() {
             if (caseNouvelEmploye.checked) {
-                sectionNouvelEmploye.style.display = "block";
+                //sectionNouvelEmploye.style.display = "block";
                 sectionBadgePerdu.style.display = "none";
             } else {
                 sectionNouvelEmploye.style.display = "none";

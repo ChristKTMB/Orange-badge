@@ -40,9 +40,12 @@ Mes Approbations
                                 <td>
                                     @if ($approvalForm->approved)
                                     <span class="badge  bg-success">Validé</span>
+                                    @elseif($approvalForm->motif!=null)
+                                    <span class="badge  bg-danger">Rejeté</span>
                                     @else
                                         <span class="badge  bg-secondary">En attente</span>
                                     @endif
+                                    
                                 </td>
                                 <td>
                                     <a class="btn btn-primary btn-sm" href="{{ route('approbation.show', $approvalForm->badgeRequest->id) }}">

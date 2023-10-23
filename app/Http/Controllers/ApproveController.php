@@ -45,7 +45,24 @@ class ApproveController extends Controller
         
         return view('approbation.index', compact("approvalForms"));
     }
-    
+    public function rejete(Request $request, $id){
+        // Recherche de l'approbation en fonction de l'ID du formulaire
+        $approval = ApprovalProgress::where('badge_request_id', $id)
+            ->orderBy('id', 'desc')
+            ->first();
+            $approval2 = ApprovalProgress::where('badge_request_id', $id)
+            ->first();
+
+        $approval->motif = $request->motif;
+        $approval->approval_date = Carbon::now();
+        $approval->save();
+
+        $approval2->motif = $request->motif;
+        $approval2->save();
+
+        return redirect()->back();
+    }
+
     public function approve(Request $request, $id){
       
         // Recherche de l'approbation en fonction de l'ID du formulaire
@@ -128,10 +145,11 @@ class ApproveController extends Controller
                 if ($approval) {
                     $badgeRequest = $approval->badgeRequest;
                     $approved = $approval->approved == 1 ? true : false;
+                    $motif = $approval->motif;
                 }
             }
 
-            return view('approbation.show', compact("badgeRequest","approved"));
+            return view('approbation.show', compact("badgeRequest","approved","motif"));
         } else {
             
             return redirect()->guest('login');

@@ -23,4 +23,5 @@ Route::resource('profile',ProfileController::class);
 Route::resource('direction',DirectionController::class);
 Route::resource('formulaire',FormulaireController::class);
 Route::get('/badge-request/approve/{approval}', [ApproveController::class, 'approve'])->name('badge-request.approve');
+Route::put('/badge-request/rejete/{approval}', [ApproveController::class, 'rejete'])->name('badge-request.rejete');
 Route::resource('approbation',ApproveController::class);

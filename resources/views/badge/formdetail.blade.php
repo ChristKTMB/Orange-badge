@@ -146,6 +146,11 @@
                         </select>
                     </div>
                 </div>
+                <div>
+                    @if ($badgeRequest->upload)
+                    <li><strong>Piece justificatif :</strong> <a href="{{ asset('storage/' . $badgeRequest->upload) }}" target="_blank">Télécharger le document</a></li>
+                    @endif
+                </div>
             </form>
         </div>
     </div><br>

@@ -35,7 +35,7 @@ class BadgeRequestController extends Controller
             ->first();
            $badgeRequest->isApproved = $latestApproval && $latestApproval->approved; 
         }
-
+        
         return view("badge.history",compact("badgeRequests"));
     }
 
@@ -60,14 +60,27 @@ class BadgeRequestController extends Controller
              'date_debut' => 'required|date',
              'date_fin' => 'required|date',
              'motivation' => 'required',
+             'upload' => 'nullable|mimes:jpeg,png,pdf|max:2048',
              'user_id',
         ]);
+        
+        if ($request->hasFile('upload')) {
+            $file = $request->file('upload');
+            $path = $file->store('uploads', 'public');
+        } else {
+            $path = null;
+        }
+
+        $categorie = $request->typeDemande;
         $approvers = approving::pluck('id', 'name', 'fonction', 'email');
         
         $approversData = json_encode($approvers);
 
+    
         $badgeRequest = new BadgeRequest($data);
         $badgeRequest->approvers = $approversData;
+        $badgeRequest->categorie = $categorie;
+        $badgeRequest->upload = $path;
         $user = Auth::user();
         $badgeRequest->user()->associate($user);
         $badgeRequest->save();
@@ -99,8 +112,9 @@ class BadgeRequestController extends Controller
         $badgeRequest = $approval->badgeRequest;
         $approvers = approving::all()->toArray();
         $approved = $approval->approved == 1 ? true : false;
+        
 
-        return view('badge.formdetail',compact("badgeRequest", "approved","approvers"));
+        return view('badge.formdetail',compact("badgeRequest", "approved","approvers",));
     }
 
     public function showBadge() {
@@ -129,7 +143,7 @@ class BadgeRequestController extends Controller
         
         // Encapsule Dompdf dans une classe helper PDF
         $pdf = new PDF($dompdf, $config, $filesystem, $view);
-        
+      
         // Renvoie le PDF au téléchargement
 //    echo $html;
 //    die();

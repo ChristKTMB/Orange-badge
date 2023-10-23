@@ -29,6 +29,7 @@ class BadgeRequest extends Model
         'date_debut',
         'date_fin',
         'motivation',
+        'upload',
         'user_id',
     ];
 
