@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\approving;
+use App\Models\Approving;
 use App\Models\BadgeRequest;
 use Illuminate\Http\Request;
 use App\Models\ApprovalProgress;
@@ -31,17 +30,21 @@ class RapportController extends Controller
             
         }
     
-        $ApprovalProgress = $query->get();
+        $ApprovalProgress = $query->orderBy('created_at', 'desc')->get();
 
         return view('rapport.index', compact('ApprovalProgress'));
     }
 
     public function show($badgeRequestId)
     {
-        $badgeRequest = BadgeRequest::findOrFail($badgeRequestId);
-        $approvers = approving::all()->toArray();
-
-        return view('rapport.show', compact('badgeRequest','approvers'));
+        $approval = ApprovalProgress::where('badge_request_id', $badgeRequestId)
+                ->first();
+        $badgeRequest = $approval->badgeRequest;
+        $approvers = Approving::all()->toArray();
+        $approved = $approval->approved == 1 ? true : false;
+        $motif = $approval->motif;
+        
+        return view('badge.formdetail',compact("badgeRequest", "approved","approvers","motif"));
     }
 
 }

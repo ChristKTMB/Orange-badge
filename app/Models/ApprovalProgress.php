@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Models\approving;
+use App\Models\Approving;
 use App\Models\BadgeRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -32,7 +32,7 @@ class ApprovalProgress extends Model
 
     public function approver(){
 
-        return $this->belongsTo(approving::class, 'approver_id');
+        return $this->belongsTo(Approving::class, 'approver_id');
     }
 
     public function badgeRequest(){

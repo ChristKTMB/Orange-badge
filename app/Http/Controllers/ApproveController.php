@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\approving;
+use App\Models\Approving;
 use App\Mail\ApproverMail;
 use Illuminate\Http\Request;
 use App\Mail\ConfirmationMail;
@@ -31,7 +31,7 @@ class ApproveController extends Controller
         //     ->with('badgeRequest')
         //     ->get();
             
-        $userApprover = approving::where('email', $userEmail)->where('etat', 1)->first();
+        $userApprover = Approving::where('email', $userEmail)->where('etat', 1)->first();
         
         if ($userApprover){
             $approverForms = ApprovalProgress::where('approver_id', $userApprover->id)
@@ -83,10 +83,10 @@ class ApproveController extends Controller
         $nextStep = $lastAprroval->step + 1;
 
         if($lastAprroval->approver_id == null) {
-            $nextApprover_id = approving::where('etat', 1)->first()->id;
+            $nextApprover_id = Approving::where('etat', 1)->first()->id;
         }
         else {
-            $nextApprover_id = approving::where('etat', 1)
+            $nextApprover_id = Approving::where('etat', 1)
             ->orderBy('id', 'desc')
             ->first()->id;
         }
@@ -94,7 +94,7 @@ class ApproveController extends Controller
 
         if ($nextStep <= $approval->total_approvers) {
             
-            $nextApprover = approving::find($nextApprover_id);
+            $nextApprover = Approving::find($nextApprover_id);
 
             $nextApproval = new ApprovalProgress();
             $nextApproval->demandeur_id = $approval->demandeur_id;
@@ -131,7 +131,7 @@ class ApproveController extends Controller
         // Verifie si le user est connecté pour affichier le detail de la demande sinon il lui redirige vers la page de connexion
         if (auth()->check()) {
             // Verifie si l'utilisateur connecté est un approbateur
-            $userApprover = approving::where('email', auth()->user()->email)->first();
+            $userApprover = Approving::where('email', auth()->user()->email)->first();
             
             $approval = ApprovalProgress::where('badge_request_id', $id)
                 ->first();

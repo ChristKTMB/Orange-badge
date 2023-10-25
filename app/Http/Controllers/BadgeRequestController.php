@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Dompdf\Dompdf;
 use App\Models\User;
 use Barryvdh\DomPDF\PDF;
-use App\Models\approving;
+use App\Models\Approving;
 use App\Models\BadgeRequest;
 use Illuminate\Http\Request;
 use App\Models\ApprovalProgress;
@@ -70,7 +70,7 @@ class BadgeRequestController extends Controller
         }
 
         $categorie = $request->typeDemande;
-        $approvers = approving::pluck('id', 'name', 'fonction', 'email');
+        $approvers = Approving::pluck('id', 'name', 'fonction', 'email');
         
         $approversData = json_encode($approvers);
 
@@ -87,7 +87,7 @@ class BadgeRequestController extends Controller
         $approvalsProgress = new ApprovalProgress();
         $approvalsProgress->demandeur_id = Auth::user()->id; // ID de l'utilisateur connecté
         $approvalsProgress->badge_request_id = $badgeRequest->id; // ID du formulaire nouvellement créé
-        $approvalsProgress->total_approvers = approving::where('etat', 1)->count() + 1; // Nombre total d'approbateurs
+        $approvalsProgress->total_approvers = Approving::where('etat', 1)->count() + 1; // Nombre total d'approbateurs
         $approvalsProgress->step = 1; // L'utilisateur initiateur doit approuver en premier
         $approvalsProgress->approved = false; // Le formulaire n'est pas encore approuvé
         $approvalsProgress->approval_date = now();
@@ -108,7 +108,7 @@ class BadgeRequestController extends Controller
         $approval = ApprovalProgress::where('badge_request_id', $badgeRequest)
                 ->first();
         $badgeRequest = $approval->badgeRequest;
-        $approvers = approving::all()->toArray();
+        $approvers = Approving::all()->toArray();
         $approved = $approval->approved == 1 ? true : false;
         $motif = $approval->motif;
         
