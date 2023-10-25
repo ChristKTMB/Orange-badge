@@ -13,9 +13,9 @@
                         <label for="typeDemande" class="col-sm-4 col-form-label">Catégorie <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-8">
-                            <input type="radio" id="nouvelEmploye" name="typeDemande" value="nouvelEmploye" checked>
-                            Nouvel Employé
-                            <input type="radio" id="badgePerdu" name="typeDemande" value="badgePerdu"> Badge Perdu
+                            <input type="radio" id="nouvelEmploye" name="typeDemande" value="Nouvel employé" checked>
+                            Nouvel employé
+                            <input type="radio" id="badgePerdu" name="typeDemande" value="Badge perdu"> Badge perdu
                         </div>
                     </div>
                     <input type="hidden" name="categorie" id="categorie" value="">

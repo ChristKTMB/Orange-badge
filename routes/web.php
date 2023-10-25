@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\ApprovingExport;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApprovingController;
@@ -30,5 +31,9 @@ Route::resource('approving', ApprovingController::class);
 Route::get('/showBadge', [BadgeRequestController::class, 'showBadge']);
 
 Route::get('/badgeRequest/pdf', [BadgeRequestController::class, 'createPDF'])->name('badge.showBadge');
+
+Route::get('/export-approving', function () {
+    return Excel::download(new ApprovingExport, 'approvers.xlsx');
+});
 
 Auth::routes();

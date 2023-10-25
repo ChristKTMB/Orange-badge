@@ -29,6 +29,12 @@
                 <p>Directions</p>
             </a>
     </li>
+    <li class="nav-item">
+        <a href="{{ route('rapport.index') }}" class="nav-link {{ Request::is('rapport') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-tags"></i>
+            <p>Rapport</p>
+        </a>
+</li>
 @endif
 
 

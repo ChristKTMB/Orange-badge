@@ -11,13 +11,16 @@ Mes Approbations
                     <thead>
                         <tr>
                             <th style="width: 8%">
-                                id
+                                No demande
                             </th>
                             <th style="width: 20%">
                                 Nom demandeur
                             </th>
                             <th style="width: 20%">
                                 Nom beneficiaire
+                            </th>
+                            <th style="width: 20%">
+                                Catégorie
                             </th>
                             <th style="width: 20%">
                                 Date de démande
@@ -36,6 +39,7 @@ Mes Approbations
                                 <td>{{ $approvalForm->badgeRequest->id }}</td>
                                 <td>{{ $approvalForm->badgeRequest->demandeur_nom }}</td>
                                 <td>{{ $approvalForm->badgeRequest->beneficiaire_nom }}</td>
+                                <td>{{ $approvalForm->badgeRequest->categorie }}</td>
                                 <td>{{ $approvalForm->badgeRequest->created_at }}</td>
                                 <td>
                                     @if ($approvalForm->approved)

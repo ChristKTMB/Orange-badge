@@ -6,6 +6,17 @@
     <div class="card card-warning container">
         <div class="card-body">
             <form>
+                @if ($motif != null )
+                    <div class="alert alert-danger">
+                        Le formulaire a été rejeté!
+                    </div>
+                    <div class="form-group row">
+                        <label for="motivation" class="col-sm-2 col-form-label" style="color: red;">Motif du rejet</label>
+                        <div class="col-sm-10">
+                            <textarea id="motivation" name="motif" class="form-control" rows="2" placeholder="" style="border: 2px solid red;" readonly>{{$motif}}</textarea>
+                        </div>
+                    </div>  
+                @endif
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="card-header">
@@ -102,10 +113,7 @@
                         <label for="categorie_badge" class="col-sm-2 col-form-label">Catégorie de Badge </label>
                         <div class="col-sm-10">
                             <select id="categorie_badge" name="categorie_badge" class="form-control" readonly>
-                                <option value=""></option>
-                                <option value="Permanent staff" {{$badgeRequest->categorie_badge == 'Permanent staff' ? 'selected' : ''}}> Permanent staff</option>
-                                <option value="Consultant" {{$badgeRequest->categorie_badge == 'Consultant' ? 'selected' : ''}}> Consultant</option>
-                                <option value="Temporaire" {{$badgeRequest->categorie_badge == 'Temporaire' ? 'selected' : ''}}> Temporaire</option>
+                                <option value="">{{$badgeRequest->categorie_badge}}</option>
                             </select>
                         </div>       
                 </div>
@@ -132,13 +140,13 @@
                 <div class="form-group row">
                     <label for="motivation" class="col-sm-2 col-form-label">Motivation</label>
                     <div class="col-sm-10">
-                        <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Votre motivation ..." readonly>{{$badgeRequest->motivation}}</textarea>
+                        <textarea id="motivation" name="motivation" class="form-control" rows="2" placeholder="Votre motivation ..." readonly>{{$badgeRequest->motivation}}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="approvers" class="col-sm-2 col-form-label">Les approbateurs</label>
                     <div class="col-sm-10">
-                        <select name="approvers[]" id="approvers" class="form-control" multiple>
+                        <select name="approvers[]" id="approvers" class="form-control" multiple rows="2">
                             <option value=""></option>
                             @foreach ($approvers as $approver)
                                 <option value="{{ $approver['id'] }}">{{ $approver['id'] }} {{ $approver['name'] }} {{ $approver['fonction'] }}</option>

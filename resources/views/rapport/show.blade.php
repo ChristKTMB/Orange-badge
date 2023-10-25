@@ -6,16 +6,6 @@
     <div class="card card-warning container">
         <div class="card-body">
             <form>
-                @if ($approved)
-                        <div class="alert alert-success">
-                            Le formulaire a été validé!
-                        </div>
-                @endif
-                @if ($motif != null )
-                    <div class="alert alert-danger">
-                        Le formulaire a été rejeté!
-                    </div>  
-                @endif
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="card-header">
@@ -112,7 +102,10 @@
                         <label for="categorie_badge" class="col-sm-2 col-form-label">Catégorie de Badge </label>
                         <div class="col-sm-10">
                             <select id="categorie_badge" name="categorie_badge" class="form-control" readonly>
-                                <option value="">{{$badgeRequest->categorie_badge}}</option>
+                                <option value=""></option>
+                                <option value="Permanent staff" {{$badgeRequest->categorie_badge == 'Permanent staff' ? 'selected' : ''}}> Permanent staff</option>
+                                <option value="Consultant" {{$badgeRequest->categorie_badge == 'Consultant' ? 'selected' : ''}}> Consultant</option>
+                                <option value="Temporaire" {{$badgeRequest->categorie_badge == 'Temporaire' ? 'selected' : ''}}> Temporaire</option>
                             </select>
                         </div>       
                 </div>
@@ -139,73 +132,28 @@
                 <div class="form-group row">
                     <label for="motivation" class="col-sm-2 col-form-label">Motivation</label>
                     <div class="col-sm-10">
-                        <textarea id="motivation" name="motivation" class="form-control" rows="2" placeholder="Votre motivation ..." readonly>{{$badgeRequest->motivation}}</textarea>
+                        <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Votre motivation ..." readonly>{{$badgeRequest->motivation}}</textarea>
                     </div>
                 </div>
-                @if ($motif ==! null )
                 <div class="form-group row">
-                    <label for="motivation" class="col-sm-2 col-form-label" style="color: red;">Motif du rejet</label>
+                    <label for="approvers" class="col-sm-2 col-form-label">Les approbateurs</label>
                     <div class="col-sm-10">
-                        <textarea id="motivation" name="motif" class="form-control" rows="2" placeholder="" style="border: 2px solid red;" readonly>{{$motif}}</textarea>
+                        <select name="approvers[]" id="approvers" class="form-control" multiple>
+                            <option value=""></option>
+                            @foreach ($approvers as $approver)
+                                <option value="{{ $approver['id'] }}">{{ $approver['id'] }} {{ $approver['name'] }} {{ $approver['fonction'] }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-                @endif
-                <div class="form-group row">
+                <div>
                     @if ($badgeRequest->upload)
                     <li><strong>Piece justificatif :</strong> <a href="{{ asset('storage/' . $badgeRequest->upload) }}" target="_blank">Télécharger le document</a></li>
                     @endif
                 </div>
-                
-                    @if (!$approved)
-                        @if ($motif == null )
-                        <a class="btn btn-success" href="{{ route('badge-request.approve', $badgeRequest->id) }}">Validé</a>
-                        <a class="btn btn-danger" href="" data-toggle="modal" data-target="#edit-" form="edit-">Rejeté</a>
-                        @endif
-                    @endif
             </form>
         </div>
-        <div class="modal fade edit-form" id="edit-">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="card card-light">
-                            <div class="card-header">
-                                <h3 class="card-title">Motivation</h3>
-                            </div>
-                            
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <form method="POST" action="{{ route('badge-request.rejete', $badgeRequest->id) }}"
-                                    enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="row">
-                                        <div class="col">
-                                            <!-- text input -->
-                                            <div class="form-group">
-                                                <label> Motif <span class="text-red">*</span></label>
-                                                <textarea class="form-control" name="motif" required></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-secondary float-right text-white">Envoyer</button>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div><br>
-
 @endsection
 
 @section('scripts')

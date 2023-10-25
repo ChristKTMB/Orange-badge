@@ -26,16 +26,14 @@ class BadgeRequestController extends Controller
     }
 
     public function index(){
-        $user = Auth::user()->id;
-        $badgeRequests = BadgeRequest::all()->where("user_id",$user);
 
-        foreach ($badgeRequests as $badgeRequest){
-            $latestApproval = ApprovalProgress::where('badge_request_id', $badgeRequest->id)
-            ->orderBy('id', 'desc')
-            ->first();
-           $badgeRequest->isApproved = $latestApproval && $latestApproval->approved; 
-        }
-        
+        $user = Auth::user();
+        $badgeRequests = ApprovalProgress::where("demandeur_id", $user->id)
+            ->where("approver_id", null)
+            ->with('badgeRequest')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view("badge.history",compact("badgeRequests"));
     }
 
@@ -112,9 +110,10 @@ class BadgeRequestController extends Controller
         $badgeRequest = $approval->badgeRequest;
         $approvers = approving::all()->toArray();
         $approved = $approval->approved == 1 ? true : false;
+        $motif = $approval->motif;
         
 
-        return view('badge.formdetail',compact("badgeRequest", "approved","approvers",));
+        return view('badge.formdetail',compact("badgeRequest", "approved","approvers","motif"));
     }
 
     public function showBadge() {

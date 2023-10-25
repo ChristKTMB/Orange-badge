@@ -36,6 +36,7 @@ class ApproveController extends Controller
         if ($userApprover){
             $approverForms = ApprovalProgress::where('approver_id', $userApprover->id)
                 ->with('badgeRequest')
+                ->orderBy('created_at', 'desc')
                 ->get(); 
             $approvalForms = $approverForms;
         } else {
