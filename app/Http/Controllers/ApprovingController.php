@@ -1,16 +1,19 @@
 <?php
 namespace App\Http\Controllers;
+use App\Models\User;
 use App\Models\Approving;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class ApprovingController extends Controller
 {
     public function index()
-    {
-        $results = Approving::where('etat', 1)->get(); // Récupère toutes les approbations dans la base de données
+    {   
+                $results = Approving::where('etat', 1)->get(); // Récupère toutes les approbations dans la base de données
         return view('approving.index', compact('results')); // Affiche la vue index avec les données récupérées
     }
 
+    
     public function create()
     {
         return view('approving.create'); // Affiche la vue create pour permettre à l'utilisateur de soumettre les données d'approbation
@@ -20,15 +23,28 @@ class ApprovingController extends Controller
     {
         // Itère sur les données soumises et les enregistre dans la base de données
         foreach ($request->data as $key => $value) {
-        $approving = new Approving; // Crée une nouvelle instance de l'objet Approving
-        $approving->name = $value ['name']; // Enregistre le nom de l'approbateur
-        $approving->fonction = $value ['function']; // Enregistre la fonction de l'approbateur
-        $approving->email = $value ['email']; // Enregistre l'email de l'approbateur
-        $approving->save(); // Enregistre l'approbateur dans la base de données
+            try{
+            
+                $approving = new Approving; // Crée une nouvelle instance de l'objet Approving
+                $approving->name = $value ['name']; // Enregistre le nom de l'approbateur
+                $approving->fonction = $value ['function']; // Enregistre la fonction de l'approbateur
+                $approving->email = $value ['email']; // Enregistre l'email de l'approbateur
+                $approving->save(); // Enregistre l'approbateur dans la base de données  
+            } catch (QueryException $e){
+                if ($e->errorInfo[1] === 1062) {
+                    $existingApproving = Approving::where('email', $value['email'])->first();
+                    if ($existingApproving) {
+                        $existingApproving->name = $value['name'];
+                        $existingApproving->fonction = $value['function'];
+                        $existingApproving->etat = true;
+                        $existingApproving->save();
+                    }
+                }
+            }
         }
+        
         return redirect('/approving')
         ->with('success', 'Les approbations ont été enregistrées avec succès.'); // Redirige l'utilisateur vers la page précédente avec un message de succès
-        
     }
 
     public function confirmDelete()

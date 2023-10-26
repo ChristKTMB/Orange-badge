@@ -20,16 +20,6 @@ class ApproveController extends Controller
 
         $userId = auth()->user()->id;
         $userEmail = auth()->user()->email;
-
-        //Recupere le premier id dans le groupe de donner capturer
-        // $demandeurForms = ApprovalProgress::whereIn('id', function ($query){
-        //     $query->selectRaw('MIN(id)')
-        //         ->from('approvals_progress')
-        //         ->groupBy('badge_request_id');
-        // })
-        //     ->where('demandeur_id',$userId)
-        //     ->with('badgeRequest')
-        //     ->get();
             
         $userApprover = Approving::where('email', $userEmail)->where('etat', 1)->first();
         

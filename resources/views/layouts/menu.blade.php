@@ -25,19 +25,19 @@
     </li>
     <li class="nav-item">
         <a href="{{ route('direction.index') }}" class="nav-link {{ Request::is('direction') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-receipt"></i>
+            <i class="nav-icon fas fa-home"></i>
             <p>Directions</p>
         </a>
     </li>
     <li class="nav-item">
         <a href="{{ route('rapport.index') }}" class="nav-link {{ Request::is('rapport') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-tags"></i>
+            <i class="nav-icon fas fa-file-alt"></i>
             <p>Rapport</p>
         </a>
     </li>
     <li class="nav-item">
         <a href="{{ route('user.index') }}" class="nav-link {{ Request::is('user') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-tags"></i>
+            <i class="nav-icon fas fa-users-cog"></i>
             <p>Utilisateurs</p>
         </a>
     </li>
