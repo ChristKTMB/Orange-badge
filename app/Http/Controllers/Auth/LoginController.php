@@ -101,10 +101,13 @@ class LoginController extends Controller{
                     'profil_complete' => false,
                 ]);
             }
-            $this->guard()->login($user);
+            if($user->status === 1){
+                $this->guard()->login($user);
+            }else{
+                return $this->sendFailedLoginResponse($request);
+            }
 
             if (!$user->profil_complete){
-
                 return redirect()->route('profile.edit',auth()->user());
             }
 

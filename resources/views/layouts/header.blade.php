@@ -12,7 +12,7 @@
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                 <img src="{{Vite::asset('resources/images/logo.svg')}}"
                     class="user-image img-circle elevation-2" alt="User Image">
-                <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                <span class="d-none d-md-inline">{{ Auth::user()->username }}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <!-- User image -->
@@ -21,8 +21,8 @@
                         class="img-circle elevation-2" alt="User Image">
                     @if(Auth::user())
                     <p>
-                        {{ Auth::user()->name }}
-                        <small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small>
+                        {{ Auth::user()->username }}
+                        <small>Membre depuis {{ Auth::user()->created_at->format('M. Y') }}</small>
                     </p>
                     @endif
                 </li>
@@ -31,7 +31,7 @@
                     <a href="{{ route('profile.edit',auth()->user()) }}" class="btn btn-default btn-flat">Profile</a>
                     <a href="" class="btn btn-default btn-flat float-right"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Sign out
+                        Se déconnecté
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
