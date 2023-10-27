@@ -9,15 +9,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
     <style>
-        table,
-        th,
-        td {
+        table {
             border: 1px solid black;
             border-collapse: collapse;
         }
 
+        h4 {
+            background-color: #e8842b;
+            color: #000000;
+            padding: 5px;
+            margin: 0;
+        }
+
         * body {
             font-family: sans-serif;
+            font-size: 13px;
             margin: 0;
             padding: 0;
         }
@@ -33,9 +39,20 @@
             margin-top: 0;
         }
 
+        .mb-6 {
+            margin-bottom: 15px;
+        }
+
+        #motivation {
+            min-height: 500px !important;
+            "
+
+        }
+
         table th,
         table td {
             padding: 5px;
+            width: 50px !important;
             border: 1px solid #000 !important;
         }
 
@@ -45,7 +62,8 @@
         }
 
         table td {
-            text-align: center;
+            text-align: left;
+
         }
 
         p {
@@ -64,6 +82,16 @@
             width: 100%;
             border-color: #000;
         }
+
+
+        #footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+
+        }
     </style>
 </head>
 
@@ -73,72 +101,114 @@
             <i class="fas fa-file-pdf"></i></a>
         <div class="container">
             <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDMwIDMwIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTk4IC0zMDEpIj48cmVjdCB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE5OCAzMDEpIiBmaWxsPSIjZmY3OTAwIi8+PHJlY3Qgd2lkdGg9IjIxLjQ5NyIgaGVpZ2h0PSI0LjI5OSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjAyLjMgMzIyLjQwMSkiIGZpbGw9IiNmZmYiLz48L2c+PC9zdmc+"
-                class="user-image img-circle elevation-2" alt="User Image" width="50px" height="50px"/>
+                class="user-image img-circle elevation-2" alt="User Image" width="50px" height="50px" />
 
             <h2 class="text-center mb-3">FORMULAIRE DE DEMANDE DE BADGE</h2>
             <div class="containerh1">
                 <div class="row">
-                    <div class="col-md-2"> <!-- Ce div occupe 20% de la largeur -->
-                        <p>Demande numero: {{ $badgeRequest[0]['id'] }}</p>
+                    <div class="col-md-2">
+                        <p>Demande numero: {{ $badgeRequest->id }}</p>
                     </div>
-                    <div class="col-md-10"> <!-- Ce div occupe 80% de la largeur -->
-                        <p>Categorie: {{ $badgeRequest[0]['categorie'] }}</p>
+                    <div class="col-md-10">
+                        <p>Categorie: {{ $badgeRequest->categorie }}</p>
                     </div>
                 </div>
-            </div>
-            <hr style="border-color: rgb(255, 107, 1); border-width: 2px;">
+            </div><br>
             <div class="mb-6">
-                <h3>1. Information du demandeur</h3>
-                <table class="table">
+                <h4>INFORMATION DU DEMANDEUR</h4>
+                <table class="table form-table">
                     <tbody>
                         <tr>
+                            <th>
+                                <p>Nom et prenom</p>
+                            </th>
                             <td>
-                                <p>Nom :</p>
+                                <p>{{ $badgeRequest->demandeur_nom }} {{ $badgeRequest->demandeur_prenom }}</p>
                             </td>
+                            <th>
+                                <p>Téléphone </p>
+                            </th>
                             <td>
-                                <p>{{ $badgeRequest[0]['demandeur_nom'] }}</p>
-                            </td>
-                            <td>
-                                <p>Téléphone :</p>
-                            </td>
-                            <td>
-                                <p>{{ $badgeRequest[0]['demandeur_telephone'] }}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Prenom :</p>
-                            </td>
-                            <td>
-                                <p>{{ $badgeRequest[0]['demandeur_prenom'] }}</p>
-                            </td>
-                            <td>
-                                <p>Matricule :</p>
-                            </td>
-                            <td>
-                                <p>{{ $badgeRequest[0]['demandeur_matricule'] }}</p>
+                                <p>{{ $badgeRequest->demandeur_telephone }}</p>
                             </td>
                         </tr>
                         <tr>
+                            <th>
+                                <p>Fonction </p>
+                            </th>
                             <td>
-                                <p>Directeur :</p>
+                                <p>{{ $badgeRequest->demandeur_fonction }}</p>
                             </td>
+                            <th>
+                                <p>Matricule </p>
+                            </th>
                             <td>
-                                <p>{{ $badgeRequest[0]['demandeur_directeur'] }}</p>
-                            </td>
-                            <td>
-                                <p>Date :</p>
-                            </td>
-                            <td>
-                                <p>{{ $badgeRequest[0]['date'] }}</p>
+                                <p>{{ $badgeRequest->demandeur_matricule }}</p>
                             </td>
                         </tr>
                         <tr>
+                            <th>
+                                <p>Direction </p>
+                            </th>
                             <td>
-                                <p>Fonction :</p>
+                                <p>{{ $badgeRequest->demandeur_directeur }}</p>
                             </td>
-                            <td colspan="3">
-                                <p>{{ $badgeRequest[0]['demandeur_fonction'] }}</p>
+                            <th>
+                                <p>Date </p>
+                            </th>
+                            <td>
+                                <p>{{ $badgeRequest->date }}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="mb-6">
+                <h4>INFORMATION DU DEMANDEUR</h4>
+                <table class="table form-table">
+                    <tbody>
+                        <tr>
+                            <th>
+                                <p>Nom et prenom</p>
+                            </th>
+                            <td>
+                                <p>{{ $badgeRequest->beneficiaire_nom }} {{ $badgeRequest->beneficiaire_prenom }}</p>
+                            </td>
+                            <th>
+                                <p>Téléphone </p>
+                            </th>
+                            <td>
+                                <p>{{ $badgeRequest->beneficiaire_telephone }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>Fonction </p>
+                            </th>
+                            <td>
+                                <p>{{ $badgeRequest->beneficiaire_fonction }}</p>
+                            </td>
+                            <th>
+                                <p>Matricule </p>
+                            </th>
+                            <td>
+                                <p>{{ $badgeRequest->beneficiaire_matricule }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>Direction </p>
+                            </th>
+                            <td>
+                                <p>{{ $badgeRequest->beneficiaire_direction }}</p>
+                            </td>
+                            <th>
+                                <p>Manager </p>
+                            </th>
+                            <td>
+                                <p>{{ $badgeRequest->beneficiaire_employeur }}</p>
                             </td>
                         </tr>
                     </tbody>
@@ -146,66 +216,8 @@
             </div>
 
             <div class="mb-6">
-                <h3>2. Information du bénéficiaire</h3>
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <p>Nom :</p>
-                            </td>
-                            <td>
-                                <p>{{ $badgeRequest[0]['beneficiaire_nom'] }}</p>
-                            </td>
-                            <td>
-                                <p>Téléphone :</p>
-                            </td>
-                            <td>
-                                <p>{{ $badgeRequest[0]['beneficiaire_telephone'] }}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Prenom :</p>
-                            </td>
-                            <td>
-                                <p>{{ $badgeRequest[0]['beneficiaire_prenom'] }}</p>
-                            </td>
-                            <td>
-                                <p>Matricule :</p>
-                            </td>
-                            <td>
-                                <p>{{ $badgeRequest[0]['beneficiaire_matricule'] }}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Direction :</p>
-                            </td>
-                            <td>
-                                <p>{{ $badgeRequest[0]['beneficiaire_direction'] }}</p>
-                            </td>
-                            <td>
-                                <p>Employeur :</p>
-                            </td>
-                            <td>
-                                <p>{{ $badgeRequest[0]['beneficiaire_employeur'] }}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Fonction :</p>
-                            </td>
-                            <td colspan="3">
-                                <p>{{ $badgeRequest[0]['beneficiaire_fonction'] }}</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="mb-6">
-                <h3>3. Catégorie de badge</h3>
-                <table class="table table-bordered">
+                <h4>CATEGORIE DU BADGE</h4>
+                <table class="table form-table">
                     <thead>
                         <tr>
                             <th>Catégorie de badge</th>
@@ -215,45 +227,58 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ $badgeRequest[0]['categorie_badge'] }}</td>
-                            <td>{{ $badgeRequest[0]['date_debut'] }}</td>
-                            <td>{{ $badgeRequest[0]['date_fin'] }}</td>
+                            <td>{{ $badgeRequest->categorie_badge }}</td>
+                            <td>{{ $badgeRequest->date_debut }}</td>
+                            <td>{{ $badgeRequest->date_fin }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <div class="mb-6">
-                <h3>4. Motivation</h3>
-                <table class="table">
+                <h4>MOTIVATION</h4>
+                <table class="table form-table">
                     <tbody>
                         <tr>
-                            <td style="min-height: 100px !important;">
-                                <p>{{ $badgeRequest[0]['motivation'] }}</p>
+                            <td id="motivation">
+                                <p style="height: 100px">{{ $badgeRequest->motivation }}</p>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-            </div><br>
-
-            <div class="mb-6">
+            </div>
+            <div id="footer">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th style="height: 50px;">Demandeur<br>(Date et signature)</th>
-                            <th style="height: 50px;">Responsable RH<br>(Date et signature)</th>
-                            <th>Responsable sécurité<br>(Date et signature)</th>
+                            <th style="height: 50px; 
+                                text-align: center;">
+                                Demandeur<br>(Date et signature)</th>
+                            <th style="height: 50px;
+                                text-align: center;">Responsable
+                                RH<br>(Date et signature)</th>
+                            <th style="height: 50px;
+                                text-align: center;">Responsable
+                                sécurité<br>(Date et signature)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="height: 50px;"></td>
-                            <td style="height: 50px;"></td>
-                            <td></td>
+                            <td style="height: 50px;">
+                                <p>{{ $badgeRequest->demandeur_nom }}</p>
+                            </td>
+                            <td style="height: 50px;">
+                                <p></p>
+                            </td>
+                            <td>
+                                <p></p>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
+
         </div>
     </div>
     <script src="{{ asset('js/app.js') }}" type="text/js"></script>

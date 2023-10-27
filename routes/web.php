@@ -30,7 +30,7 @@ Route::resource('approving', ApprovingController::class);
 
 Route::get('/showBadge', [BadgeRequestController::class, 'showBadge']);
 
-Route::get('/badgeRequest/pdf', [BadgeRequestController::class, 'createPDF'])->name('badge.showBadge');
+Route::get('generate-pdf/{badgeRequest}', [BadgeRequestController::class, 'createPDF'])->name('badge.showBadgePDF');
 
 Route::get('/export-approving', function () {
     return Excel::download(new ApprovingExport, 'approvers.xlsx');

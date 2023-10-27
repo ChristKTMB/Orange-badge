@@ -63,7 +63,7 @@
                                     <a class="btn btn-primary btn-sm" href="{{ route('badge.show', $badgeRequest->badge_request_id) }}">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a class="btn btn-success btn-sm" href="{{ URL::to('/badgeRequest/pdf') }}">
+                                    <a class="btn btn-success btn-sm" href="{{ route('badge.showBadgePDF', $badgeRequest->badge_request_id) }}">
                                         <i class="fas fa-file-pdf"></i>
                                     </a>
                                 </td>

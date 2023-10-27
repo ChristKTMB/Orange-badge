@@ -97,10 +97,8 @@
         </thead>
         <tbody>
             @foreach ($results as $approving)
-            {{$i = 1}}
-            {{$i ++}}
                 <tr>
-                    <td>{{ $approving->i }}</td>
+                    <td>{{ $approving->id }}</td>
                     <td>{{ $approving->name }}</td>
                     <td>{{ $approving->fonction }}</td>
                     <td>{{ $approving->email }}</td>

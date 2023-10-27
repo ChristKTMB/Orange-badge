@@ -121,15 +121,9 @@ class BadgeRequestController extends Controller
         return view('index', compact('badgeRequest'));
     }
 
-    public function createPDF() {
-        // Récupère les demandes de badge de l'utilisateur authentifié
-        $badgeRequest = BadgeRequest::where('user_id', Auth::user()->id)->get();
-        
-        // Convertit le résultat en array
-        $badgeRequestArray = $badgeRequest->toArray();
-        
+    public function createPDF(BadgeRequest $badgeRequest) {
         // Passe l'array à la vue Blade index
-        $html = view('index', ['badgeRequest' => $badgeRequestArray])->render();
+        $html = view('index', ['badgeRequest' => $badgeRequest])->render();
         
         // Utilise Dompdf pour convertir le HTML en PDF
         $dompdf = new Dompdf();
