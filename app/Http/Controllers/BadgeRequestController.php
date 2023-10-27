@@ -70,11 +70,12 @@ class BadgeRequestController extends Controller
         }
 
         $categorie = $request->typeDemande;
-        $approvers = Approving::pluck('id', 'name', 'fonction', 'email');
-        
-        $approversData = json_encode($approvers);
+        $approvers = Approving::where('etat', 1)
+            ->select('id', 'name', 'fonction', 'email')
+            ->get();
 
-    
+        $approversData = json_encode($approvers);
+        
         $badgeRequest = new BadgeRequest($data);
         $badgeRequest->approvers = $approversData;
         $badgeRequest->categorie = $categorie;
@@ -106,9 +107,10 @@ class BadgeRequestController extends Controller
     
     public function show(int $badgeRequest){
         $approval = ApprovalProgress::where('badge_request_id', $badgeRequest)
+                ->with('badgeRequest')
                 ->first();
         $badgeRequest = $approval->badgeRequest;
-        $approvers = Approving::all()->toArray();
+        $approvers = json_decode($badgeRequest->approvers, true);
         $approved = $approval->approved == 1 ? true : false;
         $motif = $approval->motif;
         

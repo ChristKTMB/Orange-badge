@@ -6,16 +6,17 @@
     <div class="card card-warning container">
         <div class="card-body">
             <form>
-                @if ($motif != null )
+                @if ($motif != null)
                     <div class="alert alert-danger">
                         Le formulaire a été rejeté!
                     </div>
                     <div class="form-group row">
                         <label for="motivation" class="col-sm-2 col-form-label" style="color: red;">Motif du rejet</label>
                         <div class="col-sm-10">
-                            <textarea id="motivation" name="motif" class="form-control" rows="2" placeholder="" style="border: 2px solid red;" readonly>{{$motif}}</textarea>
+                            <textarea id="motivation" name="motif" class="form-control" rows="2" placeholder="" style="border: 2px solid red;"
+                                readonly>{{ $motif }}</textarea>
                         </div>
-                    </div>  
+                    </div>
                 @endif
                 <div class="row">
                     <div class="col-sm-6">
@@ -26,37 +27,43 @@
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Nom</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->demandeur_nom}}" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{ $badgeRequest->demandeur_nom }}"
+                                    placeholder="" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Prenom</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->demandeur_prenom}}" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{ $badgeRequest->demandeur_prenom }}"
+                                    placeholder="" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Direction</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->demandeur_directeur}}" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{ $badgeRequest->demandeur_directeur }}"
+                                    placeholder="" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Fonction</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->demandeur_fonction}}" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{ $badgeRequest->demandeur_fonction }}"
+                                    placeholder="" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Numero telephone</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->demandeur_telephone}}" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{ $badgeRequest->demandeur_telephone }}"
+                                    placeholder="" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Matricule</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->demandeur_matricule}}" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{ $badgeRequest->demandeur_matricule }}"
+                                    placeholder="" readonly>
                             </div>
                         </div>
                     </div>
@@ -68,62 +75,69 @@
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Nom</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_nom}}" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{ $badgeRequest->beneficiaire_nom }}"
+                                    placeholder="" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Prenom</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_prenom}}" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{ $badgeRequest->beneficiaire_prenom }}"
+                                    placeholder="" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Direction</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_direction}}" placeholder="" readonly>
+                                <input type="text" class="form-control"
+                                    value="{{ $badgeRequest->beneficiaire_direction }}" placeholder="" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Fonction</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_fonction}}" placeholder="" readonly>
+                                <input type="text" class="form-control"
+                                    value="{{ $badgeRequest->beneficiaire_fonction }}" placeholder="" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Numero telephone</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_telephone}}" placeholder="" readonly>
+                                <input type="text" class="form-control"
+                                    value="{{ $badgeRequest->beneficiaire_telephone }}" placeholder="" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Employeur</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_employeur}}" placeholder="" readonly>
+                                <input type="text" class="form-control"
+                                    value="{{ $badgeRequest->beneficiaire_employeur }}" placeholder="" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Matricule</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="{{$badgeRequest->beneficiaire_matricule}}" placeholder="" readonly>
+                                <input type="text" class="form-control"
+                                    value="{{ $badgeRequest->beneficiaire_matricule }}" placeholder="" readonly>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group row">
-                        <label for="categorie_badge" class="col-sm-2 col-form-label">Catégorie de Badge </label>
-                        <div class="col-sm-10">
-                            <select id="categorie_badge" name="categorie_badge" class="form-control" readonly>
-                                <option value="">{{$badgeRequest->categorie_badge}}</option>
-                            </select>
-                        </div>       
+                    <label for="categorie_badge" class="col-sm-2 col-form-label">Catégorie de Badge </label>
+                    <div class="col-sm-10">
+                        <select id="categorie_badge" name="categorie_badge" class="form-control" readonly>
+                            <option value="">{{ $badgeRequest->categorie_badge }}</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group row">
                             <label for="date_debut" class="col-sm-4 col-form-label">Date début </label>
                             <div class="col-sm-8">
-                                <input type="date" class="form-control" id="date_debut"
-                                placeholder="" value="{{$badgeRequest->date_debut}}" name="date_debut" readonly>
+                                <input type="date" class="form-control" id="date_debut" placeholder=""
+                                    value="{{ $badgeRequest->date_debut }}" name="date_debut" readonly>
                             </div>
                         </div>
                     </div>
@@ -131,8 +145,8 @@
                         <div class="form-group row">
                             <label for="date_debut" class="col-sm-4 col-form-label">Date fin </label>
                             <div class="col-sm-8">
-                                <input type="date" class="form-control" id="date_debut"
-                                placeholder="" value="{{$badgeRequest->date_fin}}" name="date_debut" readonly>
+                                <input type="date" class="form-control" id="date_debut" placeholder=""
+                                    value="{{ $badgeRequest->date_fin }}" name="date_debut" readonly>
                             </div>
                         </div>
                     </div>
@@ -140,23 +154,24 @@
                 <div class="form-group row">
                     <label for="motivation" class="col-sm-2 col-form-label">Motivation</label>
                     <div class="col-sm-10">
-                        <textarea id="motivation" name="motivation" class="form-control" rows="2" placeholder="Votre motivation ..." readonly>{{$badgeRequest->motivation}}</textarea>
+                        <textarea id="motivation" name="motivation" class="form-control" rows="2" placeholder="Votre motivation ..."
+                            readonly>{{ $badgeRequest->motivation }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="approvers" class="col-sm-2 col-form-label">Les approbateurs</label>
+                    <label for="approvers" class="col-sm-2 col-form-label">Les approbateurs :</label>
                     <div class="col-sm-10">
-                        <select name="approvers[]" id="approvers" class="form-control" multiple rows="2">
-                            <option value=""></option>
-                            @foreach ($approvers as $approver)
-                                <option value="{{ $approver['id'] }}">{{ $approver['id'] }} {{ $approver['name'] }} {{ $approver['fonction'] }}</option>
-                            @endforeach
-                        </select>
+                        @foreach ($approvers as $approver)
+                            <span class="badge  bg-secondary">Nom : {{ $approver['name'] }},
+                                Fonction : {{ $approver['fonction'] }}, Email : {{ $approver['email'] }}</span><br>
+                        @endforeach
                     </div>
                 </div>
                 <div>
                     @if ($badgeRequest->upload)
-                    <li><strong>Piece justificatif :</strong> <a href="{{ asset('storage/' . $badgeRequest->upload) }}" target="_blank">Télécharger le document</a></li>
+                        <li><strong>Piece justificatif :</strong> <a
+                                href="{{ asset('storage/' . $badgeRequest->upload) }}" target="_blank">Télécharger le
+                                document</a></li>
                     @endif
                 </div>
             </form>

@@ -108,5 +108,5 @@
                 <button type="submit" class="btn btn-primary ml-auto"><i class="fas fa-save"></i></button>
             </div>
         </form>
-    </div>
+    </div><br>
 @endsection

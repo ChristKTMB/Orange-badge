@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use App\Models\Direction;
 use Illuminate\Http\Request;
@@ -9,7 +10,8 @@ use Illuminate\Support\Facades\Http;
 
 class ProfileController extends Controller
 {
-    public function edit($id){
+    public function edit($id)
+    {
 
         $user = User::find($id);
 
@@ -17,34 +19,25 @@ class ProfileController extends Controller
         $managers = json_decode($usersResponse->body());
         $directions = Direction::all();
 
-        return view("profile",compact("user", "managers","directions"));
+        return view("profile", compact("user", "managers", "directions"));
     }
 
-    public function update(Request $request, $user){ 
-        
+    public function update(Request $request, $user)
+    {
         $user = User::find($user);
-
-        $data = $request->validate([
-            'direction' => 'required',
-            'fonction' => 'required',
-            'matricule' => 'required',
-            'manager' => 'required',
-            'role' => 'required|in:user,admin',
-            'status' => 'required|in:1,0'
+        $user->update([
+            'direction' => $request->direction,
+            'fonction' => $request->fonction,
+            'matricule' => $request->matricule,
+            'manager' => $request->manager,
+            'profil_complete' => true,
+            'role' => $request->role,
+            'status' => $request->status,
         ]);
-        
-        $user->direction = $data['direction'];
-        $user->fonction = $data['fonction'];
-        $user->matricule = $data['matricule'];
-        $user->manager = $data['manager'];
-        $user->profil_complete = true;
-        $user->role = $data['role'];
-        $user->status = $data['status'];
-        $user->save();
-        
-        if($user->role =='admin'){
+        if ($user->role == 'admin') {
             return redirect()->route('user.index');
-        }
-        return redirect()->route('historic');
+        }else{
+            return redirect()->route('historic');
+        } 
     }
 }

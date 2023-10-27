@@ -231,15 +231,12 @@
                                         <div class="form-group row">
                                             <label for="approvers" class="col-sm-4 col-form-label">Les
                                                 approbateurs</label>
-                                            <div class="col-sm-8">
-                                                <select name="approvers[]" id="approvers" class="form-control" multiple>
-                                                    <option value=""></option>
+                                                <div class="col-sm-8">
                                                     @foreach ($approvers as $approver)
-                                                        <option value="{{ $approver['id'] }}">{{ $approver['id'] }}
-                                                            {{ $approver['name'] }} {{ $approver['fonction'] }}</option>
+                                                        <span class="badge  bg-secondary">Nom : {{ $approver['name'] }},
+                                                            Fonction : {{ $approver['fonction'] }}, Email : {{ $approver['email'] }}</span><br>
                                                     @endforeach
-                                                </select>
-                                            </div>
+                                                </div>
                                         </div>
                                         <div id="sectionBadgePerdu" style="display: none">
                                             <div class="form-group row">
