@@ -41,29 +41,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($badgeRequests as $badgeRequest)
+                        @foreach ($badgeRequest as $badgeRequest)
                             <tr>
                                 <td>{{ $badgeRequest->id }}</td>
-                                <td>{{ $badgeRequest->badgeRequest->demandeur_nom }}
-                                    {{ $badgeRequest->badgeRequest->demandeur_prenom }} </td>
-                                <td>{{ $badgeRequest->badgeRequest->beneficiaire_nom }}
-                                    {{ $badgeRequest->badgeRequest->beneficiaire_prenom }}</td>
-                                <td>{{ $badgeRequest->badgeRequest->categorie }}</td>
+                                <td>{{ $badgeRequest->demandeur_nom }}
+                                    {{ $badgeRequest->demandeur_prenom }} </td>
+                                <td>{{ $badgeRequest->beneficiaire_nom }}
+                                    {{ $badgeRequest->beneficiaire_prenom }}</td>
+                                <td>{{ $badgeRequest->categorie }}</td>
                                 <td>{{ $badgeRequest->created_at }}</td>
+                                @php
+                                    $progress = App\Models\ApprovalProgress::where('badge_request_id', $badgeRequest->id)
+                                        ->orderBy('id', 'desc')
+                                        ->first();
+                                @endphp
                                 <td>
-                                    @if ($badgeRequest->isApproved)
-                                        <span class="badge  bg-success">Validé</span>
-                                    @elseif($badgeRequest->motif != null)
-                                        <span class="badge  bg-danger">Rejeté</span>
+                                    @if ($progress)
+                                        @if ($progress->approved === true)
+                                            <span class="badge  bg-success">Validé</span>
+                                        @elseif($progress->motif != null)
+                                            <span class="badge  bg-danger">Rejeté</span>
+                                        @else
+                                            <span class="badge  bg-secondary">En attente</span>
+                                        @endif
                                     @else
                                         <span class="badge  bg-secondary">En attente</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" href="{{ route('badge.show', $badgeRequest->badge_request_id) }}">
+                                    <a class="btn btn-primary btn-sm" href="{{ route('badge.show', $badgeRequest->id) }}">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a class="btn btn-success btn-sm" href="{{ route('badge.showBadgePDF', $badgeRequest->badge_request_id) }}">
+                                    <a class="btn btn-success btn-sm"
+                                        href="{{ route('badge.showBadgePDF', $badgeRequest->id) }}">
                                         <i class="fas fa-file-pdf"></i>
                                     </a>
                                 </td>

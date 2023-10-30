@@ -162,8 +162,26 @@
                     <label for="approvers" class="col-sm-2 col-form-label">Les approbateurs :</label>
                     <div class="col-sm-10">
                         @foreach ($approvers as $approver)
-                            <span class="badge  bg-secondary">Nom : {{ $approver['name'] }},
-                                Fonction : {{ $approver['fonction'] }}, Email : {{ $approver['email'] }}</span><br>
+                        @php
+                        $progress = App\Models\ApprovalProgress::where('badge_request_id', $badgeRequest->id)
+                            ->where('approver_id', $approver['id'])
+                            ->first();
+                        @endphp
+                        @if ($progress)
+                        @if ($progress->approved === true)
+                        <span class="badge  bg-secondary">Nom : {{ $approver['name'] }},
+                            Fonction : {{ $approver['fonction'] }}, Email : {{ $approver['email'] }}</span> <i class="fas fa-check-circle"></i><br>
+                        @elseif($progress->motif != null)
+                        <span class="badge  bg-secondary">Nom : {{ $approver['name'] }},
+                            Fonction : {{ $approver['fonction'] }}, Email : {{ $approver['email'] }}</span> <i class="fas fa-times-circle"></i><br>
+                        @else
+                        <span class="badge  bg-secondary">Nom : {{ $approver['name'] }},
+                            Fonction : {{ $approver['fonction'] }}, Email : {{ $approver['email'] }}</span> <i class="fas fa-clock"></i><br>
+                        @endif
+                    @else
+                    <span class="badge  bg-secondary">Nom : {{ $approver['name'] }},
+                        Fonction : {{ $approver['fonction'] }}, Email : {{ $approver['email'] }}</span> <i class="fas fa-clock"></i><br>
+                    @endif
                         @endforeach
                     </div>
                 </div>

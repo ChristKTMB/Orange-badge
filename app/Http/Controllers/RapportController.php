@@ -16,23 +16,14 @@ class RapportController extends Controller
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
         
-
-        
-        $query = ApprovalProgress::select('approvals_progress.*')
-            ->join(DB::raw("(SELECT badge_request_id, MAX(id) as max_id FROM approvals_progress GROUP BY badge_request_id) latest_approvals"), function($join)
-        {
-        $join->on('approvals_progress.id', '=', 'latest_approvals.max_id');
-        })->with('badgeRequest');
-    
-        if ($start_date && $end_date) {
-            // Filtrez les données en fonction des dates saisies
-            $query->whereBetween('approvals_progress.created_at', [$start_date, $end_date]);
+        $badgeRequest = BadgeRequest::orderBy('created_at', 'desc');
             
-        }
-    
-        $ApprovalProgress = $query->orderBy('created_at', 'desc')->get();
+            if ($start_date && $end_date) {
+                $badgeRequest->whereBetween('created_at', [$start_date, $end_date]);
+            }
+            $badgeRequest = $badgeRequest->get();
 
-        return view('rapport.index', compact('ApprovalProgress'));
+        return view('rapport.index', compact('badgeRequest'));
     }
 
     public function show($badgeRequestId)

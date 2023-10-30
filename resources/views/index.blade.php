@@ -265,14 +265,30 @@
                     <tbody>
                         <tr>
                             <td style="height: 50px;">
-                                <p>{{ $badgeRequest->demandeur_nom }}</p>
+                                <p>{{ $badgeRequest->demandeur_nom }} {{ $badgeRequest->demandeur_prenom }}</p>
                             </td>
-                            <td style="height: 50px;">
-                                <p></p>
-                            </td>
-                            <td>
-                                <p></p>
-                            </td>
+                            @foreach ($approvers as $approver)
+                                @php
+                                    $progress = App\Models\ApprovalProgress::where('badge_request_id', $badgeRequest->id)
+                                        ->where('approver_id', $approver['id'])
+                                        ->first();
+                                @endphp
+                                <td style="height: 50px;">
+                                    <p>{{ $approver['name'] }},
+                                        Fonction : {{ $approver['fonction'] }}</p>
+                                    @if ($progress)
+                                        @if ($progress->approved === true)
+                                            <span style="background: rgb(0, 255, 98); padding: 5px;">Validé</span>
+                                        @elseif($progress->motif != null)
+                                            <span style="background: rgb(255, 42, 0); padding: 5px;">Rejeté</span>
+                                        @else
+                                            <span style="background: rgb(180, 180, 180); padding: 5px;">En attente</span>
+                                        @endif
+                                    @else
+                                    <span style="background: rgb(180, 180, 180); padding: 5px;">En attente</span>
+                                    @endif
+                                </td>
+                            @endforeach
                         </tr>
                     </tbody>
                 </table>

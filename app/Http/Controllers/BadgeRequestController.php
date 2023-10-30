@@ -28,13 +28,11 @@ class BadgeRequestController extends Controller
     public function index(){
 
         $user = Auth::user();
-        $badgeRequests = ApprovalProgress::where("demandeur_id", $user->id)
-            ->where("approver_id", null)
-            ->with('badgeRequest')
+        $badgeRequest = BadgeRequest::where("user_id", $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view("badge.history",compact("badgeRequests"));
+        return view("badge.history",compact("badgeRequest"));
     }
 
     public function store(Request $request){
@@ -124,8 +122,14 @@ class BadgeRequestController extends Controller
     }
 
     public function createPDF(BadgeRequest $badgeRequest) {
-        // Passe l'array à la vue Blade index
-        $html = view('index', ['badgeRequest' => $badgeRequest])->render();
+        $approvers = json_decode($badgeRequest->approvers, true);
+
+        // Passe les deux variables à la vue Blade index
+        $html = view('index', [
+            'badgeRequest' => $badgeRequest,
+            'approvers' => $approvers,
+        ])->render();
+
         
         // Utilise Dompdf pour convertir le HTML en PDF
         $dompdf = new Dompdf();

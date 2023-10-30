@@ -44,49 +44,61 @@
                             <th style="width: 8%">
                                 No de demande
                             </th>
-                            <th style="width: 20%">
+                            <th style="width: 18%">
                                 Nom demandeur
                             </th>
-                            <th style="width: 20%">
+                            <th style="width: 18%">
                                 Nom beneficiaire
                             </th>
-                            <th style="width: 20%">
+                            <th style="width: 15%">
                                 Catégorie
                             </th>
-                            <th style="width: 20%">
+                            <th style="width: 17%">
                                 Date de démande
                             </th>
-                            <th style="width: 20%">
+                            <th style="width: 13%">
                                 Status
                             </th>
-                            <th style="width: 30%">
+                            <th style="width: 23%">
                                 Action
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($ApprovalProgress as $ApprovalProgress)
+                        @foreach ($badgeRequest as $badgeRequest)
                             <tr>
-                                <td>{{ $ApprovalProgress->badgeRequest->id }}</td>
-                                <td>{{ $ApprovalProgress->badgeRequest->demandeur_nom }} {{ $ApprovalProgress->badgeRequest->demandeur_prenom }}</td>
-                                <td>{{ $ApprovalProgress->badgeRequest->beneficiaire_nom }} {{ $ApprovalProgress->badgeRequest->beneficiaire_prenom }}</td>
-                                <td>{{ $ApprovalProgress->badgeRequest->categorie }}</td>
-                                <td>{{ $ApprovalProgress->created_at }}</td>
+                                <td>{{ $badgeRequest->id }}</td>
+                                <td>{{ $badgeRequest->demandeur_nom }} {{ $badgeRequest->demandeur_prenom }}</td>
+                                <td>{{ $badgeRequest->beneficiaire_nom }} {{ $badgeRequest->beneficiaire_prenom }}</td>
+                                <td>{{ $badgeRequest->categorie }}</td>
+                                <td>{{ $badgeRequest->created_at }}</td>
+                                @php
+                                    $progress = App\Models\ApprovalProgress::where('badge_request_id', $badgeRequest->id)
+                                        ->orderBy('id', 'desc')
+                                        ->first();
+                                @endphp
                                 <td>
-                                    @if ($ApprovalProgress->approved)
-                                        <span class="badge  bg-success">Validé</span>
-                                    @elseif($ApprovalProgress->motif != null)
-                                        <span class="badge  bg-danger">Rejeté</span>
+                                    @if ($progress)
+                                        @if ($progress->approved === true)
+                                            <span class="badge  bg-success">Validé</span>
+                                        @elseif($progress->motif != null)
+                                            <span class="badge  bg-danger">Rejeté</span>
+                                        @else
+                                            <span class="badge  bg-secondary">En attente</span>
+                                        @endif
                                     @else
                                         <span class="badge  bg-secondary">En attente</span>
                                     @endif
-
                                 </td>
                                 <td>
                                     <a class="btn btn-primary btn-sm"
-                                        href="{{ route('rapport.show', $ApprovalProgress->badgeRequest->id) }}">
+                                        href="{{ route('rapport.show', $badgeRequest->id) }}">
                                         <i class="fas fa-eye">
                                         </i>
+                                    </a>
+                                    <a class="btn btn-success btn-sm"
+                                        href="{{ route('badge.showBadgePDF', $badgeRequest->id) }}">
+                                        <i class="fas fa-file-pdf"></i>
                                     </a>
                                 </td>
                             </tr>
