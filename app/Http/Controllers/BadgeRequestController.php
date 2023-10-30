@@ -71,7 +71,6 @@ class BadgeRequestController extends Controller
         $approvers = Approving::where('etat', 1)
             ->select('id', 'name', 'fonction', 'email')
             ->get();
-
         $approversData = json_encode($approvers);
         
         $badgeRequest = new BadgeRequest($data);
@@ -81,14 +80,17 @@ class BadgeRequestController extends Controller
         $user = Auth::user();
         $badgeRequest->user()->associate($user);
         $badgeRequest->save();
-
+        
          // Insertion des données dans la table de liaison "approvals_progress"
         $approvalsProgress = new ApprovalProgress();
-        $approvalsProgress->demandeur_id = Auth::user()->id; // ID de l'utilisateur connecté
-        $approvalsProgress->badge_request_id = $badgeRequest->id; // ID du formulaire nouvellement créé
-        $approvalsProgress->total_approvers = Approving::where('etat', 1)->count() + 1; // Nombre total d'approbateurs
-        $approvalsProgress->step = 1; // L'utilisateur initiateur doit approuver en premier
-        $approvalsProgress->approved = false; // Le formulaire n'est pas encore approuvé
+        $approvalsProgress->demandeur_id = Auth::user()->id;
+        $approvalsProgress->badge_request_id = $badgeRequest->id;
+        $approvalsProgress->total_approvers = Approving::where('etat', 1)->count() + 1;
+        if($badgeRequest->categorie_badge == 'Consultant' || $badgeRequest->categorie_badge == 'Visiteur'){
+            $approvalsProgress->total_approvers = 2;
+        }
+        $approvalsProgress->step = 1;
+        $approvalsProgress->approved = false;
         $approvalsProgress->approval_date = now();
         $approvalsProgress->save();
 
@@ -129,7 +131,6 @@ class BadgeRequestController extends Controller
             'badgeRequest' => $badgeRequest,
             'approvers' => $approvers,
         ])->render();
-
         
         // Utilise Dompdf pour convertir le HTML en PDF
         $dompdf = new Dompdf();
@@ -142,10 +143,6 @@ class BadgeRequestController extends Controller
         
         // Encapsule Dompdf dans une classe helper PDF
         $pdf = new PDF($dompdf, $config, $filesystem, $view);
-      
-        // Renvoie le PDF au téléchargement
-//    echo $html;
-//    die();
 
      return $pdf->download('badge_request.pdf');
        

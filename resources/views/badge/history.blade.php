@@ -57,7 +57,7 @@
                                 @endphp
                                 <td>
                                     @if ($progress)
-                                        @if ($progress->approved === true)
+                                        @if ($progress->approved === 1)
                                             <span class="badge  bg-success">Validé</span>
                                         @elseif($progress->motif != null)
                                             <span class="badge  bg-danger">Rejeté</span>

@@ -25,17 +25,4 @@ class RapportController extends Controller
 
         return view('rapport.index', compact('badgeRequest'));
     }
-
-    public function show($badgeRequestId)
-    {
-        $approval = ApprovalProgress::where('badge_request_id', $badgeRequestId)
-                ->first();
-        $badgeRequest = $approval->badgeRequest;
-        $approvers = Approving::all()->toArray();
-        $approved = $approval->approved == 1 ? true : false;
-        $motif = $approval->motif;
-        
-        return view('badge.formdetail',compact("badgeRequest", "approved","approvers","motif"));
-    }
-
 }

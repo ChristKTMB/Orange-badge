@@ -55,7 +55,7 @@ class ApproveController extends Controller
     }
 
     public function approve(Request $request, $id){
-      
+        
         // Recherche de l'approbation en fonction de l'ID du formulaire
         $approval = ApprovalProgress::where('badge_request_id', $id)
             ->orderBy('id', 'desc')
@@ -63,7 +63,7 @@ class ApproveController extends Controller
         
         // Récupération de la dernière entrée liée au formulaire concerné
         $lastAprroval = ApprovalProgress::where('badge_request_id', $id)
-            ->orderBy('id', 'desc')
+            ->orderBy('id', 'desc')->with('badgeRequest')
             ->first();
 
         $lastAprroval->approved = true;
@@ -71,16 +71,21 @@ class ApproveController extends Controller
         $lastAprroval->save();
 
         $nextStep = $lastAprroval->step + 1;
-
-        if($lastAprroval->approver_id == null) {
-            $nextApprover_id = Approving::where('etat', 1)->first()->id;
-        }
-        else {
+        
+        if($lastAprroval->badgeRequest->categorie_badge == 'Visiteur' || $lastAprroval->badgeRequest->categorie_badge == 'Consultant'){
             $nextApprover_id = Approving::where('etat', 1)
             ->orderBy('id', 'desc')
             ->first()->id;
+        }else{
+            if($lastAprroval->approver_id == null) {
+                $nextApprover_id = Approving::where('etat', 1)->first()->id;
+            }
+            else {
+                $nextApprover_id = Approving::where('etat', 1)
+                ->orderBy('id', 'desc')
+                ->first()->id;
+            }
         }
-        //$nextApprover_id = $lastAprroval->approver_id + 1;
 
         if ($nextStep <= $approval->total_approvers) {
             

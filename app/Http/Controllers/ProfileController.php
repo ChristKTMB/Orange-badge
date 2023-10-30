@@ -30,7 +30,7 @@ class ProfileController extends Controller
             'fonction' => $request->fonction,
             'matricule' => $request->matricule,
             'manager' => $request->manager,
-            'profil_complete' => true,
+            'profil_complete' => 1,
             'role' => $request->role,
             'status' => $request->status,
         ]);
