@@ -70,7 +70,7 @@
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control" id="demandeur_directeur"
                                                         placeholder="" name="demandeur_directeur"
-                                                        value="{{ $user->direction }}" @readonly(true)>
+                                                        value="{{ $user->direction->nom }}" @readonly(true)>
                                                 </div>
                                             </div>
                                             <div class="form-group row">

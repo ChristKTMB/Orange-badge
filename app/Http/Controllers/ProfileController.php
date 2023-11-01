@@ -26,14 +26,16 @@ class ProfileController extends Controller
     {
         $user = User::find($user);
         $user->update([
-            'direction' => $request->direction,
+            'direction_id' => $request->direction_id,
             'fonction' => $request->fonction,
             'matricule' => $request->matricule,
             'manager' => $request->manager,
             'profil_complete' => 1,
             'role' => $request->role,
-            'status' => $request->status,
         ]);
+        $user->status = $request->status;
+        $user->profil_complete = 1;
+        $user->save();
         if ($user->role == 'admin') {
             return redirect()->route('user.index');
         }else{

@@ -28,11 +28,10 @@ class BadgeRequestController extends Controller
     public function index(){
 
         $user = Auth::user();
-        $badgeRequest = BadgeRequest::where("user_id", $user->id)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $badgeRequests = BadgeRequest::where("user_id", $user->id)
+            ->orderBy('created_at', 'desc')->paginate(9);
 
-        return view("badge.history",compact("badgeRequest"));
+        return view("badge.history",compact("badgeRequests"));
     }
 
     public function store(Request $request){

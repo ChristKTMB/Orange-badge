@@ -20,6 +20,7 @@ use App\Http\Controllers\BadgeRequestController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::resource('badge',BadgeRequestController::class);
 Route::resource('rapport',RapportController::class);
 Route::resource('user',UserController::class);

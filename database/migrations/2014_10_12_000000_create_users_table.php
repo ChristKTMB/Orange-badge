@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('role')->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('direction')->nullable();
             $table->string('fonction')->nullable();
             $table->string('matricule')->nullable();
             $table->string('manager')->nullable();

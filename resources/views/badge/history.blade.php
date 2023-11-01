@@ -41,7 +41,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($badgeRequest as $badgeRequest)
+                        @foreach ($badgeRequests as $badgeRequest)
                             <tr>
                                 <td>{{ $badgeRequest->id }}</td>
                                 <td>{{ $badgeRequest->demandeur_nom }}
@@ -82,4 +82,7 @@
                     </tbody>
                 </table>
     </section>
+    <div class="d-flex justify-content-center">
+        {{ $badgeRequests->links('pagination') }}
+    </div>
 @endsection

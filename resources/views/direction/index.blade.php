@@ -44,9 +44,6 @@ Directions
                                 <a class="btn btn-info btn-sm edit-btn" href="#" data-toggle="modal" data-target="#edit-{{ $direction->id }}" form="edit-{{ $direction->id }}">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#delete-{{ $direction->id }}">
-                                    <i class="fas fa-trash" form="delete-{{ $direction->id }}"></i>
-                                </a>
                             </td>
                         </tr>
                     @endforeach
@@ -167,5 +164,8 @@ Directions
             </div>
         </div>
     </div>
+</div>
+<div class="d-flex justify-content-center">
+    {{ $directions->links('pagination') }}
 </div>
 @endsection

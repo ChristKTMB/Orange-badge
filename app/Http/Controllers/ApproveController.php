@@ -27,7 +27,7 @@ class ApproveController extends Controller
             $approverForms = ApprovalProgress::where('approver_id', $userApprover->id)
                 ->with('badgeRequest')
                 ->orderBy('created_at', 'desc')
-                ->get(); 
+                ->paginate(9); 
             $approvalForms = $approverForms;
         } else {
             //abort(404);

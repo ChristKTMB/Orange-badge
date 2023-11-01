@@ -3,7 +3,7 @@
     <body class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo">
-                <a href="{{ url('/home') }}"><b>Badge_request</b></a>
+                <a href="{{ url('/home') }}"><b>Orange</b></a>
             </div>
             <!-- /.login-logo -->
 
@@ -16,10 +16,10 @@
                         @csrf
 
                         <div class="input-group mb-3">
-                            <input type="text" name="username" value="{{ old('username') }}" placeholder="Nom de l’utilisateur"
+                            <input type="text" name="username" value="{{ old('username') }}" placeholder="Nom d'utilisateur"
                                 class="form-control @error('username') is-invalid @enderror">
                             <div class="input-group-append">
-                                <div class="input-group-text"><span class="fas fa-envelope"></span></div>
+                                <div class="input-group-text"><span class="fas fa-user"></span></div>
                             </div>
                             @error('email')
                                 <span class="error invalid-feedback">{{ $message }}</span>
@@ -41,23 +41,13 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-7">
-                                <div class="icheck-primary">
-                                    <input type="checkbox" id="remember">
-                                    <label for="remember">Souvenez-vous</label>
-                                </div>
-                            </div>
 
-                            <div class="col-5">
+                            <div class="col-12">
                                 <button type="submit" class="btn btn-primary btn-block">Connexion</button>
                             </div>
 
                         </div>
                     </form>
-
-                    <p class="mb-1">
-                        <a href="{{ route('password.request') }}">Mon mot de passe oublié</a>
-                    </p>
                 </div>
                 <!-- /.login-card-body -->
             </div>

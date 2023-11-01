@@ -12,14 +12,14 @@
                         <div class="col-sm-8">
                             <input type="date" class="form-control" id="start_date"
                                 placeholder="" name="start_date"
-                                @required(true)>
+                                @required(true) value="{{ old('start_date') }}" max="{{ now()->format('Y-m-d') }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="end_date" class="col-sm-8 col-form-label">Date de fin :</label>
                         <div class="col-sm-8">
                             <input type="date" class="form-control" id="end_date" placeholder=""
-                                name="end_date"  @required(true)>
+                                name="end_date"  @required(true) value="{{ old('start_date') }}" max="{{ now()->format('Y-m-d') }}">
                         </div>
                     </div>
                 </div>
@@ -65,15 +65,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($badgeRequest as $badgeRequest)
+                        @foreach ($badgeRequest as $request)
                             <tr>
-                                <td>{{ $badgeRequest->id }}</td>
-                                <td>{{ $badgeRequest->demandeur_nom }} {{ $badgeRequest->demandeur_prenom }}</td>
-                                <td>{{ $badgeRequest->beneficiaire_nom }} {{ $badgeRequest->beneficiaire_prenom }}</td>
-                                <td>{{ $badgeRequest->categorie }}</td>
-                                <td>{{ $badgeRequest->created_at }}</td>
+                                <td>{{ $request->id }}</td>
+                                <td>{{ $request->demandeur_nom }} {{ $request->demandeur_prenom }}</td>
+                                <td>{{ $request->beneficiaire_nom }} {{ $request->beneficiaire_prenom }}</td>
+                                <td>{{ $request->categorie }}</td>
+                                <td>{{ $request->created_at }}</td>
                                 @php
-                                    $progress = App\Models\ApprovalProgress::where('badge_request_id', $badgeRequest->id)
+                                    $progress = App\Models\ApprovalProgress::where('badge_request_id', $request->id)
                                         ->orderBy('id', 'desc')
                                         ->first();
                                 @endphp
@@ -92,12 +92,12 @@
                                 </td>
                                 <td>
                                     <a class="btn btn-primary btn-sm"
-                                        href="{{ route('badge.show', $badgeRequest->id) }}">
+                                        href="{{ route('badge.show', $request->id) }}">
                                         <i class="fas fa-eye">
                                         </i>
                                     </a>
                                     <a class="btn btn-success btn-sm"
-                                        href="{{ route('badge.showBadgePDF', $badgeRequest->id) }}">
+                                        href="{{ route('badge.showBadgePDF', $request->id) }}">
                                         <i class="fas fa-file-pdf"></i>
                                     </a>
                                 </td>
@@ -106,4 +106,7 @@
                     </tbody>
                 </table>
     </section>
+    <div class="d-flex justify-content-center">
+        {{ $badgeRequest->links('pagination') }}
+    </div>
 @endsection

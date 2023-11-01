@@ -75,4 +75,7 @@
                     </tbody>
                 </table>
     </section>
+    <div class="d-flex justify-content-center">
+        {{ $users->links('pagination') }}
+    </div>
 @endsection

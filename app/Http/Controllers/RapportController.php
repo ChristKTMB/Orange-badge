@@ -16,12 +16,12 @@ class RapportController extends Controller
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
         
-        $badgeRequest = BadgeRequest::orderBy('created_at', 'desc');
+        $badgeRequestQuery  = BadgeRequest::orderBy('created_at', 'desc');
             
             if ($start_date && $end_date) {
-                $badgeRequest->whereBetween('created_at', [$start_date, $end_date]);
+                $badgeRequestQuery->whereBetween('created_at', [$start_date, $end_date]);
             }
-            $badgeRequest = $badgeRequest->get();
+            $badgeRequest = $badgeRequestQuery->paginate(10);
 
         return view('rapport.index', compact('badgeRequest'));
     }

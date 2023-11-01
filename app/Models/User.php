@@ -27,6 +27,11 @@ class User extends Authenticatable
         return Approving::where('email', $this->email)->where('etat', 1)->exists();
     }
 
+    public function direction()
+    {
+        return $this->belongsTo(Direction::class, 'direction_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,6 +46,7 @@ class User extends Authenticatable
         'phone',
         'password',
         'direction',
+        'direction_id',
         'fonction',
         'matricule',
         'manager',

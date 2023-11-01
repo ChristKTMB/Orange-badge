@@ -9,7 +9,7 @@ class ApprovingController extends Controller
 {
     public function index()
     {   
-                $results = Approving::where('etat', 1)->get(); // Récupère toutes les approbations dans la base de données
+        $results = Approving::where('etat', 1)->get(); // Récupère toutes les approbations dans la base de données
         return view('approving.index', compact('results')); // Affiche la vue index avec les données récupérées
     }
 

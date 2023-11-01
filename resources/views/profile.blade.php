@@ -2,6 +2,14 @@
 @section('title')
     Profil utilisateur
 @endsection
+@push('page_css')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    .select2-container .select2-selection--single{
+        height: 40px;
+    }
+</style>
+@endpush
 @section('content')
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -28,17 +36,19 @@
                 </div>
                 <div class="form-group">
                     <div class="form-group">
-                        <label for="direction">Direction </label>
+                        <label for="direction_id">Direction </label>
                         @if (auth()->user()->id !== $user->id)
                             <div class="form-group">
-                                <input type="text" class="form-control" id="direction" name="direction"
-                                    value="{{ $user->direction }}" readonly>
+                                <input type="text" class="form-control" id="" name=""
+                                    value="{{ $user->direction->nom }}" readonly>
+                                <input type="hidden" class="form-control" id="direction_id" name="direction_id"
+                                    value="{{ $user->direction->id }}" readonly>
                             </div>
                         @else
-                            <select name="direction" id="direction" class="form-control">
-                                <option value="{{ $user->direction }}">{{ $user->direction }}</option>
+                            <select name="direction_id" id="direction_id" class="form-control">
+                                <option value=""></option>
                                 @foreach ($directions as $direction)
-                                    <option value="{{ $direction->nom }}">
+                                    <option value="{{ $direction->id }}">
                                         {{ $direction->nom }}
                                     </option>
                                 @endforeach
@@ -102,6 +112,9 @@
                                 <option value="0" @if ($user->status === 0) selected @endif>Désactivé
                                 </option>
                             </select>
+                        @else
+                        <input type="hidden" class="form-control" id="status" name="status" value="{{ $user->status }}"
+                        readonly>
                         @endif
                     </div>
                 </div>
@@ -109,4 +122,13 @@
             </div>
         </form>
     </div><br>
+@endsection
+@section('scripts')
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#manager').select2();
+    })
+</script>
 @endsection

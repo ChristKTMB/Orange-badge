@@ -44,20 +44,30 @@
                                                     <th>Nom</th>
                                                     <th>Fonction</th>
                                                     <th>Email</th>
-                                                    <th>Action</th>
                                                 </tr>
                                                 <tr>
-                                                    <td><input type="text" name="data[0][name]" placeholder="Enter name" class="form-control" />
+                                                    <td><input type="text" name="data[0][name]"
+                                                            placeholder="Nom validateur RH" class="form-control" required/>
                                                     </td>
                                                     <td><input type="text" name="data[0][function]"
-                                                            placeholder="Fonction" class="form-control" />
+                                                            placeholder="Fonction" class="form-control" value="RH"
+                                                            readonly required/>
                                                     </td>
                                                     <td><input type="email" name="data[0][email]"
-                                                            placeholder="Adresse mail" class="form-control" />
+                                                            placeholder="Adresse mail" class="form-control" required/>
                                                     </td>
-                                                    <td><button type="button" name="add" id="dynamic-ar"
-                                                            class="btn btn-outline-primary"><i
-                                                                class="fas fa-solid fa-plus"></i></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text" name="data[1][name]"
+                                                            placeholder="Nom validateur SECURITE" class="form-control" required/>
+                                                    </td>
+                                                    <td><input type="text" name="data[1][function]"
+                                                            placeholder="Fonction" class="form-control" value="SECURITE"
+                                                            readonly required/>
+                                                    </td>
+                                                    <td><input type="email" name="data[1][email]"
+                                                            placeholder="Adresse mail" class="form-control" required/>
+                                                    </td>
                                                 </tr>
                                             </table>
                                             <div class="modal-footer justify-content-between">
@@ -86,26 +96,38 @@
             <p>{{ $message }}</p>
         </div>
     @endif
-    <table class="table table-striped projects">
-        <thead>
-            <tr>
-                <th scope="col">No</th>
-                <th scope="col">Name</th>
-                <th scope="col">Function</th>
-                <th scope="col">Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($results as $approving)
-                <tr>
-                    <td>{{ $approving->id }}</td>
-                    <td>{{ $approving->name }}</td>
-                    <td>{{ $approving->fonction }}</td>
-                    <td>{{ $approving->email }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>
+                            No
+                        </th>
+                        <th>
+                            Nom
+                        </th>
+                        <th>
+                            Fonction
+                        </th>
+                        <th>
+                            Adresse mail
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($results as $approving)
+                        <tr>
+                            <td>{{ $approving->id }}</td>
+                            <td>{{ $approving->name }}</td>
+                            <td>{{ $approving->fonction }}</td>
+                            <td>{{ $approving->email }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection
 <!-- Modal -->
 <!-- JavaScript -->
@@ -123,5 +145,5 @@
         $(document).on('click', '.remove-input-field', function() {
             $(this).parents('tr').remove();
         });
-            });
+    });
 </script>

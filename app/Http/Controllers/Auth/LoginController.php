@@ -101,7 +101,7 @@ class LoginController extends Controller{
                     'profil_complete' => false,
                 ]);
             }
-            if($user->status === 1){
+            if($user->status == 1){
                 $this->guard()->login($user);
             }else{
                 return $this->sendFailedLoginResponse($request);

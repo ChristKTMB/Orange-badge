@@ -62,4 +62,7 @@ Mes Approbations
                     </tbody>
                 </table>
     </section>
+    <div class="d-flex justify-content-center">
+        {{ $approvalForms->links('pagination') }}
+    </div>
 @endsection
