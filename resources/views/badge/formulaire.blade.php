@@ -233,7 +233,7 @@
                                                 approbateurs</label>
                                                 <div class="col-sm-8">
                                                     @foreach ($approvers as $approver)
-                                                        <span class="badge  bg-secondary">Nom : {{ $approver['name'] }},
+                                                        <span class="badge  badge-info">Nom : {{ $approver['name'] }},
                                                             Fonction : {{ $approver['fonction'] }}, Email : {{ $approver['email'] }}</span><br>
                                                     @endforeach
                                                 </div>

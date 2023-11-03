@@ -30,10 +30,27 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('rapport.index') }}" class="nav-link {{ Request::is('rapport') ? 'active' : '' }}">
+        <a href="" class="nav-link ">
             <i class="nav-icon fas fa-file-alt"></i>
-            <p>Rapport</p>
+            <p>
+                Rapports
+                <i class="right fas fa-angle-left"></i>
+            </p>
         </a>
+        <ul class="nav nav-treeview" style="display: none;">
+            <li class="nav-item">
+                <a href="{{ route('rapport.index') }}" class="nav-link {{ Request::is('rapport') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-file"></i>
+                    <p>Rapport</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('graphique.index') }}" class="nav-link {{ Request::is('graphique') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-file-alt"></i>
+                    <p>Graphique</p>
+                </a>
+            </li>
+        </ul>
     </li>
     <li class="nav-item">
         <a href="{{ route('user.index') }}" class="nav-link {{ Request::is('user') ? 'active' : '' }}">

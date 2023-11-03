@@ -169,17 +169,16 @@
                             @endphp
                             @if ($progress)
                                 @if ($progress->approved === 1)
-                                    <span class="badge  bg-secondary">Nom : {{ $approver['name'] }},
+                                    <span class="badge  badge-info">Nom : {{ $approver['name'] }},
                                         Fonction : {{ $approver['fonction'] }}, Email : {{ $approver['email'] }}</span> <i
                                         class="fas fa-check-circle"></i><br>
                                 @elseif($progress->motif != null)
-                                    <span class="badge  bg-secondary">Nom : {{ $approver['name'] }},
+                                    <span class="badge  badge-info">Nom : {{ $approver['name'] }},
                                         Fonction : {{ $approver['fonction'] }}, Email : {{ $approver['email'] }}</span> <i
                                         class="fas fa-times-circle"></i><br>
                                 @else
-                                    <span class="badge  bg-secondary">Nom : {{ $approver['name'] }},
-                                        Fonction : {{ $approver['fonction'] }}, Email : {{ $approver['email'] }}</span> <i
-                                        class="fas fa-clock"></i><br>
+                                    <span class="badge  badge-info">Nom : {{ $approver['name'] }},
+                                        Fonction : {{ $approver['fonction'] }}, Email : {{ $approver['email'] }}</span> <i class="far fa-clock"></i><br>
                                 @endif
                             @endif
                         @endforeach

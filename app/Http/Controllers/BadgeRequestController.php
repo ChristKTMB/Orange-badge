@@ -86,7 +86,7 @@ class BadgeRequestController extends Controller
         $approvalsProgress->badge_request_id = $badgeRequest->id;
         $approvalsProgress->total_approvers = Approving::where('etat', 1)->count() + 1;
         if($badgeRequest->categorie_badge == 'Consultant' || $badgeRequest->categorie_badge == 'Visiteur'){
-            $approvalsProgress->total_approvers = 2;
+            $approvalsProgress->total_approvers = Approving::where('etat', 1)->count();
         }
         $approvalsProgress->step = 1;
         $approvalsProgress->approved = false;

@@ -24,6 +24,7 @@ class ProfileController extends Controller
 
     public function update(Request $request, $user)
     {
+
         $user = User::find($user);
         $user->update([
             'direction_id' => $request->direction_id,
@@ -36,7 +37,7 @@ class ProfileController extends Controller
         $user->status = $request->status;
         $user->profil_complete = 1;
         $user->save();
-        if ($user->role == 'admin') {
+        if (Auth::user()->role == 'admin') {
             return redirect()->route('user.index');
         }else{
             return redirect()->route('historic');

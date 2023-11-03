@@ -72,7 +72,7 @@ class ApproveController extends Controller
 
         $nextStep = $lastAprroval->step + 1;
         
-        if($lastAprroval->badgeRequest->categorie_badge == 'Visiteur' || $lastAprroval->badgeRequest->categorie_badge == 'Consultant'){
+                if($lastAprroval->badgeRequest->categorie_badge == 'Visiteur' || $lastAprroval->badgeRequest->categorie_badge == 'Consultant'){
             $nextApprover_id = Approving::where('etat', 1)
             ->orderBy('id', 'desc')
             ->first()->id;
