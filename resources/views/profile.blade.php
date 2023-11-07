@@ -70,9 +70,9 @@
                     <div class="form-group">
                         <label for="manager">Manager </label>
                         <select name="manager" id="manager" class="form-control">
-                            <option value="{{ $user->manager }}">{{ $user->manager }}</option>
+                            {{-- <option value="{{ $user->manager }}">{{ $user->manager }}</option> --}}
                             @foreach ($managers->users as $manager)
-                                <option value="{{ $manager->email }}">
+                                <option value="{{ $manager->email }}" @if ( $user->manager== $manager->email) selected @endif>
                                     {{ $manager->first_name }} {{ $manager->last_name }}
                                 </option>
                             @endforeach

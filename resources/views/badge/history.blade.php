@@ -17,25 +17,25 @@
                 <table class="table table-striped projects">
                     <thead>
                         <tr>
-                            <th style="width: 8%">
+                            <th>
                                 No demande
                             </th>
-                            <th style="width: 15%">
+                            <th>
                                 Nom demandeur
                             </th>
-                            <th style="width: 15%">
+                            <th>
                                 Nom beneficiaire
                             </th>
-                            <th style="width: 15%">
+                            <th>
                                 Catégorie
                             </th>
-                            <th style="width: 20%">
+                            <th>
                                 Date de démande
                             </th>
-                            <th style="width: 20%">
+                            <th>
                                 Status
                             </th>
-                            <th style="width: 30%">
+                            <th>
                                 Action
                             </th>
                         </tr>

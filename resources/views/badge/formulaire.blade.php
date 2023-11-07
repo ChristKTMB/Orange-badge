@@ -13,8 +13,8 @@
                         <label for="typeDemande" class="col-sm-4 col-form-label">Catégorie <span
                                 class="text-danger">*</span></label>
                         <div class="col-sm-8">
-                            <input type="radio" id="nouvelEmploye" name="typeDemande" value="Nouvel employé" checked>
-                            Nouvel employé
+                            <input type="radio" id="nouvelEmploye" name="typeDemande" value="Nouveau" checked>
+                            Nouveau
                             <input type="radio" id="badgePerdu" name="typeDemande" value="Badge perdu"> Badge perdu
                         </div>
                     </div>
@@ -190,8 +190,7 @@
                                     <div id="information-part" class="content" role="tabpanel"
                                         aria-labelledby="information-part-trigger">
                                         <div class="form-group row">
-                                            <label for="categorie_badge" class="col-sm-4 col-form-label">Catégorie de
-                                                Badge <span class="text-danger">*</span></label>
+                                            <label for="categorie_badge" class="col-sm-4 col-form-label">Contrat <span class="text-danger">*</span></label>
                                             <div class="col-sm-8">
                                                 <select id="categorie_badge" name="categorie_badge" class="form-control"
                                                     @required(true)>
@@ -249,7 +248,7 @@
                                             </div>
                                         </div>
                                         <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
-                                        <button class="btn btn-success" id="test" type="submit">Envoyé</button>
+                                        <button class="btn btn-success" id="test" type="submit">Envoyer</button>
                                     </div>
                                     {{-- fin de la partie 2 --}}
                                 </div>
@@ -359,5 +358,11 @@
         function confirmerEnvoi() {
             return confirm("Êtes-vous sûr de vouloir envoyer le formulaire ?");
         }
+
+
+
+        var form = document.querySelector('#formulaireDemandeBadge');
+
+
     </script>
 @endsection

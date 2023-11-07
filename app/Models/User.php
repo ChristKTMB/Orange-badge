@@ -32,6 +32,21 @@ class User extends Authenticatable
         return $this->belongsTo(Direction::class, 'direction_id');
     }
 
+    public function delegues()
+    {
+        return $this->belongsToMany(User::class, 'interim', 'user_id','delegue')->withPivot('status','date_fin')->withTimestamps();
+    }
+
+    public function delegueActifs()
+    {
+        return $this->belongsToMany(User::class, 'interim', 'user_id','delegue')->wherePivot('status', 1);
+    }
+
+    public function interimaires()
+    {
+        return $this->belongsToMany(User::class, 'interim', 'delegue','user_id')->wherePivot('status', 1);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

@@ -6,12 +6,26 @@
             <p>Mes demandes</p>
         </a>
     </li>
+    @interim(auth()->user()->id)
+    <li class="nav-item">
+        <a href="{{ route('approbationInterim') }}" class="nav-link {{ Request::is('approbationInterim') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-inbox"></i>
+            <p>Approbations</p>
+        </a>
+    </li>
+    @endinterim
 @endif
 @if (auth()->user()->isApprover())
     <li class="nav-item">
         <a href="{{ route('approbation.index') }}" class="nav-link {{ Request::is('approbation') ? 'active' : '' }}">
             <i class="nav-icon fas fa-tags"></i>
             <p>Mes approbations</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('interim') }}" class="nav-link {{ Request::is('interim') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-tags"></i>
+            <p>Interim</p>
         </a>
     </li>
 @endif

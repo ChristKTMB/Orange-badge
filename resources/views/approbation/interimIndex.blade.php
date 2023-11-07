@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-Mes Approbations
+Approbations de {{$checkApprover->username}}
 @endsection
 @section('content')
     <br>
@@ -52,7 +52,7 @@ Mes Approbations
                                     
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" href="{{ route('approbation.show', $approvalForm->badgeRequest->id) }}">
+                                    <a class="btn btn-primary btn-sm" href="{{ route('approbation.single', $approvalForm->badgeRequest->id) }}">
                                         <i class="fas fa-eye">
                                         </i>
                                     </a>

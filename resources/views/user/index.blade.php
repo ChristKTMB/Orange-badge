@@ -10,31 +10,31 @@
                 <table class="table table-striped projects">
                     <thead>
                         <tr>
-                            <th style="width: 8%">
+                            <th>
                                 Id
                             </th>
-                            <th style="width: 13%">
+                            <th>
                                 Nom
                             </th>
-                            <th style="width: 16%">
+                            <th>
                                 Nom d'utilisateur
                             </th>
-                            <th style="width: 17%">
+                            <th>
                                 Adresse mail
                             </th>
-                            <th style="width: 16%">
+                            <th>
                                 Manager
                             </th>
-                            <th style="width: 11%">
+                            <th>
                                 Matricule
                             </th>
-                            <th style="width: 13%">
+                            <th>
                                 Administrateur
                             </th>
-                            <th style="width: 17%">
+                            <th>
                                 Status
                             </th>
-                            <th style="width: 30%">
+                            <th>
                                 Action
                             </th>
                         </tr>

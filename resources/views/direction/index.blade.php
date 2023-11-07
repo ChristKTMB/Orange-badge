@@ -24,13 +24,13 @@ Directions
             <table class="table table-striped projects">
                 <thead>
                     <tr>
-                        <th style="width: 35%">
+                        <th>
                             Id
                         </th>
-                        <th style="width: 45%">
+                        <th>
                             Nom direction
                         </th>
-                        <th style="width: 40%">
+                        <th>
                             Action
                         </th>
                     </tr>
