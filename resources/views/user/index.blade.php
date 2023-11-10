@@ -50,11 +50,9 @@
                                 <td>{{ $user->matricule }}</td>
                                 <td>
                                     @if ($user->role == 'admin')
-                                        <input type="checkbox" checked 
-                                            style="width: 18px; height: 18px; border: 2px solid #007BFF; border-radius: 4px; display: inline-block; vertical-align: middle; cursor: not-allowed; background-color: #007BFF;">
-                                    @else
-                                        <input type="checkbox" 
-                                            style="width: 18px; height: 18px; border: 2px solid #007BFF; border-radius: 4px; display: inline-block; vertical-align: middle; cursor: not-allowed; background-color: #007BFF;">
+                                        <a class="btn btn-light text-success btn-sm" data-toggle="modal"
+                                            data-target="#modal-default-{{ $user->id }}-accepter"><i
+                                                class="fas fa-user-check"></i></a>
                                     @endif
                                 </td>
                                 <td>

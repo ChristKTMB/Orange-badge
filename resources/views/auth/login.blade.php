@@ -17,18 +17,19 @@
 
                         <div class="input-group mb-3">
                             <input type="text" name="username" value="{{ old('username') }}" placeholder="Nom d'utilisateur"
-                                class="form-control @error('username') is-invalid @enderror">
+                                class="form-control @error('username') is-invalid @enderror" required>
                             <div class="input-group-append">
                                 <div class="input-group-text"><span class="fas fa-user"></span></div>
                             </div>
-                            @error('email')
+                            @error('username') 
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
+                        
 
                         <div class="input-group mb-3">
                             <input type="password" name="password" placeholder="Mot de passe"
-                                class="form-control @error('password') is-invalid @enderror">
+                                class="form-control @error('password') is-invalid @enderror" required>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>

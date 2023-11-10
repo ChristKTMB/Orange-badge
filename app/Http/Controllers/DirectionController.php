@@ -46,7 +46,7 @@ class DirectionController extends Controller
 
     public function update(Request $request, $id){
         $direction = Direction::find($id);
-        $direction->nom = $request->input('nom');
+        $direction->nom = strtoupper($request['nom']);
         $direction->save();
 
         return redirect()->route('direction.index');

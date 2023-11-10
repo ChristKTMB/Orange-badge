@@ -44,6 +44,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a href="{{ route('categorie.index') }}" class="nav-link {{ Request::is('categorie') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Categorie de demande</p>
+        </a>
+    </li>
+    <li class="nav-item">
         <a href="" class="nav-link ">
             <i class="nav-icon fas fa-file-alt"></i>
             <p>

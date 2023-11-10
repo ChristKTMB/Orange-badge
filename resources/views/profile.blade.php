@@ -20,46 +20,39 @@
             @method('PUT')
             <div class="card-body">
                 <div class="form-group">
-                    <label for="name">Nom </label>
+                    <label for="name">Nom <span
+                        class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}"
                         readonly>
                 </div>
                 <div class="form-group">
-                    <label for="username">Nom d'utilisateur</label>
+                    <label for="username">Nom d'utilisateur </label>
                     <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}"
                         readonly>
                 </div>
                 <div class="form-group">
-                    <label for="email">Adresse e-mail</label>
+                    <label for="email">Adresse e-mail </label>
                     <input type="text" class="form-control" id="email" name="email" value="{{ $user->email }}"
                         readonly>
                 </div>
                 <div class="form-group">
                     <div class="form-group">
-                        <label for="direction_id">Direction </label>
-                        @if (auth()->user()->id !== $user->id)
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="" name=""
-                                    value="{{ $user->direction->nom }}" readonly>
-                                <input type="hidden" class="form-control" id="direction_id" name="direction_id"
-                                    value="{{ $user->direction->id }}" readonly>
-                            </div>
-                        @else
-                            <select name="direction_id" id="direction_id" class="form-control">
-                                <option value=""></option>
+                        <label for="direction_id">Direction <span
+                            class="text-danger">*</span></label>  
+                            <select name="direction_id" id="direction_id" class="form-control" required @if (auth()->user()->id !== $user->id) readonly @endif>
                                 @foreach ($directions as $direction)
-                                    <option value="{{ $direction->id }}">
+                                    <option value="{{ $direction->id }}" @if ( $direction->id == $direction->nom) selected @endif>
                                         {{ $direction->nom }}
                                     </option>
                                 @endforeach
                             </select>
-                        @endif
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="fonction">Fonction</label>
+                    <label for="fonction">Fonction <span
+                        class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="fonction" name="fonction" value="{{ $user->fonction }}"
-                        @if (auth()->user()->id !== $user->id) readonly @endif>
+                        @if (auth()->user()->id !== $user->id) readonly @endif required>
                 </div>
                 <div class="form-group">
                     <label for="matricule">Matricule</label>
@@ -68,11 +61,12 @@
                 </div>
                 <div class="form-group">
                     <div class="form-group">
-                        <label for="manager">Manager </label>
+                        <label for="manager">Manager <span
+                            class="text-danger">*</span></label>
                         <select name="manager" id="manager" class="form-control">
                             {{-- <option value="{{ $user->manager }}">{{ $user->manager }}</option> --}}
                             @foreach ($managers->users as $manager)
-                                <option value="{{ $manager->email }}" @if ( $user->manager== $manager->email) selected @endif>
+                                <option value="{{ $manager->email }}" @if ( $user->manager == $manager->email) selected @endif @required(true)>
                                     {{ $manager->first_name }} {{ $manager->last_name }}
                                 </option>
                             @endforeach

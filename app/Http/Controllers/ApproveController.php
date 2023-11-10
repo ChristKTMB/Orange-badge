@@ -58,7 +58,7 @@ class ApproveController extends Controller
                 $approvalForms = $approverForms;
             } else {
                 //abort(404);
-                $approvalForms = [];
+                return abort(403);
             }
 
             return view('approbation.interimIndex', compact("approvalForms", "checkApprover"));
@@ -126,7 +126,7 @@ class ApproveController extends Controller
         $lastAprroval = ApprovalProgress::where('badge_request_id', $id)
             ->orderBy('id', 'desc')->with('badgeRequest')
             ->first();
-
+        
         if ($checkApprover) {
             $lastAprroval->interimaire = $checkApprover->id;
         }
@@ -135,8 +135,9 @@ class ApproveController extends Controller
         $lastAprroval->save();
 
         $nextStep = $lastAprroval->step + 1;
+        
 
-        if ($lastAprroval->badgeRequest->categorie_badge == 'Visiteur' || $lastAprroval->badgeRequest->categorie_badge == 'Consultant') {
+        if ($lastAprroval->badgeRequest->categorie_badge == 'VISITEUR' || $lastAprroval->badgeRequest->categorie_badge == 'CONSULTANT') {
             $nextApprover_id = Approving::where('etat', 1)
                 ->orderBy('id', 'desc')
                 ->first()->id;

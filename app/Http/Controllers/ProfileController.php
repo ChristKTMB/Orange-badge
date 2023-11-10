@@ -12,19 +12,21 @@ class ProfileController extends Controller
 {
     public function edit($id)
     {
+        if (auth()->user()->id == $id || Auth::user()->role == "admin") {
+            $user = User::find($id);
 
-        $user = User::find($id);
+            $usersResponse = Http::get('http://10.143.41.70:8000/promo2/odcapi/?method=getUsers');
+            $managers = json_decode($usersResponse->body());
+            $directions = Direction::all();
 
-        $usersResponse = Http::get('http://10.143.41.70:8000/promo2/odcapi/?method=getUsers');
-        $managers = json_decode($usersResponse->body());
-        $directions = Direction::all();
+            return view("profile", compact("user", "managers", "directions"));
+        } else {
+            return abort(403);
+        }
 
-        return view("profile", compact("user", "managers", "directions"));
     }
-
     public function update(Request $request, $user)
     {
-
         $user = User::find($user);
         $user->update([
             'direction_id' => $request->direction_id,
@@ -39,8 +41,8 @@ class ProfileController extends Controller
         $user->save();
         if (Auth::user()->role == 'admin') {
             return redirect()->route('user.index');
-        }else{
+        } else {
             return redirect()->route('historic');
-        } 
+        }
     }
 }

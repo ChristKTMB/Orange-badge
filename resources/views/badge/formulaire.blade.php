@@ -45,72 +45,11 @@
                                     <!-- your steps content here -->
                                     <div id="logins-part" class="content" role="tabpanel"
                                         aria-labelledby="logins-part-trigger">
-                                        <div style="display: none">
-                                            <div class="form-group row">
-                                                <label for="demandeur_nom" class="col-sm-4 col-form-label">Nom <span
-                                                        class="text-danger">*</span></label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="demandeur_nom"
-                                                        placeholder="" name="demandeur_nom" value="{{ $user->name }}"
-                                                        @readonly(true)>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="demandeur_prenom" class="col-sm-4 col-form-label">Prénom <span
-                                                        class="text-danger">*</span></label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="demandeur_prenom"
-                                                        placeholder="" name="demandeur_prenom"
-                                                        value="{{ $user->first_name }}" @readonly(true)>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="demandeur_directeur" class="col-sm-4 col-form-label">Direction
-                                                    <span class="text-danger">*</span></label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="demandeur_directeur"
-                                                        placeholder="" name="demandeur_directeur"
-                                                        value="{{ $user->direction->nom }}" @readonly(true)>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="demandeur_fonction" class="col-sm-4 col-form-label">Fonction
-                                                    <span class="text-danger">*</span></label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="demandeur_fonction"
-                                                        placeholder="" name="demandeur_fonction"
-                                                        value="{{ $user->fonction }}" @readonly(true)>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="demandeur_telephone" class="col-sm-4 col-form-label">Numero
-                                                    téléphone <span class="text-danger">*</span></label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="demandeur_telephone"
-                                                        placeholder="" name="demandeur_telephone"
-                                                        value="{{ $user->phone }}" @readonly(true)>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="demandeur_matricule" class="col-sm-4 col-form-label">Matricule
-                                                    <span class="text-danger">*</span></label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="demandeur_matricule"
-                                                        placeholder="" name="demandeur_matricule"
-                                                        value="{{ $user->matricule }}" @readonly(true)>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="date" class="col-sm-4 col-form-label">Date <span
-                                                        class="text-danger">*</span></label>
-                                                <div class="col-sm-8">
-                                                    <input type="date" class="form-control" id="date"
-                                                        placeholder="" name="date"
-                                                        value="{{ now()->format('Y-m-d') }}" @readonly(true)>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                <input type="hidden" class="form-control" id="demandeur_directeur"
+                                                    placeholder="" name="demandeur_directeur"
+                                                    value="{{ $user->direction->nom }}" @readonly(true)>
                                         <div class="form-group">
+                                            
                                             <div class="form-group row">
                                                 <label for="beneficiaire_nom" class="col-sm-4 col-form-label">Nom
                                                     <span class="text-danger">*</span></label>
@@ -130,8 +69,7 @@
                                             <div class="form-group">
                                                 <div class="form-group row">
                                                     <label for="beneficiaire_direction"
-                                                        class="col-sm-4 col-form-label">Direction <span
-                                                            class="text-danger">*</span></label>
+                                                        class="col-sm-4 col-form-label">Direction </label>
                                                     <div class="col-sm-8">
                                                         <select name="beneficiaire_direction" id="beneficiaire_direction"
                                                             class="form-control">
@@ -147,11 +85,10 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label for="beneficiaire_fonction"
-                                                    class="col-sm-4 col-form-label">Fonction <span
-                                                        class="text-danger">*</span></label>
+                                                    class="col-sm-4 col-form-label">Fonction </label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control" id="beneficiaire_fonction"
-                                                        placeholder="" name="beneficiaire_fonction" @required(true)>
+                                                        placeholder="" name="beneficiaire_fonction" >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -165,22 +102,20 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label for="beneficiaire_employeur"
-                                                    class="col-sm-4 col-form-label">Employeur <span
-                                                        class="text-danger">*</span></label>
+                                                    class="col-sm-4 col-form-label">Employeur </label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control"
                                                         id="beneficiaire_employeur" placeholder=""
-                                                        name="beneficiaire_employeur" @required(true)>
+                                                        name="beneficiaire_employeur" >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="beneficiaire_matricule"
-                                                    class="col-sm-4 col-form-label">Matricule <span
-                                                        class="text-danger">*</span></label>
+                                                    class="col-sm-4 col-form-label">Matricule </label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control"
                                                         id="beneficiaire_matricule" placeholder=""
-                                                        name="beneficiaire_matricule" @required(true)>
+                                                        name="beneficiaire_matricule" >
                                                 </div>
                                             </div>
                                         </div>
@@ -189,18 +124,22 @@
                                     {{-- fin de la partie 1 --}}
                                     <div id="information-part" class="content" role="tabpanel"
                                         aria-labelledby="information-part-trigger">
-                                        <div class="form-group row">
-                                            <label for="categorie_badge" class="col-sm-4 col-form-label">Contrat <span class="text-danger">*</span></label>
-                                            <div class="col-sm-8">
-                                                <select id="categorie_badge" name="categorie_badge" class="form-control"
-                                                    @required(true)>
-                                                    <option value=""></option>
-                                                    <option value="Permanent staff">Permanent staff</option>
-                                                    <option value="Consultant">Consultant</option>
-                                                    <option value="Temporaire">Temporaire</option>
-                                                    <option value="Stagiaire">Stagiaire</option>
-                                                    <option value="Visiteur">Visiteur</option>
-                                                </select>
+                                        <div class="form-group">
+                                            <div class="form-group row">
+                                                <label for="beneficiaire_direction"
+                                                    class="col-sm-4 col-form-label">Contrat <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-sm-8">
+                                                    <select name="categorie_badge" id="categorie_badge"
+                                                        class="form-control" @required(true)>
+                                                        <option value="">Choisir un contrat</option>
+                                                        @foreach ($categories as $categorie)
+                                                            <option value="{{ $categorie->nom }}">
+                                                                {{ $categorie->nom }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -224,7 +163,7 @@
                                             <label for="motivation" class="col-sm-4 col-form-label">Motivation</label>
                                             <div class="col-sm-8">
                                                 <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Votre motivation ..."
-                                                    maxlength="400" @required(true)></textarea>
+                                                    maxlength="300"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -262,6 +201,17 @@
             </div>
         </form>
     </div>
+
+
+
+
+
+
+
+
+
+
+    
 @endsection
 
 @section('scripts')

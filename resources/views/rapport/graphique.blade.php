@@ -57,26 +57,6 @@
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            {{-- <div class="card">
-                <div class="card-body">
-                    <div class="tab-content p-0">
-                        <h2><i class="fas fa-chart-pie mr-1"></i>Statistiques des Demandes pour l'Année {{ $year }}
-                        </h2>
-                        <canvas id="approvalsProgressChart"></canvas>
-                    </div>
-                    <form method="GET" action="{{ route('graphique.index') }}">
-                        @csrf
-                        <label for="year">Sélectionnez l'année :</label>
-                        <select name="year" id="year">
-                            @foreach ($years as $year)
-                                <option value="{{ $year->year }}" @if ($year->year == $selectedYear) selected @endif>
-                                    {{ $year->year }}</option>
-                            @endforeach
-                        </select>
-                        <button type="submit">Afficher</button>
-                    </form>
-                </div>
-            </div> --}}
 
             <div class="card" style="position: relative; left: 0px; top: 0px;">
                 <div class="card-header ui-sortable-handle" style="cursor: move;">
@@ -97,7 +77,7 @@
                 </div>
                 <div class="card-body">
                     <div class="tab-content p-0">
-                        <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 450px;">
+                        <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 500px;">
                             <div class="tab-content p-0">
                                 <h2><i class="fas fa-chart-pie mr-1"></i>Statistiques des Demandes pour l'Année {{ $year }}
                                 </h2>
@@ -106,13 +86,13 @@
                             <form method="GET" action="{{ route('graphique.index') }}">
                                 @csrf
                                 <label for="year">Sélectionnez l'année :</label>
-                                <select name="year" id="year">
+                                <select class="form-control" name="year" id="year">
                                     @foreach ($years as $year)
                                         <option value="{{ $year->year }}" @if ($year->year == $selectedYear) selected @endif>
                                             {{ $year->year }}</option>
                                     @endforeach
                                 </select>
-                                <button type="submit">Afficher</button>
+                                <button class="btn btn-success" type="submit">Afficher</button>
                             </form>
                         </div>
                         <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 450px;">

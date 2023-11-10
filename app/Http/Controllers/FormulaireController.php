@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
 use App\Models\User;
 use App\Models\Approving;
 use App\Models\Direction;
@@ -15,7 +16,8 @@ class FormulaireController extends Controller
         $user = Auth::user();
         $managers = User::all();
         $directions = Direction::all();
+        $categories = Categorie::all();
         $approvers = Approving::where('etat', 1)->get()->toArray();
-        return view('badge.formulaire', compact('user','managers','directions', 'approvers'));
+        return view('badge.formulaire', compact('user','managers','directions', 'approvers','categories'));
     }
 }
