@@ -1,38 +1,40 @@
-@extends('layouts.app')
-@section('title')
-    Rapport des approbations
-@endsection
-@section('content')
-    <section class="content">
-        <div div class="card-body ">
-            <form action="" method="GET" class="form-inline">
-                <div class="row">
+    
+    <div>
+        <div class="d-flex justify-content-between">
+            <div class="card-body">
+                <form action="" method="GET" class="form-inline">
                     <div class="form-group row">
-                        <label for="start_date" class="col-sm-8 col-form-label">Date de début :</label>
-                        <div class="col-sm-8">
-                            <input type="date" class="form-control" id="start_date" placeholder="" name="start_date"
-                                @required(true) value="{{ old('start_date') }}" max="{{ now()->format('Y-m-d') }}">
+                        <label class="col-sm-2 col-form-label">Début :</label>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="date" class="form-control" id="start_date" placeholder="Début"
+                                    name="start_date" required value="{{ old('start_date') }}"
+                                    max="{{ now()->format('Y-m-d') }}">
+                            </div>
+                        </div>
+                        <label class="col-sm-2 col-form-label">Fin :</label>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="date" class="form-control" id="end_date" placeholder="Fin"
+                                    name="end_date" required value="{{ old('end_date') }}"
+                                    max="{{ now()->format('Y-m-d') }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-success" type="submit">Filtrer</button>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="end_date" class="col-sm-8 col-form-label">Date de fin :</label>
-                        <div class="col-sm-8">
-                            <input type="date" class="form-control" id="end_date" placeholder="" name="end_date"
-                                @required(true) value="{{ old('start_date') }}" max="{{ now()->format('Y-m-d') }}">
-                        </div>
-                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6 margin-tb">
+                <div class="text-right mx-4">
+                    <a class="btn btn-success m-2" href="{{ url('/export-approving') }}">Tout telecharger
+                        <img src="https://cdn-icons-png.flaticon.com/128/732/732220.png"
+                            data-src="https://cdn-icons-png.flaticon.com/128/732/732220.png" alt="Excel "
+                            title="Excel " width="20" height="20" class="lzy lazyload--done"
+                            srcset="https://cdn-icons-png.flaticon.com/128/732/732220.png 4x">
+                    </a>
                 </div>
-                <button class="btn btn-success" type="submit">Filtrer</button>
-            </form>
-        </div>
-        <div class="col-lg-12 margin-tb">
-            <div class="text-right mx-4">
-                <a class="btn btn-success m-2" href="{{ url('/export-approving') }}">
-                    <img src="https://cdn-icons-png.flaticon.com/128/732/732220.png"
-                        data-src="https://cdn-icons-png.flaticon.com/128/732/732220.png" alt="Excel " title="Excel "
-                        width="20" height="20" class="lzy lazyload--done"
-                        srcset="https://cdn-icons-png.flaticon.com/128/732/732220.png 4x">
-                </a>
             </div>
         </div>
         <div class="card">
@@ -105,8 +107,7 @@
                 </table>
             </div>
         </div>
-    </section>
-    <div class="d-flex justify-content-center">
-        {{ $badgeRequest->links('pagination') }}
+        <div class="d-flex justify-content-center">
+            {{ $badgeRequest->links('pagination') }}
+        </div>
     </div>
-@endsection

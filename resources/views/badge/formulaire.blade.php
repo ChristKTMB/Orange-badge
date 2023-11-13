@@ -4,6 +4,7 @@
 @endsection
 @section('content')
     <div class="container">
+
         <form id="formulaireDemandeBadge" action="{{ route('badge.store') }}" method="POST" onsubmit="return confirmerEnvoi()"
             enctype="multipart/form-data">
             @csrf
@@ -19,7 +20,7 @@
                         </div>
                     </div>
                     <input type="hidden" name="categorie" id="categorie" value="">
-                    
+
                     <div class="card card-default">
                         <div class="card-body p-0">
                             <div class="bs-stepper">
@@ -45,11 +46,11 @@
                                     <!-- your steps content here -->
                                     <div id="logins-part" class="content" role="tabpanel"
                                         aria-labelledby="logins-part-trigger">
-                                                <input type="hidden" class="form-control" id="demandeur_directeur"
-                                                    placeholder="" name="demandeur_directeur"
-                                                    value="{{ $user->direction->nom }}" @readonly(true)>
+                                        <input type="hidden" class="form-control" id="demandeur_directeur" placeholder=""
+                                            name="demandeur_directeur" value="{{ $user->direction->nom }}"
+                                            @readonly(true)>
                                         <div class="form-group">
-                                            
+
                                             <div class="form-group row">
                                                 <label for="beneficiaire_nom" class="col-sm-4 col-form-label">Nom
                                                     <span class="text-danger">*</span></label>
@@ -69,7 +70,8 @@
                                             <div class="form-group">
                                                 <div class="form-group row">
                                                     <label for="beneficiaire_direction"
-                                                        class="col-sm-4 col-form-label">Direction </label>
+                                                        class="col-sm-4 col-form-label">Direction <span
+                                                            class="text-danger">*</span></label>
                                                     <div class="col-sm-8">
                                                         <select name="beneficiaire_direction" id="beneficiaire_direction"
                                                             class="form-control">
@@ -84,42 +86,46 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="beneficiaire_fonction"
-                                                    class="col-sm-4 col-form-label">Fonction </label>
+                                                <label for="beneficiaire_fonction" class="col-sm-4 col-form-label">Fonction
+                                                    <span class="text-danger">*</span></label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control" id="beneficiaire_fonction"
-                                                        placeholder="" name="beneficiaire_fonction" >
+                                                        placeholder="" name="beneficiaire_fonction">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="beneficiaire_telephone" class="col-sm-4 col-form-label">Numero
                                                     téléphone <span class="text-danger">*</span></label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control"
+                                                    <input type="number" class="form-control"
                                                         id="beneficiaire_telephone" placeholder=""
-                                                        name="beneficiaire_telephone" @required(true)>
+                                                        name="beneficiaire_telephone" pattern="[0-9]+"
+                                                        title="Veuillez saisir uniquement des chiffres" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="beneficiaire_employeur"
-                                                    class="col-sm-4 col-form-label">Employeur </label>
+                                                    class="col-sm-4 col-form-label">Employeur <span
+                                                        class="text-danger">*</span></label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control"
                                                         id="beneficiaire_employeur" placeholder=""
-                                                        name="beneficiaire_employeur" >
+                                                        name="beneficiaire_employeur">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="beneficiaire_matricule"
-                                                    class="col-sm-4 col-form-label">Matricule </label>
+                                                    class="col-sm-4 col-form-label">Matricule <span
+                                                        class="text-danger">*</span></label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control"
                                                         id="beneficiaire_matricule" placeholder=""
-                                                        name="beneficiaire_matricule" >
+                                                        name="beneficiaire_matricule">
                                                 </div>
                                             </div>
                                         </div>
-                                        <a class="btn btn-primary" onclick="stepper.next()">Suivant</a>
+                                        {{-- <a class="btn btn-primary" onclick="stepper.next()">Suivant</a> --}}
+                                        <a class="btn btn-primary" onclick="validateAndNext()">Suivant</a>
                                     </div>
                                     {{-- fin de la partie 1 --}}
                                     <div id="information-part" class="content" role="tabpanel"
@@ -169,12 +175,13 @@
                                         <div class="form-group row">
                                             <label for="approvers" class="col-sm-4 col-form-label">Les
                                                 approbateurs</label>
-                                                <div class="col-sm-8">
-                                                    @foreach ($approvers as $approver)
-                                                        <span class="badge  badge-info">Nom : {{ $approver['name'] }},
-                                                            Fonction : {{ $approver['fonction'] }}, Email : {{ $approver['email'] }}</span><br>
-                                                    @endforeach
-                                                </div>
+                                            <div class="col-sm-8">
+                                                @foreach ($approvers as $approver)
+                                                    <span class="badge  badge-info">Nom : {{ $approver['name'] }},
+                                                        Fonction : {{ $approver['fonction'] }}, Email :
+                                                        {{ $approver['email'] }}</span><br>
+                                                @endforeach
+                                            </div>
                                         </div>
                                         <div id="sectionBadgePerdu" style="display: none">
                                             <div class="form-group row">
@@ -182,36 +189,25 @@
                                                     document</label>
                                                 <div class="col-sm-8">
                                                     <input type="file" class="form-control" id="upload"
-                                                        placeholder="" name="upload" >
+                                                        placeholder="" name="upload">
                                                 </div>
                                             </div>
                                         </div>
                                         <a class="btn btn-primary" onclick="stepper.previous()">Précedent</a>
-                                        <button class="btn btn-success" id="test" type="submit">Envoyer</button>
+                                        <button class="btn btn-success" id="test" type="submit"
+                                            >Envoyer</button>
                                     </div>
                                     {{-- fin de la partie 2 --}}
                                 </div>
                             </div>
                         </div>
-                        <!-- /.card-body -->
                     </div>
+                    <p><strong><span class="text-danger">* </span></strong> Merci de remplir ce champ</p>
                 </div>
-
-                <!-- /.card -->
             </div>
         </form>
+        <x-confirm_demande />
     </div>
-
-
-
-
-
-
-
-
-
-
-    
 @endsection
 
 @section('scripts')
@@ -238,8 +234,6 @@
                 sectionBadgePerdu.style.display = "none";
             }
         });
-
-
 
         document.querySelector('#test').addEventListener('click', (e) => {
 
@@ -270,49 +264,55 @@
             clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
         })
 
-        myDropzone.on("addedfile", function(file) {
-            // Hookup the start button
-            file.previewElement.querySelector(".start").onclick = function() {
-                myDropzone.enqueueFile(file)
-            }
-        })
-
-        // Update the total progress bar
-        myDropzone.on("totaluploadprogress", function(progress) {
-            document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
-        })
-
-        myDropzone.on("sending", function(file) {
-            // Show the total progress bar when upload starts
-            document.querySelector("#total-progress").style.opacity = "1"
-            // And disable the start button
-            file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
-        })
-
-        // Hide the total progress bar when nothing's uploading anymore
-        myDropzone.on("queuecomplete", function(progress) {
-            document.querySelector("#total-progress").style.opacity = "0"
-        })
-
-        // Setup the buttons for all transfers
-        // The "add files" button doesn't need to be setup because the config
-        // `clickable` has already been specified.
-        document.querySelector("#actions .start").onclick = function() {
-            myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
-        }
-        document.querySelector("#actions .cancel").onclick = function() {
-            myDropzone.removeAllFiles(true)
-        }
-
         // Fonction qui affiche un pop up pour confirmer
         function confirmerEnvoi() {
-            return confirm("Êtes-vous sûr de vouloir envoyer le formulaire ?");
+            // Afficher votre modal personnalisé
+            document.getElementById("confirmationModal").style.display = "block";
+            return false; // Pour empêcher la soumission du formulaire
         }
 
+        function submitForm() {
+            document.getElementById("formulaireDemandeBadge").submit();
+        }
 
+        function closeModal() {
+            document.getElementById("confirmationModal").style.display = "none";
+        }
 
         var form = document.querySelector('#formulaireDemandeBadge');
+    </script>
+    <script>
+        function validateAndNext() {
+            // Validez la première partie du formulaire
+            if (!validateLoginsPart()) {
+                return;
+            }
+            stepper.next();
+        }
 
+        function validateLoginsPart() {
+            var nom = document.getElementById('beneficiaire_nom');
+            var prenom = document.getElementById('beneficiaire_prenom');
+            var phone = document.getElementById('beneficiaire_telephone');
 
+            if (nom.value.trim() === '' || prenom.value.trim() === '' || phone.value.trim() === '') {
+                // Ajoutez ici des messages ou des styles pour indiquer qu'un champ obligatoire est manquant
+                if (nom.value.trim() === '') {
+                    nom.classList.add('is-invalid');
+                }
+
+                if (prenom.value.trim() === '') {
+                    prenom.classList.add('is-invalid');
+                }
+
+                if (phone.value.trim() === '') {
+                    phone.classList.add('is-invalid');
+                }
+
+                return false;
+            }
+
+            return true;
+        }
     </script>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RejectionNotification;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Approving;
@@ -110,6 +111,13 @@ class ApproveController extends Controller
         $approval2->motif = $request->motif;
         $approval2->save();
 
+        $demandeur = User::find($approval->demandeur_id);
+        $demandeurEmail = $demandeur->email;
+
+        $detailUrl = URL::route('badge.show', $approval->badge_request_id);
+        $email = new RejectionNotification($detailUrl);
+        Mail::to($demandeurEmail)->send($email);
+
         return redirect()->back();
     }
 
@@ -126,7 +134,7 @@ class ApproveController extends Controller
         $lastAprroval = ApprovalProgress::where('badge_request_id', $id)
             ->orderBy('id', 'desc')->with('badgeRequest')
             ->first();
-        
+
         if ($checkApprover) {
             $lastAprroval->interimaire = $checkApprover->id;
         }
@@ -135,7 +143,7 @@ class ApproveController extends Controller
         $lastAprroval->save();
 
         $nextStep = $lastAprroval->step + 1;
-        
+
 
         if ($lastAprroval->badgeRequest->categorie_badge == 'VISITEUR' || $lastAprroval->badgeRequest->categorie_badge == 'CONSULTANT') {
             $nextApprover_id = Approving::where('etat', 1)
@@ -187,7 +195,7 @@ class ApproveController extends Controller
         if ($lastAprroval->step === $approval->total_approvers) {
             $demandeur = User::find($approval->demandeur_id);
             $demandeurEmail = $demandeur->email;
-            $detailUrl = URL::route('approbation.show', $approval->badge_request_id);
+            $detailUrl = URL::route('badge.show', $approval->badge_request_id);
             $email = new ConfirmationMail($detailUrl);
             Mail::to($demandeurEmail)->send($email);
         }
@@ -215,10 +223,12 @@ class ApproveController extends Controller
                 $approval = ApprovalProgress::where('badge_request_id', $id)
                     ->where('approver_id', $userApprover->id)
                     ->first();
-                if ($approval) {
+                if ($approval && $userApprover->id == $approval->approver_id) {
                     $badgeRequest = $approval->badgeRequest;
                     $approved = $approval->approved == 1 ? true : false;
                     $motif = $approval->motif;
+                } else {
+                    abort(403, 'Accès non autorisé.');
                 }
             } else {
                 return redirect()->guest('login');

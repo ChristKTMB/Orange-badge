@@ -11,6 +11,18 @@ class GraphicRapportController extends Controller
 {
     public function index(Request $request)
     {
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        
+        $badgeRequestQuery  = BadgeRequest::orderBy('created_at', 'desc');
+            
+            if ($start_date && $end_date) {
+                $badgeRequestQuery->whereBetween('created_at', [$start_date, $end_date]);
+            }
+            $badgeRequest = $badgeRequestQuery->paginate(10);
+
+
+
         $totalRequests = BadgeRequest::count();
 
         $nombreDeRefuses = ApprovalProgress::whereIn('id', function ($query) {
@@ -43,7 +55,7 @@ class GraphicRapportController extends Controller
         $refusalsByMonth = $this->getApprovalsProgressByMonthRefuser($year);
         $attentesByMonth = $this->getApprovalsProgressByMonthEnAttente($year);
 
-        return view("rapport.graphique", compact("totalRequests", "nombreDeRefuses", "nombreApprouves", "nombreEnAttente", "badgeRequestsByMonth", "approvalsByMonth", "refusalsByMonth", "attentesByMonth", "years", "year", "selectedYear"));
+        return view("rapport.graphique", compact("badgeRequest","totalRequests", "nombreDeRefuses", "nombreApprouves", "nombreEnAttente", "badgeRequestsByMonth", "approvalsByMonth", "refusalsByMonth", "attentesByMonth", "years", "year", "selectedYear"));
     }
     public function getBadgeRequestsByMonth($year)
     {
