@@ -113,18 +113,23 @@ class BadgeRequestController extends Controller
         $approval = ApprovalProgress::where('badge_request_id', $badgeRequest)
             ->with('badgeRequest')
             ->first();
+
+        if (!$approval) {
+            return response()->view('erreur.error404', [], 404);
+        }
+        
         if (auth()->user()->id == $approval->demandeur_id || auth()->user()->role == 'admin') {
             $badgeRequest = $approval->badgeRequest;
             $approvers = json_decode($badgeRequest->approvers, true);
-            $approved = $approval->approved == 1 ? true : false;
+            $approved = $approval->approved == 1;
             $motif = $approval->motif;
 
-            return view('badge.formdetail', compact("badgeRequest", "approved", "approvers", "motif"));
+            return view('badge.formdetail', compact('badgeRequest', 'approved', 'approvers', 'motif'));
         } else {
-            return abort(403);
+            return response()->view('erreur.error403', [], 403);
         }
-
     }
+
 
     public function showBadge()
     {

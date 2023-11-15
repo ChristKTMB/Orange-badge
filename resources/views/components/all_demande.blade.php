@@ -1,11 +1,10 @@
-    
     <div>
         <div class="d-flex justify-content-between">
             <div class="card-body">
                 <form action="" method="GET" class="form-inline">
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Début :</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="input-group">
                                 <input type="date" class="form-control" id="start_date" placeholder="Début"
                                     name="start_date" required value="{{ old('start_date') }}"
@@ -13,7 +12,7 @@
                             </div>
                         </div>
                         <label class="col-sm-2 col-form-label">Fin :</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="input-group">
                                 <input type="date" class="form-control" id="end_date" placeholder="Fin"
                                     name="end_date" required value="{{ old('end_date') }}"
@@ -26,7 +25,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-6 margin-tb">
+            <div class="col-lg-4 margin-tb">
                 <div class="text-right mx-4">
                     <a class="btn btn-success m-2" href="{{ url('/export-approving') }}">Tout telecharger
                         <img src="https://cdn-icons-png.flaticon.com/128/732/732220.png"

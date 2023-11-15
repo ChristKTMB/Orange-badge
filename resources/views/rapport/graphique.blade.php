@@ -7,12 +7,13 @@
         <div class="row">
             <x-count_demande :totalRequests=$totalRequests :nombreApprouves=$nombreApprouves
                 :nombreEnAttente=$nombreEnAttente :nombreDeRefuses=$nombreDeRefuses />
-               
+
             <div class="container-fluid invoice p-3 mb-3">
-                <x-all_demande :badgeRequest=$badgeRequest/>
+                <x-all_demande :badgeRequest=$badgeRequest />
             </div>
-                
-            
+            <div id="dateRangeMessage" class="alert alert-info" style="display: none;"></div>
+
+
 
             <div class="card" style="position: relative; left: 0px; top: 0px;">
                 {{-- <div class="card-header ui-sortable-handle" style="cursor: move;">
@@ -33,22 +34,25 @@
                 </div> --}}
                 <div class="card-body">
                     <div class="tab-content p-0">
-                        <div class="chart tab-pane active d-flex flex-column justify-content-center align-items-center" id="revenue-chart" style="position: relative; height: 450px;">
-                            <h2><i class="fas fa-chart-pie mr-1"></i>Statistiques des Demandes pour l'Année {{ $year }}</h2>
+                        <div class="chart tab-pane active d-flex flex-column justify-content-center align-items-center"
+                            id="revenue-chart" style="position: relative; height: 450px;">
+                            <h2><i class="fas fa-chart-pie mr-1"></i>Statistiques des Demandes pour l'Année
+                                {{ $year }}</h2>
                             <canvas id="approvalsProgressChart"></canvas>
                             <form method="GET" action="{{ route('graphique.index') }}" class="form-inline mt-3">
                                 @csrf
                                 <label for="year" class="mr-2">Sélectionnez l'année :</label>
                                 <select class="form-control form-control-sm mr-2" name="year" id="year">
                                     @foreach ($years as $year)
-                                        <option value="{{ $year->year }}" @if ($year->year == $selectedYear) selected @endif>
+                                        <option value="{{ $year->year }}"
+                                            @if ($year->year == $selectedYear) selected @endif>
                                             {{ $year->year }}</option>
                                     @endforeach
                                 </select>
                                 <button class="btn btn-success btn-sm" type="submit">Afficher</button>
                             </form>
                         </div>
-                        
+
                         {{-- <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 450px;">
                             <div class="chartjs-size-monitor">
                                 <div class="chartjs-size-monitor-expand">
@@ -119,6 +123,21 @@
                     }
                 }
             }
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#start_date, #end_date').change(function() {
+                var startDate = $('#start_date').val();
+                var endDate = $('#end_date').val();
+
+                // Vérifier si la date de fin est antérieure à la date de début
+                if (new Date(endDate) < new Date(startDate)) {
+                    alert("La date de fin ne peut pas être antérieure à la date de début.");
+                    $('#end_date').val('');
+                }
+            });
         });
     </script>
 @endsection

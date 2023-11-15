@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Approving;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -17,14 +18,19 @@ class UserController extends Controller
 
     public function interim()
     {
-        $userId = auth()->user()->id;
-        $user = User::find($userId);
-        $users = $user->delegues;
-        $userAll = User::all();
+        $email = auth()->user()->email;
+        $approvingUser = Approving::where('email', $email)->where('etat', 1)->first();
 
-        
+        if ($approvingUser || auth()->user()->role == 'admin') {
+            $userId = auth()->user()->id;
+            $user = User::find($userId);
+            $users = $user->delegues;
+            $userAll = User::all();
 
-        return view("user.interim", compact("users", "userAll"));
+            return view("user.interim", compact("users", "userAll"));
+        } else {
+            return response()->view('erreur.error403', [], 403);
+        }
     }
 
     public function edit_status(Request $request, $userId, $delegue)

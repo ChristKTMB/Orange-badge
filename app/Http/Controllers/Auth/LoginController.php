@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Exception;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -13,7 +14,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class LoginController extends Controller{
+class LoginController extends Controller
+{
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -54,8 +56,8 @@ class LoginController extends Controller{
             return $response;
         }
         return $request->wantsJson()
-                    ? new JsonResponse([], 204)
-                    : redirect()->intended($this->redirectTo);
+            ? new JsonResponse([], 204)
+            : redirect()->intended($this->redirectTo);
     }
 
     protected function validateLogin(Request $request)
@@ -66,58 +68,59 @@ class LoginController extends Controller{
         ]);
     }
 
-    public function login(Request $request){
-        
+    public function login(Request $request)
+    {
         $this->validateLogin($request);
+
         $username = $request->username;
         $password = $request->password;
 
-        $userAdmin = User::where('username', $username)?->get()->first();
-        
-        if ($userAdmin){
-            if ($userAdmin->role === 'admin' && Hash::check($password, $userAdmin->password)) {
-                $this->guard()->login($userAdmin);
-    
-                return redirect()->route('home');
-            }
+        $localUser = User::where('username', $username)->first();
+
+        if ($localUser && $localUser->role === 'admin' && Hash::check($password, $localUser->password)) {
+            $this->guard()->login($localUser);
+            return redirect()->route('home');
         }
-        
+
         $req = Http::post('http://10.143.41.70:8000/promo2/odcapi/?method=login', [
             'username' => $request->username,
             'password' => $request->password,
         ]);
         $req = json_decode($req->body());
-        
-        if(isset($req->user)){
-            $user = User::Where(['username'=>$request->username])?->get()->first();
-            if(!$user){
+
+        if (isset($req->user)) {
+            $user = User::Where(['username' => $request->username])?->get()->first();
+            if (!$user) {
                 $user = User::create([
                     'name' => $req->user->first_name,
-                    'first_name'=> $req->user->last_name,
-                    'username'=> $request->username,
+                    'first_name' => $req->user->last_name,
+                    'username' => $request->username,
                     'email' => $req->user->email,
                     'phone' => $req->user->phone,
                     'password' => Hash::make("password"),
                     'profil_complete' => false,
+                    'status' =>1,
                 ]);
             }
-            if($user->status == 1){
+            
+            if ($user->status == 1) {
                 $this->guard()->login($user);
-            }else{
-                return $this->sendFailedLoginResponse($request);
+            } else {
+                return $this->sendFailedLoginResponse($request, "Votre compte a été désactivé. Contactez l'administrateur.");
             }
 
-            if (!$user->profil_complete){
-                return redirect()->route('profile.edit',auth()->user());
+            if (!$user->profil_complete) {
+                return redirect()->route('profile.edit', auth()->user());
             }
 
             return $this->sendLoginResponse($request);
-        }else{
+        } else {
 
-            return $this->sendFailedLoginResponse($request);
+            return $this->sendFailedLoginResponse($request, "Nom d'utilisateur ou mot de passe invalide");
         }
     }
-        /**
+
+    /**
      * Get the failed login response instance.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -125,12 +128,13 @@ class LoginController extends Controller{
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    protected function sendFailedLoginResponse(Request $request)
+    protected function sendFailedLoginResponse(Request $request, $message = 'auth.failed')
     {
         throw ValidationException::withMessages([
-            $this->username() => [trans('auth.failed')],
+            $this->username() => [trans($message)],
         ]);
     }
+
     /**
      * The user has been authenticated.
      *
@@ -146,7 +150,7 @@ class LoginController extends Controller{
     {
         return 'username';
     }
-        /**
+    /**
      * Log the user out of the application.
      *
      * @param  \Illuminate\Http\Request  $request

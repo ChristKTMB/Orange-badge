@@ -65,6 +65,7 @@ class User extends Authenticatable
         'fonction',
         'matricule',
         'manager',
+        'status',
     ];
 
     /**

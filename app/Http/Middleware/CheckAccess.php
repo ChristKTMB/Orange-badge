@@ -19,7 +19,7 @@ class CheckAccess
             return $next($request);
         }
 
-        return abort(403);
+        return response()->view('erreur.error403', [], 403);
         
     }
 }

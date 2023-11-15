@@ -41,7 +41,6 @@ class ApproveController extends Controller
 
     public function approbationInterim()
     {
-
         $checkApprover = $this->checkInterim();
 
         if ($checkApprover) {
@@ -64,7 +63,7 @@ class ApproveController extends Controller
 
             return view('approbation.interimIndex', compact("approvalForms", "checkApprover"));
         } else {
-            return redirect()->guest('login');
+            return response()->view('erreur.error404', [], 404);
         }
     }
 
@@ -207,71 +206,54 @@ class ApproveController extends Controller
 
     public function show($id)
     {
-
-        // Verifie si le user est connecté pour affichier le detail de la demande sinon il lui redirige vers la page de connexion
-        if (auth()->check()) {
-            // Verifie si l'utilisateur connecté est un approbateur
-            $userApprover = Approving::where('email', auth()->user()->email)->first();
-
-            $approval = ApprovalProgress::where('badge_request_id', $id)
-                ->first();
-            $badgeRequest = $approval->badgeRequest;
-            $approved = $approval->approved == 1 ? true : false;
-
-            if ($userApprover) {
-                // Récupérez l'entrée dans la table de liaison ou l'approbateur correspondant à user connecté est associé au formulaire
-                $approval = ApprovalProgress::where('badge_request_id', $id)
-                    ->where('approver_id', $userApprover->id)
-                    ->first();
-                if ($approval && $userApprover->id == $approval->approver_id) {
-                    $badgeRequest = $approval->badgeRequest;
-                    $approved = $approval->approved == 1 ? true : false;
-                    $motif = $approval->motif;
-                } else {
-                    abort(403, 'Accès non autorisé.');
-                }
-            } else {
-                return redirect()->guest('login');
-            }
-
-            return view('approbation.show', compact("badgeRequest", "approved", "motif"));
-        } else {
-
+        if (!auth()->check()) {
             return redirect()->guest('login');
         }
+
+        $userApprover = Approving::where('email', auth()->user()->email)->first();
+
+        if (!$userApprover) {
+            return response()->view('erreur.error403', [], 403);
+        }
+
+        $approval = ApprovalProgress::where('badge_request_id', $id)
+            ->where('approver_id', $userApprover->id)
+            ->first();
+
+        if (!$approval) {
+            return response()->view('erreur.error404', [], 404);
+        }
+
+        $badgeRequest = $approval->badgeRequest;
+        $approved = $approval->approved == 1;
+        $motif = $approval->motif;
+
+        return view('approbation.show', compact('badgeRequest', 'approved', 'motif'));
     }
 
     public function single($id)
     {
-        // Verifie si le user est connecté pour affichier le detail de la demande sinon il lui redirige vers la page de connexion
-        if (auth()->check()) {
-            // Verifie si l'utilisateur connecté est un approbateur
-            $checkApprover = $this->checkInterim();
-            $userApprover = Approving::where('email', $checkApprover->email)->first();
-
-            $approval = ApprovalProgress::where('badge_request_id', $id)
-                ->first();
-            $badgeRequest = $approval->badgeRequest;
-            $approved = $approval->approved == 1 ? true : false;
-
-            if ($userApprover) {
-                // Récupérez l'entrée dans la table de liaison ou l'approbateur correspondant à user connecté est associé au formulaire
-                $approval = ApprovalProgress::where('badge_request_id', $id)
-                    ->where('approver_id', $userApprover->id)
-                    ->first();
-                if ($approval) {
-                    $badgeRequest = $approval->badgeRequest;
-                    $approved = $approval->approved == 1 ? true : false;
-                    $motif = $approval->motif;
-                }
-            } else {
-                return redirect()->guest('login');
-            }
-
-            return view('approbation.single', compact("badgeRequest", "approved", "motif"));
-        } else {
-
+        if (!auth()->check()) {
             return redirect()->guest('login');
+        }
+        $checkApprover = $this->checkInterim();
+        
+        if ($checkApprover) {
+            $userApprover = Approving::where('email', $checkApprover->email)->first();
+            $approval = ApprovalProgress::where('badge_request_id', $id)
+                ->where('approver_id', $userApprover->id)
+                ->first();
+            if ($approval) {
+                $badgeRequest = $approval->badgeRequest;
+                $approved = $approval->approved == 1 ? true : false;
+                $motif = $approval->motif;
+
+                return view('approbation.single', compact("badgeRequest", "approved", "motif"));
+            } else {
+                return response()->view('erreur.error404', [], 404);
+            }
+        } else {
+            return response()->view('erreur.error403', [], 403);
         }
     }
 }

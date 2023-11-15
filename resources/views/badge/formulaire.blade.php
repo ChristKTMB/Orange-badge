@@ -315,4 +315,13 @@
             return true;
         }
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#date_debut').change(function () {
+                var startDate = $(this).val();
+                $('#date_fin').attr('min', startDate);
+            });
+        });
+    </script>
 @endsection
