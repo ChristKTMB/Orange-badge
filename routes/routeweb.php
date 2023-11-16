@@ -23,7 +23,7 @@ use App\Http\Controllers\BadgeRequestController;
 |
 */
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'checkStatus'])->group(function () {
     Route::resource('badge', BadgeRequestController::class);
     Route::resource('rapport', RapportController::class)->middleware('checkAdmin');
     Route::resource('user', UserController::class)->middleware('checkAdmin');

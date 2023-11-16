@@ -70,8 +70,7 @@
                                             <div class="form-group">
                                                 <div class="form-group row">
                                                     <label for="beneficiaire_direction"
-                                                        class="col-sm-4 col-form-label">Direction <span
-                                                            class="text-danger">*</span></label>
+                                                        class="col-sm-4 col-form-label">Direction </label>
                                                     <div class="col-sm-8">
                                                         <select name="beneficiaire_direction" id="beneficiaire_direction"
                                                             class="form-control">
@@ -87,7 +86,7 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label for="beneficiaire_fonction" class="col-sm-4 col-form-label">Fonction
-                                                    <span class="text-danger">*</span></label>
+                                                    </label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control" id="beneficiaire_fonction"
                                                         placeholder="" name="beneficiaire_fonction">
@@ -105,8 +104,7 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label for="beneficiaire_employeur"
-                                                    class="col-sm-4 col-form-label">Employeur <span
-                                                        class="text-danger">*</span></label>
+                                                    class="col-sm-4 col-form-label">Employeur </label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control"
                                                         id="beneficiaire_employeur" placeholder=""
@@ -115,8 +113,7 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label for="beneficiaire_matricule"
-                                                    class="col-sm-4 col-form-label">Matricule <span
-                                                        class="text-danger">*</span></label>
+                                                    class="col-sm-4 col-form-label">Matricule </label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control"
                                                         id="beneficiaire_matricule" placeholder=""
@@ -296,7 +293,7 @@
             var phone = document.getElementById('beneficiaire_telephone');
 
             if (nom.value.trim() === '' || prenom.value.trim() === '' || phone.value.trim() === '') {
-                // Ajoutez ici des messages ou des styles pour indiquer qu'un champ obligatoire est manquant
+                
                 if (nom.value.trim() === '') {
                     nom.classList.add('is-invalid');
                 }
